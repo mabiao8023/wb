@@ -1,5 +1,5 @@
 /**
- * Created by mabiao on 2017/6/14.
+ * Created by mabiao on 2017/11/14.
  */
 
 
@@ -43,18 +43,18 @@ let commonFn = {
             wx.ready(function () {
                 // 分享给朋友圈
                 wx.onMenuShareTimeline({
-                    title: wxShareConfigObj.title || "易起问-东方智慧语音咨询平台" , // 分享标题
-                    link: wxShareConfigObj.link || location.href.protocol + '//' + location.href.hostname, // 分享链接
-                    imgUrl: wxShareConfigObj.imgUrl || "https://zxcs.ggwan.com/forecastyiqiwenbundle/images/logo.png", // 分享图标
+                    title: wxShareConfigObj.title || "课程咨询平台" , // 分享标题
+                    link: wxShareConfigObj.link || location.href, // 分享链接
+                    imgUrl: wxShareConfigObj.imgUrl || "", // 分享图标
                     success: wxShareConfigObj.success || function () {},
                     cancel: wxShareConfigObj.cancel || function () {}
                 });
                 // 分享到朋友
                 wx.onMenuShareAppMessage({
-                    title: wxShareConfigObj.title || "易起问-东方智慧语音咨询平台",
-                    desc: wxShareConfigObj.desc || "已为100万+用户提供服务，快来测一下你2018年的运势", // 分享描述
-                    link: wxShareConfigObj.link || location.href.protocol + '//' + location.href.hostname, // 分享链接
-                    imgUrl: wxShareConfigObj.imgUrl || "https://zxcs.ggwan.com/forecastyiqiwenbundle/images/logo.png", // 分享图标
+                    title: wxShareConfigObj.title || "课程咨询平台",
+                    desc: wxShareConfigObj.desc || "已为100万+用户提供服务，快来听课吧！", // 分享描述
+                    link: wxShareConfigObj.link || location.href, // 分享链接
+                    imgUrl: wxShareConfigObj.imgUrl || "", // 分享图标
                     type: wxShareConfigObj.type || '', // 分享类型,music、video或link，不填默认为link
                     dataUrl: wxShareConfigObj.dataUrl ||'', // 如果type是music或video，则要提供数据链接，默认为空
                     success: wxShareConfigObj.success || function () {},
@@ -140,42 +140,6 @@ let commonFn = {
                 },idle);
             }
         },
-        /**
-         * 时间格式转换
-         */
-        dateFormat:function(time){
-            var unixTimestamp = new Date( time*1000 ) ;
-            var commonTime;
-            commonTime = unixTimestamp.toLocaleString();
-            return commonTime;
-        },
-        // 获得渠道标示，用于分享链接
-        getChannelStr:function(){
-            let url = location.href;
-            let channel = localStorage.getItem('channel');
-            let isFlag = url.indexOf('?');
-            if( !channel ){
-                return '';
-            }
-            if( isFlag !== -1 ){
-                return `&channel=${channel}`;
-            }else{
-                return `?channel=${channel}`;
-            }
-        },
-        formateScore(value){
-            if(!value){
-                return '4.6';
-            }
-            return value >= 5 ? '5.0' : value <= 4.6 ? '4.6' : value + '';
-        },
-        formateMoney(value){
-            if(!value){
-                return '';
-            }
-            var prizeStr =  value + "";
-            return prizeStr.replace(/^(\d+)\.0+$/,"$1");
-        },
 		isIphone:function(){
 			let ua = navigator.userAgent,
 				Agents = ["iPhone", "iPad", "iPod"];
@@ -185,29 +149,5 @@ let commonFn = {
 		},
 };
 
-;(function(){
-    // 判断返回与否
-    if(!document.referrer){
-    	if( commonFn.isIphone ){
-    		return undefined;
-		}else{
-			if( history.pushState ){
-				history.pushState({page: 4}, "title 1", "");
-				if ( window.history && window.history.pushState ) {
-					window.addEventListener("popstate", function () {
-						history.replaceState({page: 4}, "title 1", "/home/index/index");
-						location.href = "/home/index/index";
-					});
-				}
-			}
-		}
-    }
 
-    // 保存链接中的渠道号到本地
-    let channel = commonFn.getParams()['channel'];
-    if( channel ){
-        localStorage.setItem('channel',channel);
-    }
-})();
-
-export {commonFn}
+export default commonFn

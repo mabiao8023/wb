@@ -4,9 +4,9 @@ var config = require('./config')
 var vueLoaderConfig = require('./vue-loader.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackPluginComConfig = {
-    title:'易起问-东方智慧语音咨询平台',
-    keywords:'东方智慧语音咨询平台',
-    description:'东方智慧语音咨询平台',
+    title:'课程咨询平台',
+    keywords:'课程咨询平台',
+    description:'课程咨询平台',
     chunksSortMode: 'dependency',
     inject: true,
     minify: process.env.NODE_ENV === 'production' ? {
@@ -67,7 +67,7 @@ var webpackConfig = {
     plugins:[
         // 首页
         new HtmlWebpackPlugin(Object.assign({
-            filename: path.resolve(__dirname,'../../Application/Home/View/Index/index.html'),
+            filename: path.resolve(__dirname,'./../dist/index.html'),
             template: './src/views/index/index.html',
             chunks: ['index','vendor','manifest']
         },HtmlWebpackPluginComConfig)),

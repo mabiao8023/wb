@@ -1,10 +1,10 @@
 /**
- * Created by mbiao on 2017/8/23.
+ * Created by mbiao on 2017/11/23.
  */
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import UserIndex from '../../pages/index/index.vue';
-// import FastClick from 'fastclick';
+import Index from '../../pages/index/index.vue';
+import '../../common/js/flexible.min.js';
 
 // 使用vue-resource处理ajax
 Vue.use(VueResource);
@@ -14,9 +14,6 @@ Vue.config.devtools = process.env.NODE_ENV !== 'production';
 
 // 开始应用
 let vue = new Vue({
-    template: '<UserIndex/>',
-    components: { UserIndex }
+    template: '<Index/>',
+    components: { Index }
 }).$mount('#app');
-
-// 绑定fastclick
-// FastClick.attach(document.body);

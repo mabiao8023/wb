@@ -1,11 +1,11 @@
 //  配置当前项目的信息
-let current = 'yiqiwen'
+let current = 'kecheng'
 
 let projects = {
-    'yiqiwen': {
-        name: '易起问',
-        eName: 'yiqiwen',
-        code: 'yiqiwen',
+    'kecheng': {
+        name: '课程平台',
+        eName: 'kecheng',
+        code: 'kecheng',
         autoPx2Rem: true
     }
 }

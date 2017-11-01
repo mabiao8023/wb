@@ -625,11 +625,11 @@
                 </div>
             </div>
         </transition>
-        <!--<transition name="fade" mode="in-out">-->
+        <transition name="fade" mode="in-out">
             <LoadingModel v-if="loading.isShow">
                 <span>{{ loading.text }}</span>
             </LoadingModel>
-        <!--</transition>-->
+        </transition>
         <ComFooter current="2" ref="footerbar"></ComFooter>
     </div>
 </template>
