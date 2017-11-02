@@ -18,7 +18,7 @@ module.exports = merge(baseWebpackConfig, {
   // cheap-module-eval-source-map is faster for development source-map
   devtool: 'cheap-module-eval-source-map',
   plugins: [
-    new OpenBrowserPlugin({ url: 'http://localhost:8081' }),
+    new OpenBrowserPlugin({ url: 'http://localhost' }),
 
     new webpack.DefinePlugin({
       'process.env': config.dev.env
