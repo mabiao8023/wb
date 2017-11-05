@@ -71,7 +71,7 @@
         <!-- 视频和图片展示区域 -->
         <section class="banner">
             <img v-if="!isHasVideo" src="../../image/scbfm.jpg">
-            <video v-else id="my-video" class="video-js vjs-16-9 vjs-big-play-centered" controls
+            <video v-else id="my-video" webkit-playsinline class="video-js vjs-16-9 vjs-big-play-centered" controls
           :poster="postImgSrc" preload>
             <source src="http://v3.mukewang.com/shizhan/59f8498ae420e5be578b459b/H.mp4" type="video/mp4">
             <!-- <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
