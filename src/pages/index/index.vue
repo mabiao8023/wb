@@ -86,13 +86,13 @@
                 <span>课程特色</span>
             </div>
             <div class="nav-list" :class="{ active:navType == 2 }" @click.stop.prevent="navChange(2)">
-                <span>课程列表</span>
+                <span>课程试听</span>
             </div>
         </nav>
         <!-- 视频和图片展示区域 -->
         <section class="banner">
             <img v-if="!isHasVideo" src="../../image/scbfm.jpg">
-            <video v-else id="my-video" webkit-playsinline class="video-js vjs-16-9 vjs-big-play-centered" controls
+            <video v-else id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls
           :poster="postImgSrc" preload>
             <source src="http://v3.mukewang.com/shizhan/59f8498ae420e5be578b459b/H.mp4" type="video/mp4">
             <!-- <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
@@ -112,7 +112,7 @@
                 <span class="c-o-money">￥1099</span>
             </div>
         </section>
-        <section class="c-xq">
+        <section class="c-xq" v-show="navType == 1">
             <!-- <ul class="c-list">
                 <li>
                     <h1 class="c-h1">
@@ -132,10 +132,19 @@
             <img src="../../image/class8-04.jpg" >
             <img src="../../image/class8-05.jpg" >
         </section>
-		<section class="class-list">
+		<section class="class-list" v-show="navType == 2">
 			<ul class="class-list-container">
-				<li class="class-item">
-
+				<li class="class-item"
+					v-for="(item,index) in classList"
+				>
+					<h1 class="c-fl-title">{{ item.title }} <span></span></h1>
+					<ul class="c-fl-children-list">
+						<li class="c-fl-children-item"
+							v-for="(val,index) in item"
+						>
+							{{ val.title }}
+						</li>
+					</ul>
 				</li>
 			</ul>
 		</section>
