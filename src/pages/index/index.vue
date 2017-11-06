@@ -55,8 +55,29 @@
             }
 
         }
+		.class-intro{
+			display: flex;
+			justify-content: space-between;
+			padding:20px;
+			.class-name{
+				font-size:30px;
+				color:#151515;
+			}
+			.class-money{
+				font-size:28px;
+				color:red;
+				.c-o-money{
+					color:#999;
+					font-size:24px;
+					text-decoration: line-through;
+				}
+			}
+		}
+		.c-xq{
+			font-size:0;
+			width:100%;
+		}
     }
-
 </style>
 <template>
     <div class="page-container" >
@@ -82,7 +103,42 @@
             </p>
           </video>
         </section>
+        <section class="class-intro">
+            <div class="class-name">
+                公众号速成班
+            </div>
+            <div class="class-money">
+                <span class="c-r-money">￥599</span>
+                <span class="c-o-money">￥1099</span>
+            </div>
+        </section>
+        <section class="c-xq">
+            <!-- <ul class="c-list">
+                <li>
+                    <h1 class="c-h1">
+                        标题1
+                    </h1>
+                    <p class="c-desc">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?
+                    </p>
+                    <div class="c-img">
+                        <img src="" alt="">
+                    </div>
+                </li>
+            </ul> -->
+            <img src="../../image/class8-01.jpg" >
+            <img src="../../image/class8-02.jpg" >
+            <img src="../../image/class8-03.jpg" >
+            <img src="../../image/class8-04.jpg" >
+            <img src="../../image/class8-05.jpg" >
+        </section>
+		<section class="class-list">
+			<ul class="class-list-container">
+				<li class="class-item">
 
+				</li>
+			</ul>
+		</section>
         <section class="pay-footer">
             <div class="pay-footer-content">
                 <div class="pay-nums">12682已卖</div>
@@ -129,6 +185,50 @@
                 postImgSrc:postImg,
 				isHasVideo:true,
 				navType:1,  // 1代表课程首页，2代表课程代表
+				classList:[
+					{
+					    title:'情感类',
+						desc:'专治情感类疑难杂症',
+						childList:[
+							{
+							    title:'列表1',
+							    desc:'一些描述的内容',
+							    imgSrc:require('../../image/demo1.jpg'),
+							},
+							{
+								title:'列表2',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo2.jpg'),
+							},
+							{
+								title:'列表3',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo2.jpg'),
+							},
+						],
+					},
+					{
+						title:'情感类',
+						desc:'专治情感类疑难杂症',
+						childList:[
+							{
+								title:'列表1',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo1.jpg'),
+							},
+							{
+								title:'列表2',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo2.jpg'),
+							},
+							{
+								title:'列表3',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo2.jpg'),
+							},
+						],
+					},
+				]
             }
         },
         computed:{
