@@ -73,9 +73,85 @@
 				}
 			}
 		}
+
 		.c-xq{
 			font-size:0;
 			width:100%;
+		}
+		.p20{
+			padding:20px;
+		}
+		.b-title{
+			font-size:30px;
+			color:#151515;
+		}
+		.m-title{
+			font-size:28px;
+			color:#151515;
+		}
+		.b-desc{
+			font-size:26px;
+			color:#666;
+		}
+		.m-desc{
+			font-size:24px;
+			color:#666;
+		}
+		.class-list{
+			.c-fl-title{
+				padding-left:60px;
+				background:#fff;
+				border-top:1px solid #eee;
+				border-bottom:1px solid #eee;
+				position:relative;
+			}
+			.title-icon{
+				position:absolute;
+				left:20px;
+				top:50%;
+				width:32px;
+				height:32px;
+				margin-top:-16px;
+				background:url(../../image/learn-list2.png) no-repeat center center/100% 100%;
+			}
+			.arrow{
+				position:absolute;
+				right:20px;
+				top:50%;
+				width:48px;
+				height:48px;
+				margin-top:-24px;
+				background:url(../../image/arrow-right.png) no-repeat center center/100% 100%;
+				&.active{
+					background:url(../../image/arrow-down.png) no-repeat center center/100% 100%;
+				}
+			}
+			.c-fl-children-item{
+				display: flex;
+				align-items: flex-start;
+				justify-content: space-between;
+				margin-bottom:20px;
+				.c-info-img{
+					width:200px;
+				}
+				.c-info-content{
+					flex:1;
+					margin-left:20px;
+					.m-desc{
+						text-align:justify;
+					}
+				}
+			}
+		}
+		.preson-center{
+			position:fixed;
+			bottom:150px;
+			right:20px;
+			width:100px;
+			height:100px;
+			border-radius:50%;
+			background:#fff;
+			box-shadow: 0px 0px 10px rgba(0,0,0,.5);
 		}
     }
 </style>
@@ -132,17 +208,30 @@
             <img src="../../image/class8-04.jpg" >
             <img src="../../image/class8-05.jpg" >
         </section>
-		<section class="class-list" v-show="navType == 2">
+		<section class="class-list " v-show="navType == 2">
 			<ul class="class-list-container">
 				<li class="class-item"
 					v-for="(item,index) in classList"
 				>
-					<h1 class="c-fl-title">{{ item.title }} <span></span></h1>
-					<ul class="c-fl-children-list">
+					<h1 class="c-fl-title m-title p20" @click.stop.prevent="slideToggle(item)">
+						<i class="title-icon"></i>
+						{{ item.title }}
+						<span class="desc">{{ item.desc }}</span>
+						<i class="arrow" :class="{active:!item.slide}"></i>
+					</h1>
+					<ul class="c-fl-children-list p20" v-show="!item.slide">
 						<li class="c-fl-children-item"
-							v-for="(val,index) in item"
+							v-for="(val,index) in item.childList"
 						>
-							{{ val.title }}
+							<div class="c-info-img">
+								<img src="../../image/demo1.jpg">
+							</div>
+							<div class="c-info-content">
+								<h1 class="m-title">{{ val.title }}</h1>
+								<p class="m-desc">
+									{{ val.desc }}
+								</p>
+							</div>
 						</li>
 					</ul>
 				</li>
@@ -154,6 +243,10 @@
                  <div class="pay-btn">购买课程(￥299.00/年)</div>
             </div>
         </section>
+		<!--跳转至个人中心-->
+		<aside class="preson-center">
+			<img src="../../image/preson.png">
+		</aside>
         <transition name="fade" mode="in-out">
             <myAlertTip v-if="tip.isShow" @close-tip="tip.isShow = !tip.isShow" :text="tip.text" :time="tip.time"></myAlertTip>
         </transition>
@@ -198,6 +291,7 @@
 					{
 					    title:'情感类',
 						desc:'专治情感类疑难杂症',
+						slide:false,
 						childList:[
 							{
 							    title:'列表1',
@@ -219,6 +313,51 @@
 					{
 						title:'情感类',
 						desc:'专治情感类疑难杂症',
+						slide:true,
+						childList:[
+							{
+								title:'列表1',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo1.jpg'),
+							},
+							{
+								title:'列表2',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo2.jpg'),
+							},
+							{
+								title:'列表3',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo2.jpg'),
+							},
+						],
+					},
+					{
+						title:'情感类',
+						desc:'专治情感类疑难杂症',
+						slide:true,
+						childList:[
+							{
+								title:'列表1',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo1.jpg'),
+							},
+							{
+								title:'列表2',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo2.jpg'),
+							},
+							{
+								title:'列表3',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo2.jpg'),
+							},
+						],
+					},
+					{
+						title:'情感类',
+						desc:'专治情感类疑难杂症',
+						slide:true,
 						childList:[
 							{
 								title:'列表1',
@@ -280,7 +419,14 @@
                     failCb:this.wxPayFail.bind(this,'支付失败，请重试'),
                     cancelCb:this.layer.bind(this,'支付失败，请重试'),
                 });
-            }
+            },
+			// 切换列表展开与合并
+			slideToggle(item){
+				this.classList.forEach((val) => {
+					val.slide = true;
+				})
+				item.slide = false;
+			}
     },
     created(){
        // this.share();
