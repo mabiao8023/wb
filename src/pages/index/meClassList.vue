@@ -9,95 +9,6 @@
         margin:0 auto;
         background:#fff;
         font-size:26px;
-        .class-nav{
-            display:flex;
-            line-height:90px;
-            .nav-list{
-                flex:auto;
-                text-align:center;
-                color:#151515;
-                span{
-                    display:inline-block;
-                    padding:0 20px;
-                    line-height:80px;
-                    font-size:32px;
-                }
-                &.active span{
-                    color:@mainColor;
-                    border-bottom:8px solid @mainColor;
-                }
-            }
-        }
-        .video-js{
-            width:100%;
-        }
-        .pay-footer{
-            position:fixed;
-            bottom:0;
-            left:0;
-            right:0;
-            line-height:88px;
-            background:#fff;
-            border-top:1px solid #eee;
-            .pay-footer-content{
-                display:flex;
-                text-align:center;
-                justify-content:space-between;
-				font-size:28px;
-				.pay-btn{
-					padding:0 20px;
-					color:#fff;
-					background: @mainColor;
-				}
-				.pay-nums{
-					flex:1;
-				}
-            }
-
-        }
-		.class-intro{
-			display: flex;
-			justify-content: space-between;
-			padding:20px;
-			border-bottom:1px solid #eee;
-			.class-name{
-				font-size:30px;
-				color:#151515;
-			}
-			.class-money{
-				font-size:28px;
-				color:red;
-				.c-o-money{
-					color:#999;
-					font-size:24px;
-					text-decoration: line-through;
-				}
-			}
-		}
-
-		.c-xq{
-			font-size:0;
-			width:100%;
-		}
-		.p20{
-			padding:20px;
-		}
-		.b-title{
-			font-size:30px;
-			color:#151515;
-		}
-		.m-title{
-			font-size:28px;
-			color:#151515;
-		}
-		.b-desc{
-			font-size:26px;
-			color:#666;
-		}
-		.m-desc{
-			font-size:24px;
-			color:#666;
-		}
 		.class-list{
 			.free-title{
 				border-bottom: 1px solid #eee;
@@ -153,7 +64,7 @@
 			.pay-tip{
 				text-align:center;
 				color:red;
-				padding-bottom:20px;
+				padding:20px;
 				font-size:30px;
 			}
 		}
@@ -167,80 +78,36 @@
 			background:#fff;
 			box-shadow: 0px 0px 10px rgba(0,0,0,.5);
 		}
+		.c-xq{
+			font-size:0;
+			width:100%;
+		}
+		.p20{
+			padding:20px;
+		}
+		.b-title{
+			font-size:30px;
+			color:#151515;
+		}
+		.m-title{
+			font-size:28px;
+			color:#151515;
+		}
+		.b-desc{
+			font-size:26px;
+			color:#666;
+		}
+		.m-desc{
+			font-size:24px;
+			color:#666;
+		}
     }
 </style>
 <template>
     <div class="page-container" >
-	    <nav class="class-nav">
-            <div class="nav-list" :class="{ active:navType == 1 }" @click.stop.prevent="navChange(1)">
-                <span>课程特色</span>
-            </div>
-            <div class="nav-list" :class="{ active:navType == 2 }" @click.stop.prevent="navChange(2)">
-                <span>课程试看</span>
-            </div>
-        </nav>
-        <!-- 视频和图片展示区域 -->
-        <section class="banner">
-            <img v-show="!isHasVideo" src="../../image/scbfm.jpg">
-            <video v-if="isHasVideo" id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls
-          :poster="postImgSrc" preload>
-            <source src="http://v3.mukewang.com/shizhan/59f8498ae420e5be578b459b/H.mp4" type="video/mp4">
-            <!-- <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
-            <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg"> -->
-            <p class="vjs-no-js">
-              To view this video please enable JavaScript, and consider upgrading to a web browser that
-              <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-            </p>
-          </video>
-        </section>
-        <section class="class-intro">
-            <div class="class-name">
-                公众号速成班
-            </div>
-            <div class="class-money">
-                <span class="c-r-money">￥599</span>
-                <span class="c-o-money">￥1099</span>
-            </div>
-        </section>
-        <section class="c-xq" v-show="navType == 1">
-            <!-- <ul class="c-list">
-                <li>
-                    <h1 class="c-h1">
-                        标题1
-                    </h1>
-                    <p class="c-desc">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?
-                    </p>
-                    <div class="c-img">
-                        <img src="" alt="">
-                    </div>
-                </li>
-            </ul> -->
-            <img src="../../image/class8-01.jpg" >
-            <img src="../../image/class8-02.jpg" >
-            <img src="../../image/class8-03.jpg" >
-            <img src="../../image/class8-04.jpg" >
-            <img src="../../image/class8-05.jpg" >
-        </section>
 		<section class="class-list " v-show="navType == 2">
-			<h1 class="b-title p20 free-title">试看列表</h1>
-			<ul class="class-free-list p20">
-				<li class="class-free-item c-fl-children-item"
-					v-for="item in freeClassList"
-					@click.stop.prevent="playVideo(item)"
-				>
-					<div class="c-info-img">
-						<img src="../../image/demo1.jpg">
-					</div>
-					<div class="c-info-content">
-						<h1 class="m-title">{{ item.title }}</h1>
-						<p class="m-desc">
-							{{ item.desc }}
-						</p>
-					</div>
-				</li>
-			</ul>
-			<h1 class="pay-tip">以下内容，购买后可继续观看</h1>
+
+			<h1 class="pay-tip">我学习的课程内容</h1>
 			<ul class="class-list-container">
 				<li class="class-item"
 					v-for="(item,index) in classList"
@@ -251,22 +118,29 @@
 						<span class="desc">{{ item.desc }}</span>
 						<i class="arrow" :class="{active:!item.slide}"></i>
 					</h1>
-					<ClassItem :childList="item.childList" v-show="!item.slide"></ClassItem>
+					<ul class="c-fl-children-list p20" v-show="!item.slide">
+						<li class="c-fl-children-item"
+							v-for="(val,index) in item.childList"
+						>
+							<div class="c-info-img">
+								<img src="../../image/demo1.jpg">
+							</div>
+							<div class="c-info-content">
+								<h1 class="m-title">{{ val.title }}</h1>
+								<p class="m-desc">
+									{{ val.desc }}
+								</p>
+							</div>
+						</li>
+					</ul>
 				</li>
 			</ul>
 		</section>
-        <section class="pay-footer">
-            <div class="pay-footer-content">
-                <div class="pay-nums">12682已卖</div>
-                 <div class="pay-btn">购买课程(￥299.00/年)</div>
-            </div>
-        </section>
+		<ComFooter current="1"></ComFooter>
 		<!--跳转至个人中心-->
-		<aside class="preson-center">
-			<a href="./me.html">
-				<img src="../../image/preson.png">
-			</a>
-		</aside>
+		<!--<aside class="preson-center">-->
+			<!--<img src="../../image/preson.png">-->
+		<!--</aside>-->
         <transition name="fade" mode="in-out">
             <myAlertTip v-if="tip.isShow" @close-tip="tip.isShow = !tip.isShow" :text="tip.text" :time="tip.time"></myAlertTip>
         </transition>
@@ -288,16 +162,16 @@
     import myAlertTip from '../../common/components/modelBox.vue';
     import LoadingModel from '../../common/components/loadingModel.vue';
     import { layerConfig,loadingConfig,layer,showLoading,hideLoading } from '../../common/js/layerAndLoadingHandle';
-    import postImg from '../../image/scbfm.jpg';
-	import ClassItem from '../../common/components/classItem';
-    export default {
+	import ComFooter from '../../common/components/footer.vue';
+
+	export default {
         name: 'appPage',
         components: {
             InfiniteLoading,
             ImageShow,
             myAlertTip,
             LoadingModel,
-			ClassItem,
+			ComFooter,
         },
         data() {
             return {
@@ -306,7 +180,6 @@
                 // 提示处理
                 tip: layerConfig,
                 loading: loadingConfig,
-                postImgSrc:postImg,
 				isHasVideo:false,
 				navType:2,  // 1代表课程首页，2代表课程代表
 				classList:[
@@ -470,31 +343,12 @@
 					val.slide = true;
 				})
 				item.slide = false;
-			},
-			// 免费视频播放
-			playVideo(item){
-				this.isHasVideo = true;
-				this.$nextTick( () => {
-					// videojs.options.flash.swf = '//path/to/videojs.swf'
-					// var myPlayer = videojs('my-video');
-
-					videojs("my-video",{
-						width:'100%',
-						aspectRation:'4:3',
-						techOrder:["html5"],
-					},function(){
-						var myPlayer = this;
-//				  不能自动播放
-               			 myPlayer.play();
-					})
-				})
-			},
+			}
     },
     created(){
        // this.share();
     },
     mounted() {
-
     }
     }
 </script>

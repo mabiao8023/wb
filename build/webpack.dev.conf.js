@@ -33,6 +33,24 @@ module.exports = merge(baseWebpackConfig, {
           inject: true,
           chunks:['index']
       }),
+	  new HtmlWebpackPlugin({
+		  filename: './me.html',
+		  template: './src/views/index/me.html',
+		  inject: true,
+		  chunks:['me']
+	  }),
+	  new HtmlWebpackPlugin({
+		  filename: './meClassList.html',
+		  template: './src/views/index/meClassList.html',
+		  inject: true,
+		  chunks:['meClassList']
+	  }),
+	  new HtmlWebpackPlugin({
+		  filename: './video.html',
+		  template: './src/views/index/video.html',
+		  inject: true,
+		  chunks:['video']
+	  }),
 
       new FriendlyErrorsPlugin()
   ]

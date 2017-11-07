@@ -26,6 +26,9 @@ var webpackConfig = {
     entry: {
         // 首页
         index:'./src/entry/index/index.js',
+		me:'./src/entry/index/me.js',
+		meClassList:'./src/entry/index/meClassList.js',
+		video:'./src/entry/index/video.js',
     },
     output: {
         path: config.build.assetsRoot,
@@ -71,6 +74,22 @@ var webpackConfig = {
             template: './src/views/index/index.html',
             chunks: ['index','vendor','manifest']
         },HtmlWebpackPluginComConfig)),
+		new HtmlWebpackPlugin(Object.assign({
+			filename: path.resolve(__dirname,'./../dist/me.html'),
+			template: './src/views/index/me.html',
+			chunks: ['me','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+		new HtmlWebpackPlugin(Object.assign({
+			filename: path.resolve(__dirname,'./../dist/meClassList.html'),
+			template: './src/views/index/meClassList.html',
+			chunks: ['meClassList','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+		new HtmlWebpackPlugin(Object.assign({
+			filename: path.resolve(__dirname,'./../dist/video.html'),
+			template: './src/views/index/video.html',
+			chunks: ['video','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+
     ]
 }
 

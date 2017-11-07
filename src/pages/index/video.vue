@@ -171,18 +171,17 @@
 </style>
 <template>
     <div class="page-container" >
-	    <nav class="class-nav">
-            <div class="nav-list" :class="{ active:navType == 1 }" @click.stop.prevent="navChange(1)">
-                <span>课程特色</span>
-            </div>
-            <div class="nav-list" :class="{ active:navType == 2 }" @click.stop.prevent="navChange(2)">
-                <span>课程试看</span>
-            </div>
-        </nav>
+	    <!--<nav class="class-nav">-->
+            <!--<div class="nav-list" :class="{ active:navType == 1 }" @click.stop.prevent="navChange(1)">-->
+                <!--<span>课程特色</span>-->
+            <!--</div>-->
+            <!--<div class="nav-list" :class="{ active:navType == 2 }" @click.stop.prevent="navChange(2)">-->
+                <!--<span>课程试看</span>-->
+            <!--</div>-->
+        <!--</nav>-->
         <!-- 视频和图片展示区域 -->
         <section class="banner">
-            <img v-show="!isHasVideo" src="../../image/scbfm.jpg">
-            <video v-if="isHasVideo" id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls
+            <video id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls
           :poster="postImgSrc" preload>
             <source src="http://v3.mukewang.com/shizhan/59f8498ae420e5be578b459b/H.mp4" type="video/mp4">
             <!-- <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
@@ -194,53 +193,14 @@
           </video>
         </section>
         <section class="class-intro">
-            <div class="class-name">
-                公众号速成班
+            <div class="class-progress">
+                学习进度
             </div>
-            <div class="class-money">
-                <span class="c-r-money">￥599</span>
-                <span class="c-o-money">￥1099</span>
+            <div class="class-zixun">
+                课程咨询
             </div>
         </section>
-        <section class="c-xq" v-show="navType == 1">
-            <!-- <ul class="c-list">
-                <li>
-                    <h1 class="c-h1">
-                        标题1
-                    </h1>
-                    <p class="c-desc">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?
-                    </p>
-                    <div class="c-img">
-                        <img src="" alt="">
-                    </div>
-                </li>
-            </ul> -->
-            <img src="../../image/class8-01.jpg" >
-            <img src="../../image/class8-02.jpg" >
-            <img src="../../image/class8-03.jpg" >
-            <img src="../../image/class8-04.jpg" >
-            <img src="../../image/class8-05.jpg" >
-        </section>
-		<section class="class-list " v-show="navType == 2">
-			<h1 class="b-title p20 free-title">试看列表</h1>
-			<ul class="class-free-list p20">
-				<li class="class-free-item c-fl-children-item"
-					v-for="item in freeClassList"
-					@click.stop.prevent="playVideo(item)"
-				>
-					<div class="c-info-img">
-						<img src="../../image/demo1.jpg">
-					</div>
-					<div class="c-info-content">
-						<h1 class="m-title">{{ item.title }}</h1>
-						<p class="m-desc">
-							{{ item.desc }}
-						</p>
-					</div>
-				</li>
-			</ul>
-			<h1 class="pay-tip">以下内容，购买后可继续观看</h1>
+		<section class="class-list ">
 			<ul class="class-list-container">
 				<li class="class-item"
 					v-for="(item,index) in classList"
@@ -254,13 +214,9 @@
 					<ClassItem :childList="item.childList" v-show="!item.slide"></ClassItem>
 				</li>
 			</ul>
+			<h1 class="b-title p20 free-title">其他课程推荐列表</h1>
+			<ClassItem :childList="freeClassList"></ClassItem>
 		</section>
-        <section class="pay-footer">
-            <div class="pay-footer-content">
-                <div class="pay-nums">12682已卖</div>
-                 <div class="pay-btn">购买课程(￥299.00/年)</div>
-            </div>
-        </section>
 		<!--跳转至个人中心-->
 		<aside class="preson-center">
 			<a href="./me.html">
@@ -289,7 +245,7 @@
     import LoadingModel from '../../common/components/loadingModel.vue';
     import { layerConfig,loadingConfig,layer,showLoading,hideLoading } from '../../common/js/layerAndLoadingHandle';
     import postImg from '../../image/scbfm.jpg';
-	import ClassItem from '../../common/components/classItem';
+    import ClassItem from '../../common/components/classItem';
     export default {
         name: 'appPage',
         components: {
@@ -404,21 +360,25 @@
 						title:'情感类',
 						desc:'专治情感类疑难杂症',
 						slide:false,
+						isPayed:false,
 					},
 					{
 						title:'情感类',
 						desc:'专治情感类疑难杂症',
 						slide:true,
+						isPayed:false,
 					},
 					{
 						title:'情感类',
 						desc:'专治情感类疑难杂症',
 						slide:true,
+						isPayed:false,
 					},
 					{
 						title:'情感类',
 						desc:'专治情感类疑难杂症',
 						slide:true,
+						isPayed:false,
 					},
 				]
             }
@@ -470,31 +430,26 @@
 					val.slide = true;
 				})
 				item.slide = false;
-			},
-			// 免费视频播放
-			playVideo(item){
-				this.isHasVideo = true;
-				this.$nextTick( () => {
-					// videojs.options.flash.swf = '//path/to/videojs.swf'
-					// var myPlayer = videojs('my-video');
-
-					videojs("my-video",{
-						width:'100%',
-						aspectRation:'4:3',
-						techOrder:["html5"],
-					},function(){
-						var myPlayer = this;
-//				  不能自动播放
-               			 myPlayer.play();
-					})
-				})
-			},
+			}
     },
     created(){
        // this.share();
     },
     mounted() {
+        this.$nextTick( () => {
+            // videojs.options.flash.swf = '//path/to/videojs.swf'
+            // var myPlayer = videojs('my-video');
 
+            videojs("my-video",{
+                width:'100%',
+                aspectRation:'4:3',
+                techOrder:["html5"],
+            },function(){
+                var myPlayer = this;
+//				  不能自动播放
+//                myPlayer.play();
+            })
+        })
     }
     }
 </script>
