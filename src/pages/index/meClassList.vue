@@ -10,44 +10,14 @@
         background:#fff;
         font-size:26px;
 		.class-list{
-			.free-title{
-				border-bottom: 1px solid #eee;
-				padding-left:60px;
-				background:url(../../image/free-icon.png) no-repeat 20px center/32px 32px;
-			}
-			.c-fl-title{
-				padding-left:60px;
-				background:#fff;
-				border-top:1px solid #eee;
-				border-bottom:1px solid #eee;
-				position:relative;
-			}
-			.title-icon{
-				position:absolute;
-				left:20px;
-				top:50%;
-				width:32px;
-				height:32px;
-				margin-top:-16px;
-				background:url(../../image/learn-list2.png) no-repeat center center/100% 100%;
-			}
-			.arrow{
-				position:absolute;
-				right:20px;
-				top:50%;
-				width:48px;
-				height:48px;
-				margin-top:-24px;
-				background:url(../../image/arrow-right.png) no-repeat center center/100% 100%;
-				&.active{
-					background:url(../../image/arrow-down.png) no-repeat center center/100% 100%;
-				}
-			}
+			padding-top:82px;
 			.c-fl-children-item{
 				display: flex;
 				align-items: flex-start;
 				justify-content: space-between;
 				margin-bottom:20px;
+				padding-bottom:20px;
+				border-bottom:1px solid #eee;
 				.c-info-img{
 					width:200px;
 					height:150px;
@@ -62,10 +32,16 @@
 				}
 			}
 			.pay-tip{
+				position:fixed;
+				top:0;
+				left:0;
+				right:0;
+				background:#fff;
 				text-align:center;
 				color:red;
 				padding:20px;
 				font-size:30px;
+				border-bottom:1px solid #eee;
 			}
 		}
 		.preson-center{
@@ -105,38 +81,26 @@
 </style>
 <template>
     <div class="page-container" >
-		<section class="class-list " v-show="navType == 2">
+		<section class="class-list">
 
-			<h1 class="pay-tip">我学习的课程内容</h1>
-			<ul class="class-list-container">
-				<li class="class-item"
-					v-for="(item,index) in classList"
+			<h1 class="pay-tip">我学习的课程列表</h1>
+			<ul class="c-fl-children-list p20">
+				<li class="c-fl-children-item"
+					v-for="(val,index) in classList"
 				>
-					<h1 class="c-fl-title m-title p20" @click.stop.prevent="slideToggle(item)">
-						<i class="title-icon"></i>
-						{{ item.title }}
-						<span class="desc">{{ item.desc }}</span>
-						<i class="arrow" :class="{active:!item.slide}"></i>
-					</h1>
-					<ul class="c-fl-children-list p20" v-show="!item.slide">
-						<li class="c-fl-children-item"
-							v-for="(val,index) in item.childList"
-						>
-							<div class="c-info-img">
-								<img src="../../image/demo1.jpg">
-							</div>
-							<div class="c-info-content">
-								<h1 class="m-title">{{ val.title }}</h1>
-								<p class="m-desc">
-									{{ val.desc }}
-								</p>
-							</div>
-						</li>
-					</ul>
+					<div class="c-info-img">
+						<img src="../../image/demo1.jpg">
+					</div>
+					<div class="c-info-content">
+						<h1 class="m-title">{{ val.title }}</h1>
+						<p class="m-desc">
+							{{ val.desc }}
+						</p>
+					</div>
 				</li>
 			</ul>
 		</section>
-		<ComFooter current="1"></ComFooter>
+		<ComFooter current="2"></ComFooter>
 		<!--跳转至个人中心-->
 		<!--<aside class="preson-center">-->
 			<!--<img src="../../image/preson.png">-->
@@ -184,116 +148,21 @@
 				navType:2,  // 1代表课程首页，2代表课程代表
 				classList:[
 					{
-					    title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:false,
-						childList:[
-							{
-							    title:'列表1',
-							    desc:'一些描述的内容',
-							    imgSrc:require('../../image/demo1.jpg'),
-							},
-							{
-								title:'列表2',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo2.jpg'),
-							},
-							{
-								title:'列表3',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo2.jpg'),
-							},
-						],
+						title:'列表1',
+						desc:'一些描述的内容',
+						imgSrc:require('../../image/demo1.jpg'),
 					},
 					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:true,
-						childList:[
-							{
-								title:'列表1',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo1.jpg'),
-							},
-							{
-								title:'列表2',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo2.jpg'),
-							},
-							{
-								title:'列表3',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo2.jpg'),
-							},
-						],
+						title:'列表2',
+						desc:'一些描述的内容',
+						imgSrc:require('../../image/demo2.jpg'),
 					},
 					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:true,
-						childList:[
-							{
-								title:'列表1',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo1.jpg'),
-							},
-							{
-								title:'列表2',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo2.jpg'),
-							},
-							{
-								title:'列表3',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo2.jpg'),
-							},
-						],
-					},
-					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:true,
-						childList:[
-							{
-								title:'列表1',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo1.jpg'),
-							},
-							{
-								title:'列表2',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo2.jpg'),
-							},
-							{
-								title:'列表3',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo2.jpg'),
-							},
-						],
+						title:'列表3',
+						desc:'一些描述的内容',
+						imgSrc:require('../../image/demo2.jpg'),
 					},
 				],
-				freeClassList:[
-					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:false,
-					},
-					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:true,
-					},
-					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:true,
-					},
-					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:true,
-					},
-				]
             }
         },
         computed:{

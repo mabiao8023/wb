@@ -180,6 +180,7 @@ export default {
                 this._setTranslate(this.startTranslate + this.delta);
                 this.$emit('slider-move', this._getTranslate());
             }
+            // 阻止默认行为
             if (this.isVertical() || this.isHorizontal() && Math.abs(this.delta) > 0) {
                 e.preventDefault();
             }

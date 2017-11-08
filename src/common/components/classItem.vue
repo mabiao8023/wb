@@ -5,10 +5,14 @@
 <style lang="less" rel="stylesheet/less">
  	@import "../style/public";
 	.c-fl-children-item{
+		&:hover{
+			background:#eee;
+		}
 		display: flex;
 		align-items: flex-start;
 		justify-content: space-between;
-		margin-bottom:20px;
+		padding:20px;
+		border-bottom:1px solid #eee;
 		.c-info-img{
 			width:200px;
 			height:150px;
@@ -39,12 +43,18 @@
 			.m-desc{
 				text-align:justify;
 			}
+			.time{
+				padding-left:40px;
+				line-height:40px;
+				font-size:28px;
+				background:url(../../image/time.png) no-repeat left center/32px 32px;
+			}
 		}
 	}
 
 </style>
 <template>
-	<ul class="class-free-list p20">
+	<ul class="class-free-list">
 	<li class="c-fl-children-item"
 		v-for="(val,index) in childList"
 		@click.stop.prevent="goToPage(val)"
@@ -60,6 +70,7 @@
 			<p class="m-desc">
 				{{ val.desc }}
 			</p>
+			<p class="time">8:30</p>
 		</div>
 	</li>
 	</ul>

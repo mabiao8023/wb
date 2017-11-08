@@ -51,6 +51,12 @@ module.exports = merge(baseWebpackConfig, {
 		  inject: true,
 		  chunks:['video']
 	  }),
+	  new HtmlWebpackPlugin({
+		  filename: './classList.html',
+		  template: './src/views/index/classList.html',
+		  inject: true,
+		  chunks:['classList']
+	  }),
 
       new FriendlyErrorsPlugin()
   ]

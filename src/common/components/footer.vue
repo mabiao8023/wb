@@ -16,7 +16,9 @@
 			display:flex;
 			align-items: center;
 			justify-content: center;
-			font-size:30px;
+			a{
+				font-size:26px;
+			}
 			li{
 				flex:1;
 			}
@@ -28,6 +30,9 @@
 					background:url(../../image/me-active.png) no-repeat center center/100% 100%;
 					&.class-icon{
 						background:url(../../image/f-learn-active.png) no-repeat center center/100% 100%;
+					}
+					&.class-list-icon{
+						background:url(../../image/class-active.png) no-repeat center center/100% 100%;
 					}
 				}
 			}
@@ -45,6 +50,9 @@
 				&.class-icon{
 					background:url(../../image/f-learn.png) no-repeat center center/100% 100%;
 				}
+				&.class-list-icon{
+					background:url(../../image/class.png) no-repeat center center/100% 100%;
+				}
 			}
 		}
 	}
@@ -53,13 +61,19 @@
 <template>
 	<div class="footer">
 		<ul class="footer-container">
-			<li class="myClass" :class="{active:current == 1}">
-				<a href="./meClassList.html" class="my-class">
-					<i class="class-icon"></i>
+			<li class="classList" :class="{active:current == 1}">
+				<a href="./classList.html">
+					<i class="class-list-icon"></i>
 					课程
 				</a>
 			</li>
-			<li class="me" :class="{active:current == 2}">
+			<li class="myClass" :class="{active:current == 2}">
+				<a href="./meClassList.html">
+					<i class="class-icon"></i>
+					我的课程
+				</a>
+			</li>
+			<li class="me" :class="{active:current == 3}">
 				<a href="./me.html" class="">
 					<i class="me-icon"></i>
 					我的

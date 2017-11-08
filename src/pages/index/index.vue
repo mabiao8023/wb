@@ -10,8 +10,15 @@
         background:#fff;
         font-size:26px;
         .class-nav{
+			position:fixed;
+			background:#fff;
+			top:0;
+			left:0;
+			right:0;
+			z-index:10;
             display:flex;
             line-height:90px;
+			border-bottom:1px solid #eee;
             .nav-list{
                 flex:auto;
                 text-align:center;
@@ -28,6 +35,9 @@
                 }
             }
         }
+		.banner{
+			padding-top:90px;
+		}
         .video-js{
             width:100%;
         }
@@ -51,6 +61,7 @@
 				}
 				.pay-nums{
 					flex:1;
+					background:url(../../image/learn.png) no-repeat 20px center/48px 48px;
 				}
             }
 
@@ -60,6 +71,7 @@
 			justify-content: space-between;
 			padding:20px;
 			border-bottom:1px solid #eee;
+			border-top:1px solid #eee;
 			.class-name{
 				font-size:30px;
 				color:#151515;
@@ -136,11 +148,34 @@
 				display: flex;
 				align-items: flex-start;
 				justify-content: space-between;
-				margin-bottom:20px;
+				padding:20px;
+				margin-bottom:0;
+				border-bottom:1px solid #eee;
+				&:hover{
+					background:#eee;
+				}
 				.c-info-img{
 					width:200px;
 					height:150px;
 					overflow: hidden;
+					position:relative;
+					.model-box{
+						position:absolute;
+						left:0;
+						top:0;
+						bottom:0;
+						right:0;
+						background:rgba(0,0,0,.5);
+						img{
+							width:60px;
+							height:60px;
+							position:absolute;
+							top:50%;
+							left:50%;
+							margin-left:-30px;
+							margin-top:-30px;
+						}
+					}
 				}
 				.c-info-content{
 					flex:1;
@@ -153,7 +188,7 @@
 			.pay-tip{
 				text-align:center;
 				color:red;
-				padding-bottom:20px;
+				padding:20px 0;
 				font-size:30px;
 			}
 		}
@@ -199,7 +234,6 @@
             </div>
             <div class="class-money">
                 <span class="c-r-money">￥599</span>
-                <span class="c-o-money">￥1099</span>
             </div>
         </section>
         <section class="c-xq" v-show="navType == 1">
@@ -224,12 +258,15 @@
         </section>
 		<section class="class-list " v-show="navType == 2">
 			<h1 class="b-title p20 free-title">试看列表</h1>
-			<ul class="class-free-list p20">
+			<ul class="class-free-list">
 				<li class="class-free-item c-fl-children-item"
 					v-for="item in freeClassList"
 					@click.stop.prevent="playVideo(item)"
 				>
 					<div class="c-info-img">
+						<div class="model-box">
+							<img src="../../image/play.png">
+						</div>
 						<img src="../../image/demo1.jpg">
 					</div>
 					<div class="c-info-content">
@@ -258,7 +295,7 @@
         <section class="pay-footer">
             <div class="pay-footer-content">
                 <div class="pay-nums">12682已卖</div>
-                 <div class="pay-btn">购买课程(￥299.00/年)</div>
+                <div class="pay-btn">购买课程(￥299.00/年)</div>
             </div>
         </section>
 		<!--跳转至个人中心-->

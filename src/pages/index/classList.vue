@@ -104,15 +104,40 @@
 				margin-left:30px;
 			}
 		}
-		.me-list{
-			.me-list-item{
+		.class-list{
+			.class-list-item{
 				padding:20px;
 				color:#151515;
 				font-size:30px;
 				border-top:1px solid #eee;
-				background:url(../../image/arrow-right.png) no-repeat 600px center/32px 32px;
 				&:last-child{
 					border-bottom:1px solid #eee;
+				}
+				.class-info-img{
+					border-radius:10px;
+					overflow: hidden;
+					position:relative;
+				}
+				.class-info-text{
+					display:flex;
+					justify-content: space-between;
+					padding:10px 0;
+					font-size:30px;
+					.class-money{
+						color:red;
+					}
+				}
+				.classed-nums{
+					position:absolute;
+					top:0;
+					left:20px;
+					color:#fff;
+					padding:10px 20px;
+					background:@mainColor;
+					text-align:right;
+					font-size:26px;
+					border-bottom-left-radius: 8px;
+					border-bottom-right-radius: 8px;
 				}
 			}
 
@@ -122,30 +147,76 @@
 </style>
 <template>
     <div class="page-container" >
-		<div class="user-info">
-			<div class="user-avatar">
-				<img src="../../image/preson.png">
-			</div>
-			<div class="user-name">
-				All is Well
-			</div>
+		<div class="banner-container">
+			<swiper ref="swiper"
+					direction="horizontal"
+					:mousewheel-control="true"
+					:performance-mode="false"
+					:pagination-visible="true"
+					:pagination-clickable="true"
+					:loop="true"
+					:autoplay="true"
+					:autoplaytime="4000"
+			>
+				<div v-for="(item,index) in banner">
+					<a :href="item.link">
+						<img :src="item.src" :alt="item.desc" />
+					</a>
+				</div>
+			</swiper>
 		</div>
-		<ul class="me-list">
-			<li class="me-list-item">
-				<a href="./meClassList.html">
-					我的课程
-				</a>
+		<ul class="class-list">
+			<li class="class-list-item" @click.stop.prevent="gotoIndex()">
+				<div class="class-info-img">
+					<img src="../../image/scbfm.jpg" alt="">
+					<div class="classed-nums">
+						12713人学习
+					</div>
+				</div>
+				<div class="class-info-text">
+					<div class="class-name">
+						公众号运营速成课程
+					</div>
+					<div class="class-money">
+						￥299/年
+					</div>
+				</div>
+
 			</li>
-			<li class="me-list-item">
-				待开放
+			<li class="class-list-item">
+				<div class="class-info-img">
+					<img src="../../image/scbfm.jpg" alt="">
+					<div class="classed-nums">
+						12713人学习
+					</div>
+				</div>
+				<div class="class-info-text">
+					<div class="class-name">
+						公众号运营速成课程
+					</div>
+					<div class="class-money">
+						￥299/年
+					</div>
+				</div>
+			</li>
+			<li class="class-list-item">
+				<div class="class-info-img">
+					<img src="../../image/scbfm.jpg" alt="">
+					<div class="classed-nums">
+						12713人学习
+					</div>
+				</div>
+				<div class="class-info-text">
+					<div class="class-name">
+						公众号运营速成课程
+					</div>
+					<div class="class-money">
+						￥299/年
+					</div>
+				</div>
 			</li>
 		</ul>
-		<ComFooter current="3"></ComFooter>
-		<!--<aside class="preson-center">-->
-			<!--<a href="./me.html">-->
-				<!--<img src="../../image/preson.png">-->
-			<!--</a>-->
-		<!--</aside>-->
+		<ComFooter current="1"></ComFooter>
         <transition name="fade" mode="in-out">
             <myAlertTip v-if="tip.isShow" @close-tip="tip.isShow = !tip.isShow" :text="tip.text" :time="tip.time"></myAlertTip>
         </transition>
@@ -168,6 +239,7 @@
     import LoadingModel from '../../common/components/loadingModel.vue';
     import { layerConfig,loadingConfig,layer,showLoading,hideLoading } from '../../common/js/layerAndLoadingHandle';
     import ComFooter from '../../common/components/footer.vue';
+    import Swiper from '../../common/components/swiper.vue';
     export default {
         name: 'appPage',
         components: {
@@ -175,6 +247,7 @@
             myAlertTip,
             LoadingModel,
 			ComFooter,
+			Swiper,
         },
         data() {
             return {
@@ -183,6 +256,21 @@
                 // 提示处理
                 tip: layerConfig,
                 loading: loadingConfig,
+				banner:[
+					{
+						link:'./index.html',
+						src:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
+						desc:'ss'
+					},{
+						link:'./index.html',
+						src:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
+						desc:'ss'
+					},{
+						link:'./index.html',
+						src:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
+						desc:'ss'
+					}
+				]
             }
         },
         computed:{
@@ -197,9 +285,8 @@
             hideLoading(){
                 hideLoading.bind(this)();
             },
-			// 列表切换
-			navChange(type){
-				this.navType = type;
+			gotoIndex(){
+                location.href = './index.html';
 			},
             // 微信分享
             async share() {
