@@ -206,7 +206,7 @@
 </style>
 <template>
     <div class="page-container" >
-	    <nav class="class-nav">
+	    <nav class="class-nav boxShadow">
             <div class="nav-list" :class="{ active:navType == 1 }" @click.stop.prevent="navChange(1)">
                 <span>课程特色</span>
             </div>
@@ -228,7 +228,7 @@
             </p>
           </video>
         </section>
-        <section class="class-intro">
+        <section class="class-intro boxShadow">
             <div class="class-name">
                 公众号速成班
             </div>

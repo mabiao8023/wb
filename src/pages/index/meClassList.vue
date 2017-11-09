@@ -7,24 +7,32 @@
         padding-bottom:2rem;
         max-width:10rem;
         margin:0 auto;
-        background:#fff;
         font-size:26px;
 		.class-list{
 			padding-top:82px;
+			.c-fl-children-list{
+				margin:20px;
+			}
 			.c-fl-children-item{
 				display: flex;
 				align-items: flex-start;
 				justify-content: space-between;
 				margin-bottom:20px;
-				padding-bottom:20px;
+				padding:20px;
 				border-bottom:1px solid #eee;
+				border-radius:10px;
+				background:#fff;
 				.c-info-img{
 					width:200px;
 					height:150px;
 					overflow: hidden;
+					border-radius:10px;
 				}
 				.c-info-content{
 					flex:1;
+					display:flex;
+					flex-direction: column;
+					justify-content: space-around;
 					margin-left:20px;
 					.m-desc{
 						text-align:justify;
@@ -84,7 +92,7 @@
 		<section class="class-list">
 
 			<h1 class="pay-tip">我学习的课程列表</h1>
-			<ul class="c-fl-children-list p20">
+			<ul class="c-fl-children-list">
 				<li class="c-fl-children-item"
 					v-for="(val,index) in classList"
 				>
