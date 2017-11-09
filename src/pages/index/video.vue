@@ -58,19 +58,42 @@
 		.class-intro{
 			display: flex;
 			justify-content: space-between;
+			align-items: center;
 			padding:20px;
 			border-bottom:1px solid #eee;
 			.class-name{
 				font-size:30px;
 				color:#151515;
 			}
-			.class-money{
-				font-size:28px;
-				color:red;
-				.c-o-money{
-					color:#999;
-					font-size:24px;
-					text-decoration: line-through;
+			.class-zixun{
+				color:#fff;
+				padding:12px 20px;
+				background:@mainColor;
+				border-radius:8px;
+			}
+		}
+		.progress{
+			padding-top:10px;
+			.progress-bar{
+				display:inline-block;
+				vertical-align:middle;
+				width:250px;
+				height:18px;
+				margin-right:20px;
+				background:#ddd;
+				border-radius:9px;
+				position:relative;
+				overflow: hidden;
+				&:after{
+					content:'';
+					position: absolute;
+					top:0;
+					left:0;
+					width:30%;
+					height:18px;
+					margin-right:20px;
+					background: @mainColor;
+					z-index:100;
 				}
 			}
 		}
@@ -98,18 +121,65 @@
 			font-size:24px;
 			color:#666;
 		}
-		.class-list{
-			.free-title{
-				border-bottom: 1px solid #eee;
-				padding-left:60px;
-				background:url(../../image/free-icon.png) no-repeat 20px center/32px 32px;
+		.c-fl-children-item{
+			&:hover{
+				background:#eee;
 			}
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			padding:20px;
+			border-bottom:1px solid #eee;
+			.c-info-img{
+				width:200px;
+				height:120px;
+				overflow: hidden;
+				position:relative;
+				border-radius:10px;
+				.model-box{
+					position:absolute;
+					left:0;
+					top:0;
+					bottom:0;
+					right:0;
+					background:rgba(0,0,0,.5);
+					img{
+						width:60px;
+						height:60px;
+						position:absolute;
+						top:50%;
+						left:50%;
+						margin-left:-30px;
+						margin-top:-30px;
+					}
+				}
+			}
+			.c-info-content{
+				flex:1;
+				margin-left:20px;
+				.m-desc{
+					text-align:justify;
+				}
+				.time{
+					padding-left:40px;
+					line-height:40px;
+					font-size:28px;
+					background:url(../../image/time.png) no-repeat left center/30px 30px;
+				}
+			}
+		}
+		.class-list{
+
 			.c-fl-title{
 				padding-left:60px;
 				background:#fff;
 				border-top:1px solid #eee;
 				border-bottom:1px solid #eee;
 				position:relative;
+			}
+			.desc{
+				color:#999;
+				font-size:26px;
 			}
 			.title-icon{
 				position:absolute;
@@ -118,7 +188,9 @@
 				width:32px;
 				height:32px;
 				margin-top:-16px;
-				background:url(../../image/learn-list2.png) no-repeat center center/100% 100%;
+				background:url(../../image/class-list-icon.png) no-repeat center center/100% 100%;
+
+				//background:url(../../image/learn-list2.png) no-repeat center center/100% 100%;
 			}
 			.arrow{
 				position:absolute;
@@ -131,30 +203,6 @@
 				&.active{
 					background:url(../../image/arrow-down.png) no-repeat center center/100% 100%;
 				}
-			}
-			.c-fl-children-item{
-				display: flex;
-				align-items: flex-start;
-				justify-content: space-between;
-				margin-bottom:20px;
-				.c-info-img{
-					width:200px;
-					height:150px;
-					overflow: hidden;
-				}
-				.c-info-content{
-					flex:1;
-					margin-left:20px;
-					.m-desc{
-						text-align:justify;
-					}
-				}
-			}
-			.pay-tip{
-				text-align:center;
-				color:red;
-				padding-bottom:20px;
-				font-size:30px;
 			}
 		}
 		.preson-center{
@@ -171,21 +219,10 @@
 </style>
 <template>
     <div class="page-container" >
-	    <!--<nav class="class-nav">-->
-            <!--<div class="nav-list" :class="{ active:navType == 1 }" @click.stop.prevent="navChange(1)">-->
-                <!--<span>课程特色</span>-->
-            <!--</div>-->
-            <!--<div class="nav-list" :class="{ active:navType == 2 }" @click.stop.prevent="navChange(2)">-->
-                <!--<span>课程试看</span>-->
-            <!--</div>-->
-        <!--</nav>-->
-        <!-- 视频和图片展示区域 -->
         <section class="banner">
             <video id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls
           :poster="postImgSrc" preload>
-            <source src="http://v3.mukewang.com/shizhan/59f8498ae420e5be578b459b/H.mp4" type="video/mp4">
-            <!-- <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
-            <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg"> -->
+            <!--<source v-if="currentVideoSrc" :src="currentVideoSrc" type="video/mp4">-->
             <p class="vjs-no-js">
               To view this video please enable JavaScript, and consider upgrading to a web browser that
               <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -194,9 +231,12 @@
         </section>
         <section class="class-intro">
             <div class="class-progress">
-                学习进度
+                <h1 class="class-name">爆款文案训练营</h1>
+				<div class="progress">
+					<span class="progress-bar"></span>已学30%
+				</div>
             </div>
-            <div class="class-zixun">
+            <div class="class-zixun" @click.stop="isShowQrodePop = true">
                 课程咨询
             </div>
         </section>
@@ -211,11 +251,30 @@
 						<span class="desc">{{ item.desc }}</span>
 						<i class="arrow" :class="{active:!item.slide}"></i>
 					</h1>
-					<ClassItem :childList="item.childList" v-show="!item.slide"></ClassItem>
+					<ul class="class-free-list" v-if="item.slide">
+						<li class="c-fl-children-item"
+							v-for="(val,index) in item.childList"
+							@click.stop.prevent="playVideo(val)"
+						>
+							<div class="c-info-img">
+								<div class="model-box">
+									<img src="../../image/play.png">
+								</div>
+								<img src="../../image/demo1.jpg">
+							</div>
+							<div class="c-info-content">
+								<h1 class="m-title">{{ val.title }}</h1>
+								<p class="m-desc">
+									{{ val.desc }}
+								</p>
+								<p class="time">8:30</p>
+							</div>
+						</li>
+					</ul>
 				</li>
 			</ul>
-			<h1 class="b-title p20 free-title">其他课程推荐列表</h1>
-			<ClassItem :childList="freeClassList"></ClassItem>
+			<!--<h1 class="b-title p20 free-title">其他课程推荐列表</h1>-->
+			<!--<ClassItem :childList="freeClassList"></ClassItem>-->
 		</section>
 		<!--跳转至个人中心-->
 		<aside class="preson-center">
@@ -231,6 +290,10 @@
                 <span>{{ loading.text }}</span>
             </LoadingModel>
         </transition>
+		<transition name="fade" mode="in-out">
+			<QrodePop v-if="isShowQrodePop"
+					  @closeQrodePop="isShowQrodePop = !isShowQrodePop"></QrodePop>
+		</transition>
     </div>
 </template>
 <script>
@@ -245,15 +308,16 @@
     import LoadingModel from '../../common/components/loadingModel.vue';
     import { layerConfig,loadingConfig,layer,showLoading,hideLoading } from '../../common/js/layerAndLoadingHandle';
     import postImg from '../../image/scbfm.jpg';
-    import ClassItem from '../../common/components/classItem';
-    export default {
+	import QrodePop from '../../common/components/qrodePop.vue';
+
+	export default {
         name: 'appPage',
         components: {
             InfiniteLoading,
             ImageShow,
             myAlertTip,
             LoadingModel,
-			ClassItem,
+			QrodePop
         },
         data() {
             return {
@@ -265,122 +329,101 @@
                 postImgSrc:postImg,
 				isHasVideo:false,
 				navType:2,  // 1代表课程首页，2代表课程代表
+				isShowQrodePop:false,
+				video:null,
+				currentVideoSrc:'',
 				classList:[
 					{
-					    title:'情感类',
-						desc:'专治情感类疑难杂症',
+						title:'足球系列',
+						desc:'专业的足球竞技教学视频',
 						slide:false,
 						childList:[
 							{
-							    title:'列表1',
-							    desc:'一些描述的内容',
-							    imgSrc:require('../../image/demo1.jpg'),
+								title:'足球系列1',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo1.jpg'),
+								src:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
 							},
 							{
-								title:'列表2',
+								title:'足球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
+								src:'http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4',
 							},
 							{
-								title:'列表3',
+								title:'足球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 						],
 					},
 					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
+						title:'篮球系列',
+						desc:'专业的篮球竞技',
 						slide:true,
 						childList:[
 							{
-								title:'列表1',
+								title:'篮球系列1',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo1.jpg'),
 							},
 							{
-								title:'列表2',
+								title:'篮球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 							{
-								title:'列表3',
+								title:'篮球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 						],
 					},
 					{
-						title:'情感类',
+						title:'排球系列',
 						desc:'专治情感类疑难杂症',
 						slide:true,
 						childList:[
 							{
-								title:'列表1',
+								title:'排球系列1',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo1.jpg'),
 							},
 							{
-								title:'列表2',
+								title:'排球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 							{
-								title:'列表3',
+								title:'排球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 						],
 					},
 					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
+						title:'双色球系列',
+						desc:'专治双色球',
 						slide:true,
 						childList:[
 							{
-								title:'列表1',
+								title:'双色球系列1',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo1.jpg'),
 							},
 							{
-								title:'列表2',
+								title:'双色球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 							{
-								title:'列表3',
+								title:'双色球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 						],
 					},
 				],
-				freeClassList:[
-					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:false,
-						isPayed:false,
-					},
-					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:true,
-						isPayed:false,
-					},
-					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:true,
-						isPayed:false,
-					},
-					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:true,
-						isPayed:false,
-					},
-				]
             }
         },
         computed:{
@@ -395,17 +438,11 @@
             hideLoading(){
                 hideLoading.bind(this)();
             },
-			// 列表切换
-			navChange(type){
-				this.navType = type;
+			// 播放视频
+			playVideo(val){
+				this.video.src(val.src);
+				this.video.play();
 			},
-            async getBanner(){
-				await myAjax.post(apiPath.banner)
-					.then(res => this.banner = res.banner_list)
-					.catch(e => {
-					});
-			},
-
             // 微信分享
             async share() {
                 // 分享接口获得分享的内容
@@ -426,10 +463,10 @@
             },
 			// 切换列表展开与合并
 			slideToggle(item){
-				this.classList.forEach((val) => {
-					val.slide = true;
-				})
-				item.slide = false;
+//				this.classList.forEach((val) => {
+//					val.slide = true;
+//				})
+				item.slide = !item.slide;
 			}
     },
     created(){
@@ -439,16 +476,20 @@
         this.$nextTick( () => {
             // videojs.options.flash.swf = '//path/to/videojs.swf'
             // var myPlayer = videojs('my-video');
+			var that = this;
+			videojs("my-video",{
+			    width:'100%',
+				aspectRation:'4:3',
+				techOrder:["html5"],
+			}).ready(function(){
+				console.log(this);
+				var myPlayer = this;
+				that.video = this;
+				myPlayer.src("http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4");
 
-            videojs("my-video",{
-                width:'100%',
-                aspectRation:'4:3',
-                techOrder:["html5"],
-            },function(){
-                var myPlayer = this;
-//				  不能自动播放
-//                myPlayer.play();
-            })
+				myPlayer.play();
+			});
+			console.log(this.video)
         })
     }
     }

@@ -59,12 +59,30 @@
 					color:#fff;
 					background: @mainColor;
 				}
+				.zixun{
+					padding:0 10px;
+					display:flex;
+					align-items: center;
+					flex-direction: column;
+					justify-content: center;
+					border-left:1px solid #ccc;
+					.icon{
+						display:block;
+						width:48px;
+						height:48px;
+						background:url(../../image/zixun.png) no-repeat center center/100% 100%;
+					}
+					p{
+						font-size:26px;
+						line-height:1;
+					}
+				}
 				.pay-nums{
 					flex:1;
+					padding-left:70px;
 					background:url(../../image/learn.png) no-repeat 20px center/48px 48px;
 				}
             }
-
         }
 		.class-intro{
 			display: flex;
@@ -108,7 +126,7 @@
 		}
 		.m-desc{
 			font-size:24px;
-			color:#666;
+			color:#999;
 		}
 		.class-list{
 			.free-title{
@@ -123,6 +141,10 @@
 				border-bottom:1px solid #eee;
 				position:relative;
 			}
+			.desc{
+				font-size:26px;
+				color:#999;
+			}
 			.title-icon{
 				position:absolute;
 				left:20px;
@@ -130,7 +152,8 @@
 				width:32px;
 				height:32px;
 				margin-top:-16px;
-				background:url(../../image/learn-list2.png) no-repeat center center/100% 100%;
+				background:url(../../image/class-list-icon.png) no-repeat center center/100% 100%;
+				//background:url(../../image/learn-list2.png) no-repeat center center/100% 100%;
 			}
 			.arrow{
 				position:absolute;
@@ -156,7 +179,7 @@
 				}
 				.c-info-img{
 					width:200px;
-					height:150px;
+					height:120px;
 					overflow: hidden;
 					position:relative;
 					.model-box{
@@ -179,17 +202,28 @@
 				}
 				.c-info-content{
 					flex:1;
+					height:120px;
+					display:flex;
+					flex-direction: column;
+					align-content: space-between;
 					margin-left:20px;
 					.m-desc{
 						text-align:justify;
 					}
 				}
+				.time{
+					padding-left:40px;
+					line-height:40px;
+					font-size:28px;
+					background:url(../../image/time.png) no-repeat left center/30px 30px;
+				}
 			}
 			.pay-tip{
-				text-align:center;
 				color:red;
 				padding:20px 0;
+				padding-left:70px;
 				font-size:30px;
+				background: url(../../image/pay-icon.png) no-repeat 20px center/46px 46px;
 			}
 		}
 		.preson-center{
@@ -201,6 +235,29 @@
 			border-radius:50%;
 			background:#fff;
 			box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+		}
+		// 宣传页面布局
+		.c-list{
+			width:100%;
+			background:#fff;
+			font-size:0;
+			li{
+				width:100%;
+				padding:20px 0;
+				.c-h1{
+					font-size:32px;
+					padding:20px;
+					color:#333;
+					font-weight:bold;
+					text-align:center;
+				}
+				.c-desc{
+					font-size:26px;
+					padding:0 40px;
+					text-align:center;
+					color:#999;
+				}
+			}
 		}
     }
 </style>
@@ -237,19 +294,19 @@
             </div>
         </section>
         <section class="c-xq" v-show="navType == 1">
-            <!-- <ul class="c-list">
+             <ul class="c-list">
                 <li>
                     <h1 class="c-h1">
-                        标题1
+                        6个维度256个知识点
                     </h1>
                     <p class="c-desc">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?
                     </p>
                     <div class="c-img">
-                        <img src="" alt="">
+                        <img src="../../image/class8-01.jpg" alt="">
                     </div>
                 </li>
-            </ul> -->
+            </ul>
             <img src="../../image/class8-01.jpg" >
             <img src="../../image/class8-02.jpg" >
             <img src="../../image/class8-03.jpg" >
@@ -274,6 +331,7 @@
 						<p class="m-desc">
 							{{ item.desc }}
 						</p>
+						<p class="time">8:30</p>
 					</div>
 				</li>
 			</ul>
@@ -295,6 +353,10 @@
         <section class="pay-footer">
             <div class="pay-footer-content">
                 <div class="pay-nums">12682已卖</div>
+				<div @click="showQrodePop" class="zixun">
+					<i class="icon"></i>
+					<p>咨询</p>
+				</div>
                 <div class="pay-btn">购买课程(￥299.00/年)</div>
             </div>
         </section>
@@ -304,6 +366,10 @@
 				<img src="../../image/preson.png">
 			</a>
 		</aside>
+		<transition name="fade" mode="in-out">
+			<QrodePop v-if="isShowQrodePop"
+					  @closeQrodePop="isShowQrodePop = !isShowQrodePop"></QrodePop>
+		</transition>
         <transition name="fade" mode="in-out">
             <myAlertTip v-if="tip.isShow" @close-tip="tip.isShow = !tip.isShow" :text="tip.text" :time="tip.time"></myAlertTip>
         </transition>
@@ -327,7 +393,8 @@
     import { layerConfig,loadingConfig,layer,showLoading,hideLoading } from '../../common/js/layerAndLoadingHandle';
     import postImg from '../../image/scbfm.jpg';
 	import ClassItem from '../../common/components/classItem';
-    export default {
+    import QrodePop from '../../common/components/qrodePop.vue';
+	export default {
         name: 'appPage',
         components: {
             InfiniteLoading,
@@ -335,6 +402,7 @@
             myAlertTip,
             LoadingModel,
 			ClassItem,
+			QrodePop
         },
         data() {
             return {
@@ -348,88 +416,88 @@
 				navType:2,  // 1代表课程首页，2代表课程代表
 				classList:[
 					{
-					    title:'情感类',
-						desc:'专治情感类疑难杂症',
+					    title:'足球系列',
+						desc:'专业的足球竞技教学视频',
 						slide:false,
 						childList:[
 							{
-							    title:'列表1',
+							    title:'足球系列1',
 							    desc:'一些描述的内容',
 							    imgSrc:require('../../image/demo1.jpg'),
 							},
 							{
-								title:'列表2',
+								title:'足球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 							{
-								title:'列表3',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo2.jpg'),
-							},
-						],
-					},
-					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:true,
-						childList:[
-							{
-								title:'列表1',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo1.jpg'),
-							},
-							{
-								title:'列表2',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo2.jpg'),
-							},
-							{
-								title:'列表3',
+								title:'足球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 						],
 					},
 					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
+						title:'篮球系列',
+						desc:'专业的篮球竞技',
 						slide:true,
 						childList:[
 							{
-								title:'列表1',
+								title:'篮球系列1',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo1.jpg'),
 							},
 							{
-								title:'列表2',
+								title:'篮球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 							{
-								title:'列表3',
+								title:'篮球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 						],
 					},
 					{
-						title:'情感类',
+						title:'排球系列',
 						desc:'专治情感类疑难杂症',
 						slide:true,
 						childList:[
 							{
-								title:'列表1',
+								title:'排球系列1',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo1.jpg'),
 							},
 							{
-								title:'列表2',
+								title:'排球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 							{
-								title:'列表3',
+								title:'排球系列3',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo2.jpg'),
+							},
+						],
+					},
+					{
+						title:'双色球系列',
+						desc:'专治双色球',
+						slide:true,
+						childList:[
+							{
+								title:'双色球系列1',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo1.jpg'),
+							},
+							{
+								title:'双色球系列2',
+								desc:'一些描述的内容',
+								imgSrc:require('../../image/demo2.jpg'),
+							},
+							{
+								title:'双色球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
@@ -447,22 +515,16 @@
 						desc:'专治情感类疑难杂症',
 						slide:true,
 					},
-					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:true,
-					},
-					{
-						title:'情感类',
-						desc:'专治情感类疑难杂症',
-						slide:true,
-					},
-				]
+				],
+				isShowQrodePop:false, //是否显示二维码弹窗
             }
         },
         computed:{
 		},
         methods: {
+			showQrodePop(){
+				this.isShowQrodePop = true;
+			},
             layer(text,time){
                 layer.bind(this,text,time)();
             } ,
@@ -503,10 +565,11 @@
             },
 			// 切换列表展开与合并
 			slideToggle(item){
-				this.classList.forEach((val) => {
-					val.slide = true;
-				})
-				item.slide = false;
+//				this.classList.forEach((val) => {
+//					val.slide = true;
+//				})
+//				item.slide = false;
+				item.slide = !item.slide;
 			},
 			// 免费视频播放
 			playVideo(item){

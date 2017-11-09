@@ -15,7 +15,7 @@
 		border-bottom:1px solid #eee;
 		.c-info-img{
 			width:200px;
-			height:150px;
+			height:120px;
 			overflow: hidden;
 			position:relative;
 			border-radius:10px;
@@ -47,7 +47,7 @@
 				padding-left:40px;
 				line-height:40px;
 				font-size:28px;
-				background:url(../../image/time.png) no-repeat left center/32px 32px;
+				background:url(../../image/time.png) no-repeat left center/30px 30px;
 			}
 		}
 	}

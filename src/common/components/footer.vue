@@ -18,6 +18,7 @@
 			justify-content: center;
 			a{
 				font-size:26px;
+				color:#666;
 			}
 			li{
 				flex:1;
@@ -44,10 +45,12 @@
 			}
 			i{
 				display:block;
-				width:48px;
-				height:48px;
+				width:32px;
+				height:32px;
 				background:url(../../image/me.png) no-repeat center center/100% 100%;
 				&.class-icon{
+					width:40px;
+					height:40px;
 					background:url(../../image/f-learn.png) no-repeat center center/100% 100%;
 				}
 				&.class-list-icon{
@@ -70,7 +73,7 @@
 			<li class="myClass" :class="{active:current == 2}">
 				<a href="./meClassList.html">
 					<i class="class-icon"></i>
-					我的课程
+					学习
 				</a>
 			</li>
 			<li class="me" :class="{active:current == 3}">

@@ -9,7 +9,11 @@
         margin:0 auto;
         background:#fff;
         font-size:26px;
-
+		.banner-container{
+			width:100%;
+			height:320px;
+			overflow: hidden;
+		}
 		.c-xq{
 			font-size:0;
 			width:100%;
@@ -77,7 +81,7 @@
 				.class-info-text{
 					display:flex;
 					justify-content: space-between;
-					padding:10px 0;
+					padding-top:20px;
 					font-size:30px;
 					.class-money{
 						color:red;
@@ -225,6 +229,14 @@
 						link:'./index.html',
 						src:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
 						desc:'ss'
+					}
+				],
+				classList:[
+					{
+					    id:1,
+						name:'公众号运营速成课程',
+						money:'299',
+						learns:1232,
 					}
 				]
             }
