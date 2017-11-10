@@ -17,7 +17,7 @@
 			right:0;
 			z-index:10;
             display:flex;
-            line-height:90px;
+            line-height:80px;
 			border-bottom:1px solid #eee;
             .nav-list{
                 flex:auto;
@@ -204,19 +204,26 @@
 					flex:1;
 					height:120px;
 					display:flex;
-					flex-direction: column;
-					align-content: space-between;
+					align-items: stretch;
+					flex-wrap: wrap;
 					margin-left:20px;
 					.m-desc{
+						width:100%;
 						text-align:justify;
+						overflow: hidden;
+						text-overflow:ellipsis;
+						white-space: nowrap;
+					}
+					.time{
+						 padding-left:34px;
+						 font-size:26px;
+						 height:40px;
+						 line-height:40px;
+						 background:url(../../image/time.png) no-repeat left center/28px 28px;
 					}
 				}
-				.time{
-					padding-left:40px;
-					line-height:40px;
-					font-size:28px;
-					background:url(../../image/time.png) no-repeat left center/30px 30px;
-				}
+
+
 			}
 			.pay-tip{
 				color:red;
@@ -307,33 +314,24 @@
                     </div>
                 </li>
             </ul>
-            <img src="../../image/class8-01.jpg" >
-            <img src="../../image/class8-02.jpg" >
-            <img src="../../image/class8-03.jpg" >
-            <img src="../../image/class8-04.jpg" >
-            <img src="../../image/class8-05.jpg" >
         </section>
 		<section class="class-list " v-show="navType == 2">
 			<h1 class="b-title p20 free-title">试看列表</h1>
 			<ul class="class-free-list">
-				<li class="class-free-item c-fl-children-item"
-					v-for="item in freeClassList"
-					@click.stop.prevent="playVideo(item)"
-				>
-					<div class="c-info-img">
-						<div class="model-box">
-							<img src="../../image/play.png">
-						</div>
-						<img src="../../image/demo1.jpg">
-					</div>
-					<div class="c-info-content">
-						<h1 class="m-title">{{ item.title }}</h1>
-						<p class="m-desc">
-							{{ item.desc }}
-						</p>
-						<p class="time">8:30</p>
-					</div>
-				</li>
+				<template v-for="item in freeClassList">
+					<VideoItem
+						v-if="item.type == 1"
+						:item="item"
+						@click.stop.native="playVideo(item.id)"
+					></VideoItem>
+					<!-- 文章显示组件 -->
+					<ArticleItem
+						v-if="item.type == 2"
+						:item="item"
+						@click.stop.native="gotoArticle(item.id)"
+					>
+					</ArticleItem>
+				</template>
 			</ul>
 			<h1 class="pay-tip">以下内容，购买后可继续观看</h1>
 			<ul class="class-list-container">
@@ -346,7 +344,7 @@
 						<span class="desc">{{ item.desc }}</span>
 						<i class="arrow" :class="{active:!item.slide}"></i>
 					</h1>
-					<ClassItem :childList="item.childList" v-show="!item.slide"></ClassItem>
+					<!--<ClassItem :childList="item.childList" v-show="!item.slide"></ClassItem>-->
 				</li>
 			</ul>
 		</section>
@@ -392,8 +390,9 @@
     import LoadingModel from '../../common/components/loadingModel.vue';
     import { layerConfig,loadingConfig,layer,showLoading,hideLoading } from '../../common/js/layerAndLoadingHandle';
     import postImg from '../../image/scbfm.jpg';
-	import ClassItem from '../../common/components/classItem';
+	import VideoItem from '../../common/components/videoItem';
     import QrodePop from '../../common/components/qrodePop.vue';
+    import ArticleItem from '../../common/components/articleItem';
 	export default {
         name: 'appPage',
         components: {
@@ -401,8 +400,9 @@
             ImageShow,
             myAlertTip,
             LoadingModel,
-			ClassItem,
-			QrodePop
+			QrodePop,
+			ArticleItem,
+			VideoItem
         },
         data() {
             return {
@@ -506,11 +506,15 @@
 				],
 				freeClassList:[
 					{
+					    id:1,
+						type:1, // 1 -> 视频  2 -> 文章
 						title:'情感类',
 						desc:'专治情感类疑难杂症',
 						slide:false,
 					},
 					{
+						id:1,
+						type:2, // 1 -> 视频  2 -> 文章
 						title:'情感类',
 						desc:'专治情感类疑难杂症',
 						slide:true,

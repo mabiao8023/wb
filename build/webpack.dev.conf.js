@@ -57,6 +57,12 @@ module.exports = merge(baseWebpackConfig, {
 		  inject: true,
 		  chunks:['classList']
 	  }),
+	  new HtmlWebpackPlugin({
+		  filename: './article.html',
+		  template: './src/views/index/article.html',
+		  inject: true,
+		  chunks:['article']
+	  }),
 
       new FriendlyErrorsPlugin()
   ]
