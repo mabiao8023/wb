@@ -9,25 +9,13 @@
         margin:0 auto;
         background:#fff;
         font-size:26px;
-        .class-nav{
-            display:flex;
-            line-height:90px;
-            .nav-list{
-                flex:auto;
-                text-align:center;
-                color:#151515;
-                span{
-                    display:inline-block;
-                    padding:0 20px;
-                    line-height:80px;
-                    font-size:32px;
-                }
-                &.active span{
-                    color:@mainColor;
-                    border-bottom:8px solid @mainColor;
-                }
-            }
-        }
+     	.banner{
+			position:fixed;
+			top:0;
+			left:0;
+			right:0;
+			z-index:100;
+		}
         .video-js{
             width:100%;
         }
@@ -60,6 +48,7 @@
 			justify-content: space-between;
 			align-items: center;
 			padding:20px;
+			padding-top:60%;
 			border-bottom:1px solid #eee;
 			.class-name{
 				font-size:30px;
@@ -95,7 +84,7 @@
 					border-bottom-left-radius: 9px;
 					border-top-left-radius: 9px;
 					background: @mainColor;
-					z-index:100;
+					z-index:20;
 				}
 			}
 		}
@@ -122,53 +111,6 @@
 		.m-desc{
 			font-size:24px;
 			color:#666;
-		}
-		.c-fl-children-item{
-			&:hover{
-				background:#eee;
-			}
-			display: flex;
-			align-items: flex-start;
-			justify-content: space-between;
-			padding:20px;
-			border-bottom:1px solid #eee;
-			.c-info-img{
-				width:200px;
-				height:120px;
-				overflow: hidden;
-				position:relative;
-				border-radius:10px;
-				.model-box{
-					position:absolute;
-					left:0;
-					top:0;
-					bottom:0;
-					right:0;
-					background:rgba(0,0,0,.5);
-					img{
-						width:60px;
-						height:60px;
-						position:absolute;
-						top:50%;
-						left:50%;
-						margin-left:-30px;
-						margin-top:-30px;
-					}
-				}
-			}
-			.c-info-content{
-				flex:1;
-				margin-left:20px;
-				.m-desc{
-					text-align:justify;
-				}
-				.time{
-					padding-left:40px;
-					line-height:40px;
-					font-size:28px;
-					background:url(../../image/time.png) no-repeat left center/30px 30px;
-				}
-			}
 		}
 		.class-list{
 
