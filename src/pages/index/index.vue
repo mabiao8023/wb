@@ -167,64 +167,6 @@
 					background:url(../../image/arrow-down.png) no-repeat center center/100% 100%;
 				}
 			}
-			.c-fl-children-item{
-				display: flex;
-				align-items: flex-start;
-				justify-content: space-between;
-				padding:20px;
-				margin-bottom:0;
-				border-bottom:1px solid #eee;
-				&:hover{
-					background:#eee;
-				}
-				.c-info-img{
-					width:200px;
-					height:120px;
-					overflow: hidden;
-					position:relative;
-					.model-box{
-						position:absolute;
-						left:0;
-						top:0;
-						bottom:0;
-						right:0;
-						background:rgba(0,0,0,.5);
-						img{
-							width:60px;
-							height:60px;
-							position:absolute;
-							top:50%;
-							left:50%;
-							margin-left:-30px;
-							margin-top:-30px;
-						}
-					}
-				}
-				.c-info-content{
-					flex:1;
-					height:120px;
-					display:flex;
-					align-items: stretch;
-					flex-wrap: wrap;
-					margin-left:20px;
-					.m-desc{
-						width:100%;
-						text-align:justify;
-						overflow: hidden;
-						text-overflow:ellipsis;
-						white-space: nowrap;
-					}
-					.time{
-						 padding-left:34px;
-						 font-size:26px;
-						 height:40px;
-						 line-height:40px;
-						 background:url(../../image/time.png) no-repeat left center/28px 28px;
-					}
-				}
-
-
-			}
 			.pay-tip{
 				color:red;
 				padding:20px 0;
@@ -280,17 +222,16 @@
         </nav>
         <!-- 视频和图片展示区域 -->
         <section class="banner">
-            <img v-show="!isHasVideo" src="../../image/scbfm.jpg">
-            <video v-if="isHasVideo" id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls
-          :poster="postImgSrc" preload>
-            <source src="http://v3.mukewang.com/shizhan/59f8498ae420e5be578b459b/H.mp4" type="video/mp4">
-            <!-- <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
-            <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg"> -->
-            <p class="vjs-no-js">
-              To view this video please enable JavaScript, and consider upgrading to a web browser that
-              <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-            </p>
-          </video>
+            <img v-if="!isHasVideo" src="../../image/scbfm.jpg">
+			<div v-show="isHasVideo">
+				<video  id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls
+						:poster="postImgSrc" preload>
+					<p class="vjs-no-js">
+						To view this video please enable JavaScript, and consider upgrading to a web browser that
+						<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+					</p>
+				</video>
+			</div>
         </section>
         <section class="class-intro boxShadow">
             <div class="class-name">
@@ -322,7 +263,7 @@
 					<VideoItem
 						v-if="item.type == 1"
 						:item="item"
-						@click.stop.native="playVideo(item.id)"
+						@click.stop.native="playVideo(item)"
 					></VideoItem>
 					<!-- 文章显示组件 -->
 					<ArticleItem
@@ -335,6 +276,7 @@
 			</ul>
 			<h1 class="pay-tip">以下内容，购买后可继续观看</h1>
 			<ul class="class-list-container">
+
 				<li class="class-item"
 					v-for="(item,index) in classList"
 				>
@@ -344,7 +286,22 @@
 						<span class="desc">{{ item.desc }}</span>
 						<i class="arrow" :class="{active:!item.slide}"></i>
 					</h1>
-					<!--<ClassItem :childList="item.childList" v-show="!item.slide"></ClassItem>-->
+					<ul v-show="!item.slide">
+						<template v-for="val in item.childList">
+							<VideoItem
+								v-if="val.type == 1"
+								:item="val"
+								@click.stop.native="payTipHandle(val)"
+							></VideoItem>
+							<!-- 文章显示组件 -->
+							<ArticleItem
+								v-if="val.type == 2"
+								:item="val"
+								@click.stop.native="payTipHandle(val)"
+							>
+							</ArticleItem>
+						</template>
+					</ul>
 				</li>
 			</ul>
 		</section>
@@ -358,12 +315,12 @@
                 <div class="pay-btn">购买课程(￥299.00/年)</div>
             </div>
         </section>
-		<!--跳转至个人中心-->
-		<aside class="preson-center">
-			<a href="./me.html">
-				<img src="../../image/preson.png">
-			</a>
-		</aside>
+		<!--&lt;!&ndash;跳转至个人中心&ndash;&gt;-->
+		<!--<aside class="preson-center">-->
+			<!--<a href="./me.html">-->
+				<!--<img src="../../image/preson.png">-->
+			<!--</a>-->
+		<!--</aside>-->
 		<transition name="fade" mode="in-out">
 			<QrodePop v-if="isShowQrodePop"
 					  @closeQrodePop="isShowQrodePop = !isShowQrodePop"></QrodePop>
@@ -413,7 +370,7 @@
                 loading: loadingConfig,
                 postImgSrc:postImg,
 				isHasVideo:false,
-				navType:2,  // 1代表课程首页，2代表课程代表
+				navType:1,  // 1代表课程首页，2代表课程代表
 				classList:[
 					{
 					    title:'足球系列',
@@ -421,16 +378,22 @@
 						slide:false,
 						childList:[
 							{
+							    id:1,
+								type:1,
 							    title:'足球系列1',
 							    desc:'一些描述的内容',
 							    imgSrc:require('../../image/demo1.jpg'),
 							},
 							{
+								id:1,
+								type:2,
 								title:'足球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 							{
+								id:1,
+								type:1,
 								title:'足球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
@@ -443,17 +406,23 @@
 						slide:true,
 						childList:[
 							{
-								title:'篮球系列1',
+								id:1,
+								type:1,
+								title:'足球系列1',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo1.jpg'),
 							},
 							{
-								title:'篮球系列2',
+								id:1,
+								type:2,
+								title:'足球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 							{
-								title:'篮球系列3',
+								id:1,
+								type:1,
+								title:'足球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
@@ -465,17 +434,23 @@
 						slide:true,
 						childList:[
 							{
-								title:'排球系列1',
+								id:1,
+								type:1,
+								title:'足球系列1',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo1.jpg'),
 							},
 							{
-								title:'排球系列2',
+								id:1,
+								type:2,
+								title:'足球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
 							{
-								title:'排球系列3',
+								id:1,
+								type:1,
+								title:'足球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 							},
@@ -508,19 +483,31 @@
 					{
 					    id:1,
 						type:1, // 1 -> 视频  2 -> 文章
-						title:'情感类',
+						title:'大数据系列',
 						desc:'专治情感类疑难杂症',
 						slide:false,
+						src:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
+						playing:false,
 					},
 					{
-						id:1,
+						id:2,
 						type:2, // 1 -> 视频  2 -> 文章
 						title:'情感类',
 						desc:'专治情感类疑难杂症',
 						slide:true,
 					},
+					{
+						id:3,
+						type:1, // 1 -> 视频  2 -> 文章
+						title:'大数据系列',
+						desc:'专治情感类疑难杂症',
+						slide:false,
+						src:'http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4',
+						playing:false,
+					},
 				],
 				isShowQrodePop:false, //是否显示二维码弹窗
+				video:null, // 视频
             }
         },
         computed:{
@@ -578,27 +565,44 @@
 			// 免费视频播放
 			playVideo(item){
 				this.isHasVideo = true;
+				this.freeClassList.forEach( val => {
+					val.playing = false;
+				} )
+				item.playing = true;
 				this.$nextTick( () => {
-					// videojs.options.flash.swf = '//path/to/videojs.swf'
-					// var myPlayer = videojs('my-video');
-
-					videojs("my-video",{
-						width:'100%',
-						aspectRation:'4:3',
-						techOrder:["html5"],
-					},function(){
-						var myPlayer = this;
-//				  不能自动播放
-               			 myPlayer.play();
-					})
+					this.video.src(item.src);
+					this.video.play();
 				})
 			},
+			// 付费课程点击提示
+			payTipHandle(){
+				this.layer("请购买后继续观看");
+			},
+			// 跳转至文章页面
+			gotoArticle(id){
+				location.href = `./article.html?id=${id}`;
+			}
     },
     created(){
        // this.share();
     },
     mounted() {
-
+        var that = this;
+		this.$nextTick( () => {
+			// videojs.options.flash.swf = '//path/to/videojs.swf'
+			// var myPlayer = videojs('my-video');
+			var that = this;
+			videojs("my-video",{
+				width:'100%',
+				aspectRation:'4:3',
+				techOrder:["html5"],
+			}).ready(function(){
+				console.log(this);
+				var myPlayer = this;
+				that.video = this;
+			});
+			console.log(this.video)
+		})
     }
     }
 </script>

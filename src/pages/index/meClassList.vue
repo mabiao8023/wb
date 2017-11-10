@@ -13,32 +13,6 @@
 			.c-fl-children-list{
 				margin:20px;
 			}
-			.c-fl-children-item{
-				display: flex;
-				align-items: flex-start;
-				justify-content: space-between;
-				margin-bottom:20px;
-				padding:20px;
-				border-bottom:1px solid #eee;
-				border-radius:10px;
-				background:#fff;
-				.c-info-img{
-					width:200px;
-					height:150px;
-					overflow: hidden;
-					border-radius:10px;
-				}
-				.c-info-content{
-					flex:1;
-					display:flex;
-					flex-direction: column;
-					justify-content: space-around;
-					margin-left:20px;
-					.m-desc{
-						text-align:justify;
-					}
-				}
-			}
 			.pay-tip{
 				position:fixed;
 				top:0;
@@ -93,19 +67,20 @@
 
 			<h1 class="pay-tip">我学习的课程列表</h1>
 			<ul class="c-fl-children-list">
-				<li class="c-fl-children-item"
-					v-for="(val,index) in classList"
-				>
-					<div class="c-info-img">
-						<img src="../../image/demo1.jpg">
-					</div>
-					<div class="c-info-content">
-						<h1 class="m-title">{{ val.title }}</h1>
-						<p class="m-desc">
-							{{ val.desc }}
-						</p>
-					</div>
-				</li>
+				<template v-for="(val,index) in classList">
+					<VideoItem
+						v-if="val.type == 1"
+						:item="val"
+						@click.stop.native="gotoClassIndex(val.id,val.type)"
+					></VideoItem>
+					<!-- 文章显示组件 -->
+					<ArticleItem
+						v-if="val.type == 2"
+						:item="val"
+						@click.stop.native="gotoClassIndex(val.id,val.type)"
+					>
+					</ArticleItem>
+				</template>
 			</ul>
 		</section>
 		<ComFooter current="2"></ComFooter>
@@ -135,7 +110,8 @@
     import LoadingModel from '../../common/components/loadingModel.vue';
     import { layerConfig,loadingConfig,layer,showLoading,hideLoading } from '../../common/js/layerAndLoadingHandle';
 	import ComFooter from '../../common/components/footer.vue';
-
+	import VideoItem from '../../common/components/videoItem';
+	import ArticleItem from '../../common/components/articleItem';
 	export default {
         name: 'appPage',
         components: {
@@ -144,6 +120,8 @@
             myAlertTip,
             LoadingModel,
 			ComFooter,
+			VideoItem,
+			ArticleItem
         },
         data() {
             return {
@@ -156,19 +134,28 @@
 				navType:2,  // 1代表课程首页，2代表课程代表
 				classList:[
 					{
-						title:'列表1',
+					    id:1,
+						type:1,
+						title:'天龙八部',
 						desc:'一些描述的内容',
 						imgSrc:require('../../image/demo1.jpg'),
+						progress:'30%',
 					},
 					{
-						title:'列表2',
+						id:1,
+						type:2,
+						title:'射雕英雄传',
 						desc:'一些描述的内容',
 						imgSrc:require('../../image/demo2.jpg'),
+						progress:'50%',
 					},
 					{
-						title:'列表3',
+						id:1,
+						type:1,
+						title:'我也不知懂啊',
 						desc:'一些描述的内容',
 						imgSrc:require('../../image/demo2.jpg'),
+						progress:'80%',
 					},
 				],
             }
@@ -214,13 +201,9 @@
                     cancelCb:this.layer.bind(this,'支付失败，请重试'),
                 });
             },
-			// 切换列表展开与合并
-			slideToggle(item){
-				this.classList.forEach((val) => {
-					val.slide = true;
-				})
-				item.slide = false;
-			}
+			gotoClassIndex(id,type){
+				location.href = `./video.html?id=${id}&type=${type}`;
+			},
     },
     created(){
        // this.share();

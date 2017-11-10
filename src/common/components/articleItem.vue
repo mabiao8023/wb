@@ -11,14 +11,25 @@
 		padding:20px;
 		margin-bottom:0;
 		border-bottom:1px solid #eee;
-		&:hover{
-			background:#eee;
-		}
+		/*&:hover{*/
+			/*background:#eee;*/
+		/*}*/
 		.c-info-img{
 			width:200px;
 			height:120px;
 			overflow: hidden;
 			position:relative;
+			.playing{
+				position:absolute;
+				top:0;
+				left:8px;
+				color:#fff;
+				background:@mainColor;
+				padding:6px 10px;
+				font-size:24px;
+				border-bottom-left-radius: 8px;
+				border-bottom-right-radius: 8px;
+			}
 			.model-box{
 				position:absolute;
 				left:0;
@@ -66,7 +77,7 @@
 <template>
 	<li class="c-fl-children-item">
 		<div class="c-info-img">
-			<!--<i class="c-a-tag"></i>-->
+			<div class="playing">阅读课程</div>
 			<img src="../../image/demo1.jpg">
 		</div>
 		<div class="c-info-content">

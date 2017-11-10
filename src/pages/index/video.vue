@@ -92,6 +92,8 @@
 					width:30%;
 					height:18px;
 					margin-right:20px;
+					border-bottom-left-radius: 9px;
+					border-top-left-radius: 9px;
 					background: @mainColor;
 					z-index:100;
 				}
@@ -220,14 +222,24 @@
 <template>
     <div class="page-container" >
         <section class="banner">
-            <video id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls
-          :poster="postImgSrc" preload>
-            <!--<source v-if="currentVideoSrc" :src="currentVideoSrc" type="video/mp4">-->
-            <p class="vjs-no-js">
-              To view this video please enable JavaScript, and consider upgrading to a web browser that
-              <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-            </p>
-          </video>
+			<img v-show="type == 2" src="../../image/scbfm.jpg">
+			<div v-show="type == 1">
+				<video  id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls
+						:poster="postImgSrc" preload>
+					<p class="vjs-no-js">
+						To view this video please enable JavaScript, and consider upgrading to a web browser that
+						<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+					</p>
+				</video>
+			</div>
+            <!--<video id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls-->
+          <!--:poster="postImgSrc" preload>-->
+            <!--&lt;!&ndash;<source v-if="currentVideoSrc" :src="currentVideoSrc" type="video/mp4">&ndash;&gt;-->
+            <!--<p class="vjs-no-js">-->
+              <!--To view this video please enable JavaScript, and consider upgrading to a web browser that-->
+              <!--<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>-->
+            <!--</p>-->
+          <!--</video>-->
         </section>
         <section class="class-intro">
             <div class="class-progress">
@@ -251,25 +263,21 @@
 						<span class="desc">{{ item.desc }}</span>
 						<i class="arrow" :class="{active:!item.slide}"></i>
 					</h1>
-					<ul class="class-free-list" v-if="item.slide">
-						<li class="c-fl-children-item"
-							v-for="(val,index) in item.childList"
-							@click.stop.prevent="playVideo(val)"
-						>
-							<div class="c-info-img">
-								<div class="model-box">
-									<img src="../../image/play.png">
-								</div>
-								<img src="../../image/demo1.jpg">
-							</div>
-							<div class="c-info-content">
-								<h1 class="m-title">{{ val.title }}</h1>
-								<p class="m-desc">
-									{{ val.desc }}
-								</p>
-								<p class="time">8:30</p>
-							</div>
-						</li>
+					<ul class="class-free-list" v-if="!item.slide">
+						<template v-for="val in item.childList">
+							<VideoItem
+								v-if="val.type == 1"
+								:item="val"
+								@click.stop.native="playVideo(val)"
+							></VideoItem>
+							<!-- 文章显示组件 -->
+							<ArticleItem
+								v-if="val.type == 2"
+								:item="val"
+								@click.stop.native="gotoArticle(val.id)"
+							>
+							</ArticleItem>
+						</template>
 					</ul>
 				</li>
 			</ul>
@@ -277,11 +285,11 @@
 			<!--<ClassItem :childList="freeClassList"></ClassItem>-->
 		</section>
 		<!--跳转至个人中心-->
-		<aside class="preson-center">
-			<a href="./me.html">
-				<img src="../../image/preson.png">
-			</a>
-		</aside>
+		<!--<aside class="preson-center">-->
+			<!--<a href="./me.html">-->
+				<!--<img src="../../image/preson.png">-->
+			<!--</a>-->
+		<!--</aside>-->
         <transition name="fade" mode="in-out">
             <myAlertTip v-if="tip.isShow" @close-tip="tip.isShow = !tip.isShow" :text="tip.text" :time="tip.time"></myAlertTip>
         </transition>
@@ -309,7 +317,8 @@
     import { layerConfig,loadingConfig,layer,showLoading,hideLoading } from '../../common/js/layerAndLoadingHandle';
     import postImg from '../../image/scbfm.jpg';
 	import QrodePop from '../../common/components/qrodePop.vue';
-
+	import ArticleItem from '../../common/components/articleItem';
+	import VideoItem from '../../common/components/videoItem';
 	export default {
         name: 'appPage',
         components: {
@@ -317,7 +326,9 @@
             ImageShow,
             myAlertTip,
             LoadingModel,
-			QrodePop
+			QrodePop,
+			ArticleItem,
+			VideoItem
         },
         data() {
             return {
@@ -326,6 +337,7 @@
                 // 提示处理
                 tip: layerConfig,
                 loading: loadingConfig,
+				type:commonFn.getParams()['type']||1,
                 postImgSrc:postImg,
 				isHasVideo:false,
 				navType:2,  // 1代表课程首页，2代表课程代表
@@ -334,26 +346,36 @@
 				currentVideoSrc:'',
 				classList:[
 					{
+					    id:1,
 						title:'足球系列',
 						desc:'专业的足球竞技教学视频',
 						slide:false,
 						childList:[
 							{
+							    id:1,
+								type:1,
 								title:'足球系列1',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo1.jpg'),
 								src:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
+								playing:false,
 							},
 							{
+								id:1,
+								type:1,
 								title:'足球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 								src:'http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4',
+								playing:false,
 							},
 							{
+								id:1,
+								type:2,
 								title:'足球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
+								playing:false,
 							},
 						],
 					},
@@ -363,19 +385,30 @@
 						slide:true,
 						childList:[
 							{
-								title:'篮球系列1',
+								id:1,
+								type:1,
+								title:'足球系列1',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo1.jpg'),
+								src:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
+								playing:false,
 							},
 							{
-								title:'篮球系列2',
+								id:1,
+								type:1,
+								title:'足球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
+								src:'http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4',
+								playing:false,
 							},
 							{
-								title:'篮球系列3',
+								id:1,
+								type:2,
+								title:'足球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
+								playing:false,
 							},
 						],
 					},
@@ -385,44 +418,33 @@
 						slide:true,
 						childList:[
 							{
-								title:'排球系列1',
+								id:1,
+								type:1,
+								title:'足球系列1',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo1.jpg'),
+								src:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
+								playing:false,
 							},
 							{
-								title:'排球系列2',
+								id:1,
+								type:1,
+								title:'足球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
+								src:'http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4',
+								playing:false,
 							},
 							{
-								title:'排球系列3',
+								id:1,
+								type:2,
+								title:'足球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
+								playing:false,
 							},
 						],
-					},
-					{
-						title:'双色球系列',
-						desc:'专治双色球',
-						slide:true,
-						childList:[
-							{
-								title:'双色球系列1',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo1.jpg'),
-							},
-							{
-								title:'双色球系列2',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo2.jpg'),
-							},
-							{
-								title:'双色球系列3',
-								desc:'一些描述的内容',
-								imgSrc:require('../../image/demo2.jpg'),
-							},
-						],
-					},
+					}
 				],
             }
         },
@@ -439,9 +461,20 @@
                 hideLoading.bind(this)();
             },
 			// 播放视频
-			playVideo(val){
-				this.video.src(val.src);
-				this.video.play();
+			playVideo(item){
+				this.isHasVideo = true;
+				this.classList.forEach( val => {
+					val.childList.forEach( val2 => {
+					    if(val2.type == 1){
+							item.playing = false;
+						}
+					})
+				} )
+				item.playing = true;
+				this.$nextTick( () => {
+					this.video.src(item.src);
+					this.video.play();
+				})
 			},
             // 微信分享
             async share() {
@@ -461,13 +494,13 @@
                     cancelCb:this.layer.bind(this,'支付失败，请重试'),
                 });
             },
-			// 切换列表展开与合并
+			// 跳转至文章页面
+			gotoArticle(id){
+				location.href = `./article.html?id=${id}`;
+			},
 			slideToggle(item){
-//				this.classList.forEach((val) => {
-//					val.slide = true;
-//				})
 				item.slide = !item.slide;
-			}
+			},
     },
     created(){
        // this.share();
@@ -485,9 +518,10 @@
 				console.log(this);
 				var myPlayer = this;
 				that.video = this;
+				// 默认初始化播放视频
 				myPlayer.src("http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4");
 
-				myPlayer.play();
+//				myPlayer.play();
 			});
 			console.log(this.video)
         })

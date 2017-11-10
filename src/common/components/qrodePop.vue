@@ -35,7 +35,7 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 10000;
     background-color: rgba(0,0,0,0.5);
     .model-container {
         position: absolute;

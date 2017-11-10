@@ -10,15 +10,27 @@
 		justify-content: space-between;
 		padding:20px;
 		margin-bottom:0;
+		background:#fff;
 		border-bottom:1px solid #eee;
-		&:hover{
-			background:#eee;
-		}
+		/*&:hover{*/
+			/*background:#eee;*/
+		/*}*/
 		.c-info-img{
 			width:200px;
 			height:120px;
 			overflow: hidden;
 			position:relative;
+			.playing{
+				position:absolute;
+				top:0;
+				left:8px;
+				color:#fff;
+				background:@mainColor;
+				padding:6px 10px;
+				font-size:24px;
+				border-bottom-left-radius: 8px;
+				border-bottom-right-radius: 8px;
+			}
 			.model-box{
 				position:absolute;
 				left:0;
@@ -44,6 +56,33 @@
 			align-items: stretch;
 			flex-wrap: wrap;
 			margin-left:20px;
+			.progress{
+				padding-top:5px;
+				.progress-bar{
+					display:inline-block;
+					vertical-align:middle;
+					width:150px;
+					height:14px;
+					margin-right:20px;
+					background:#ddd;
+					border-radius:7px;
+					position:relative;
+					overflow: hidden;
+					&:after{
+						content:'';
+						position: absolute;
+						top:0;
+						left:0;
+						width:30%;
+						height:14px;
+						margin-right:20px;
+						border-bottom-left-radius: 7px;
+						border-top-left-radius: 7px;
+						background: @mainColor;
+						z-index:100;
+					}
+				}
+			}
 			.m-desc{
 				width:100%;
 				text-align:justify;
@@ -67,7 +106,8 @@
 <template>
 	<li class="c-fl-children-item">
 		<div class="c-info-img">
-			<div class="model-box">
+			<div v-if="item.playing" class="playing">正在播放</div>
+			<div v-else class="model-box">
 				<img src="../../image/play.png">
 			</div>
 			<img src="../../image/demo1.jpg">
@@ -77,7 +117,10 @@
 			<p class="m-desc">
 				{{ item.desc }}
 			</p>
-			<p class="time">8:30</p>
+			<p class="time" v-if="!item.progress">8:30</p>
+			<div class="progress" v-else>
+				<span class="progress-bar"></span> 已学习{{item.progress}}
+			</div>
 		</div>
 	</li>
 </template>
