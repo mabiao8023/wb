@@ -7,18 +7,26 @@
         padding-bottom:2rem;
         max-width:10rem;
         margin:0 auto;
-        background:#fff;
+        /*background:#fff;*/
         font-size:26px;
-     	.banner{
-			position:fixed;
-			top:0;
-			left:0;
-			right:0;
-			z-index:100;
-		}
+     	/*.banner{*/
+			/*position:fixed;*/
+			/*top:0;*/
+			/*left:0;*/
+			/*right:0;*/
+			/*z-index:100;*/
+		/*}*/
         .video-js{
             width:100%;
         }
+		.video-container{
+			width:100%;
+			height:372px;
+			.view-cover{
+				width:100%;
+				height:372px;
+			}
+		}
         .pay-footer{
             position:fixed;
             bottom:0;
@@ -48,7 +56,7 @@
 			justify-content: space-between;
 			align-items: center;
 			padding:20px;
-			padding-top:60%;
+			background:#fff;
 			border-bottom:1px solid #eee;
 			.class-name{
 				font-size:30px;
@@ -56,7 +64,9 @@
 			}
 			.class-zixun{
 				color:#fff;
-				padding:12px 20px;
+				font-size:26px;
+				padding:0 10px;
+				line-height:56px;
 				background:@mainColor;
 				border-radius:8px;
 			}
@@ -67,22 +77,22 @@
 				display:inline-block;
 				vertical-align:middle;
 				width:250px;
-				height:18px;
+				height:14px;
 				margin-right:20px;
 				background:#ddd;
-				border-radius:9px;
+				border-radius:7px;
 				position:relative;
 				overflow: hidden;
-				&:after{
+				i{
 					content:'';
 					position: absolute;
 					top:0;
 					left:0;
 					width:30%;
-					height:18px;
+					height:14px;
 					margin-right:20px;
-					border-bottom-left-radius: 9px;
-					border-top-left-radius: 9px;
+					border-bottom-left-radius: 7px;
+					border-top-left-radius: 7px;
 					background: @mainColor;
 					z-index:20;
 				}
@@ -101,16 +111,19 @@
 			color:#151515;
 		}
 		.m-title{
-			font-size:28px;
+			font-size:26px;
 			color:#151515;
 		}
 		.b-desc{
-			font-size:26px;
+			font-size:24px;
 			color:#666;
 		}
 		.m-desc{
 			font-size:24px;
 			color:#666;
+		}
+		.class-list-container{
+			margin-top:20px;
 		}
 		.class-list{
 
@@ -120,6 +133,7 @@
 				border-top:1px solid #eee;
 				border-bottom:1px solid #eee;
 				position:relative;
+				line-height:76px;
 			}
 			.desc{
 				color:#999;
@@ -164,30 +178,24 @@
 <template>
     <div class="page-container" >
         <section class="banner">
-			<img v-show="type == 2" src="../../image/scbfm.jpg">
-			<div v-show="type == 1">
-				<video  id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls
-						:poster="postImgSrc" preload>
-					<p class="vjs-no-js">
-						To view this video please enable JavaScript, and consider upgrading to a web browser that
-						<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-					</p>
+			<img v-if="!isHasVideo" src="../../image/scbfm.jpg">
+			<div class="video-container"
+				v-show="isHasVideo">
+				<video class="view-cover"
+					   autoplay="autoplay"
+					   controls
+					   id="my-video"
+					   x5-video-player-type="h5"
+					   webkit-playsinline
+					   playsinline>
 				</video>
 			</div>
-            <!--<video id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls-->
-          <!--:poster="postImgSrc" preload>-->
-            <!--&lt;!&ndash;<source v-if="currentVideoSrc" :src="currentVideoSrc" type="video/mp4">&ndash;&gt;-->
-            <!--<p class="vjs-no-js">-->
-              <!--To view this video please enable JavaScript, and consider upgrading to a web browser that-->
-              <!--<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>-->
-            <!--</p>-->
-          <!--</video>-->
         </section>
         <section class="class-intro">
             <div class="class-progress">
                 <h1 class="class-name">爆款文案训练营</h1>
 				<div class="progress">
-					<span class="progress-bar"></span>已学30%
+					<span class="progress-bar"><i></i></span>已学30%
 				</div>
             </div>
             <div class="class-zixun" @click.stop="isShowQrodePop = true">
@@ -199,7 +207,7 @@
 				<li class="class-item"
 					v-for="(item,index) in classList"
 				>
-					<h1 class="c-fl-title m-title p20" @click.stop.prevent="slideToggle(item)">
+					<h1 class="c-fl-title m-title" @click.stop.prevent="slideToggle(item)">
 						<i class="title-icon"></i>
 						{{ item.title }}
 						<span class="desc">{{ item.desc }}</span>
@@ -223,15 +231,7 @@
 					</ul>
 				</li>
 			</ul>
-			<!--<h1 class="b-title p20 free-title">其他课程推荐列表</h1>-->
-			<!--<ClassItem :childList="freeClassList"></ClassItem>-->
 		</section>
-		<!--跳转至个人中心-->
-		<!--<aside class="preson-center">-->
-			<!--<a href="./me.html">-->
-				<!--<img src="../../image/preson.png">-->
-			<!--</a>-->
-		<!--</aside>-->
         <transition name="fade" mode="in-out">
             <myAlertTip v-if="tip.isShow" @close-tip="tip.isShow = !tip.isShow" :text="tip.text" :time="tip.time"></myAlertTip>
         </transition>
@@ -413,10 +413,9 @@
 					})
 				} )
 				item.playing = true;
-				this.$nextTick( () => {
-					this.video.src(item.src);
-					this.video.play();
-				})
+				this.video.src = item.src;
+				this.video.click();
+				this.video.play();
 			},
             // 微信分享
             async share() {
@@ -449,23 +448,18 @@
     },
     mounted() {
         this.$nextTick( () => {
-            // videojs.options.flash.swf = '//path/to/videojs.swf'
-            // var myPlayer = videojs('my-video');
-			var that = this;
-			videojs("my-video",{
-			    width:'100%',
-				aspectRation:'4:3',
-				techOrder:["html5"],
-			}).ready(function(){
-				console.log(this);
-				var myPlayer = this;
-				that.video = this;
-				// 默认初始化播放视频
-				myPlayer.src("http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4");
-
-//				myPlayer.play();
-			});
-			console.log(this.video)
+			this.video = document.getElementById("my-video");
+			// 监听播放结束事件
+			this.video.addEventListener('ended',() => {
+			    // 暂停所有的视频
+				this.classList.forEach( val => {
+					val.childList.forEach( val2 => {
+						if(val2.type == 1){
+							val2.playing = false;
+						}
+					})
+				} )
+			})
         })
     }
     }

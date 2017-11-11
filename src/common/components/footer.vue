@@ -9,7 +9,7 @@
 		bottom:0;
 		left:0;
 		right:0;
-		padding:10px 0;
+		padding:5px 0;
 		background:#fff;
 		border-top:1px solid #eee;
 		.footer-container{
@@ -17,7 +17,7 @@
 			align-items: center;
 			justify-content: center;
 			a{
-				font-size:26px;
+				font-size:24px;
 				color:#666;
 			}
 			li{
@@ -49,8 +49,8 @@
 				height:32px;
 				background:url(../../image/me.png) no-repeat center center/100% 100%;
 				&.class-icon{
-					width:40px;
-					height:40px;
+					/*width:40px;*/
+					/*height:40px;*/
 					background:url(../../image/f-learn.png) no-repeat center center/100% 100%;
 				}
 				&.class-list-icon{

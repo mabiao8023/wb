@@ -38,6 +38,14 @@
 		.banner{
 			padding-top:90px;
 		}
+		.video-container{
+			width:100%;
+			height:372px;
+			.view-cover{
+				width:100%;
+				height:372px;
+			}
+		}
         .video-js{
             width:100%;
         }
@@ -223,14 +231,28 @@
         <!-- 视频和图片展示区域 -->
         <section class="banner">
             <img v-if="!isHasVideo" src="../../image/scbfm.jpg">
-			<div v-show="isHasVideo">
-				<video  id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls
-						:poster="postImgSrc" preload>
-					<p class="vjs-no-js">
-						To view this video please enable JavaScript, and consider upgrading to a web browser that
-						<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-					</p>
+			<div class="video-container" v-show="isHasVideo">
+				<video class="view-cover"
+					   autoplay="autoplay"
+					   controls
+					   id="my-video"
+					   x5-video-player-type="h5"
+					   webkit-playsinline
+					   playsinline>
 				</video>
+				<!--<video  id="my-video"-->
+						<!--x5-video-player-type="h5"-->
+						<!--webkit-playsinline="true"-->
+						<!--playsinline="true"-->
+						<!--class="video-js vjs-16-9 vjs-big-play-centered"-->
+						<!--controls-->
+						<!--:poster="postImgSrc"-->
+						<!--preload>-->
+					<!--<p class="vjs-no-js">-->
+						<!--To view this video please enable JavaScript, and consider upgrading to a web browser that-->
+						<!--<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>-->
+					<!--</p>-->
+				<!--</video>-->
 			</div>
         </section>
         <section class="class-intro boxShadow">
@@ -569,10 +591,9 @@
 					val.playing = false;
 				} )
 				item.playing = true;
-				this.$nextTick( () => {
-					this.video.src(item.src);
-					this.video.play();
-				})
+				this.video.src = item.src;
+				this.video.click();
+				this.video.play();
 			},
 			// 付费课程点击提示
 			payTipHandle(){
@@ -591,17 +612,19 @@
 		this.$nextTick( () => {
 			// videojs.options.flash.swf = '//path/to/videojs.swf'
 			// var myPlayer = videojs('my-video');
-			var that = this;
-			videojs("my-video",{
-				width:'100%',
-				aspectRation:'4:3',
-				techOrder:["html5"],
-			}).ready(function(){
-				console.log(this);
-				var myPlayer = this;
-				that.video = this;
-			});
-			console.log(this.video)
+
+			this.video = document.getElementById("my-video");
+//			var that = this;
+//			videojs("my-video",{
+//				width:'100%',
+//				aspectRation:'4:3',
+//				techOrder:["html5"],
+//			}).ready(function(){
+//				console.log(this);
+//				var myPlayer = this;
+//				that.video = this;
+//			});
+//			console.log(this.video)
 		})
     }
     }

@@ -57,27 +57,27 @@
 			flex-wrap: wrap;
 			margin-left:20px;
 			.progress{
-				padding-top:5px;
+				font-size:24px;
 				.progress-bar{
 					display:inline-block;
 					vertical-align:middle;
 					width:150px;
-					height:14px;
+					height:10px;
 					margin-right:20px;
 					background:#ddd;
-					border-radius:7px;
+					border-radius:5px;
 					position:relative;
 					overflow: hidden;
-					&:after{
-						content:'';
+
+					i{
 						position: absolute;
 						top:0;
 						left:0;
 						width:30%;
-						height:14px;
+						height:10px;
 						margin-right:20px;
-						border-bottom-left-radius: 7px;
-						border-top-left-radius: 7px;
+						border-bottom-left-radius: 5px;
+						border-top-left-radius: 5px;
 						background: @mainColor;
 						z-index:100;
 					}
@@ -92,16 +92,13 @@
 			}
 			.time{
 				padding-left:34px;
-				font-size:26px;
+				font-size:24px;
 				height:40px;
 				line-height:40px;
-				background:url(../../image/time.png) no-repeat left center/28px 28px;
+				background:url(../../image/time.png) no-repeat left center/18px 18px;
 			}
 		}
-
-
 	}
-
 </style>
 <template>
 	<li class="c-fl-children-item">
@@ -119,7 +116,7 @@
 			</p>
 			<p class="time" v-if="!item.progress">8:30</p>
 			<div class="progress" v-else>
-				<span class="progress-bar"></span> 已学习{{item.progress}}
+				<span class="progress-bar"><i :style="'width:' + item.progress +';' "></i></span> 已学习{{item.progress}}
 			</div>
 		</div>
 	</li>

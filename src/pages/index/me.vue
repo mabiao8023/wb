@@ -4,10 +4,9 @@
 
     .page-container{
         min-height:100%;
-        padding-bottom:2rem;
+        /*padding-bottom:2rem;*/
         max-width:10rem;
         margin:0 auto;
-        background:#fff;
         font-size:26px;
 
 		.c-xq{
@@ -33,52 +32,44 @@
 			font-size:24px;
 			color:#666;
 		}
-		.preson-center{
-			position:fixed;
-			bottom:150px;
-			right:20px;
-			width:100px;
-			height:100px;
-			border-radius:50%;
-			background:#fff;
-			box-shadow: 0px 0px 10px rgba(0,0,0,.5);
-		}
 		.user-info{
+			background:#fff;
 			display:flex;
 			align-items: center;
 			justify-content: flex-start;
 			padding:28px;
 			.user-avatar{
-				width:140px;
-				height:140px;
-				border-radius:50%;
+				width:100px;
+				height:100px;
+				border:1px solid #ccc;
+				border-radius:4px;
 				overflow: hidden;
 			}
 			.user-name{
-				font-size:36px;
+				font-size:32px;
 				color:#151515;
 				margin-left:30px;
 			}
 		}
 		.me-list{
+			margin-top:20px;
+			background:#fff;
 			.me-list-item{
-				padding:20px;
+				padding:20px 28px;
 				color:#151515;
-				font-size:30px;
+				font-size:28px;
 				border-top:1px solid #eee;
-				background:url(../../image/arrow-right.png) no-repeat 600px center/32px 32px;
+				background:url(../../image/arrow-right.png) no-repeat 590px center/32px 32px;
 				&:last-child{
 					border-bottom:1px solid #eee;
 				}
 			}
-
 		}
-
     }
 </style>
 <template>
     <div class="page-container" >
-		<div class="user-info">
+		<div class="user-info boxShadow">
 			<div class="user-avatar">
 				<img src="../../image/preson.png">
 			</div>
@@ -86,7 +77,7 @@
 				All is Well
 			</div>
 		</div>
-		<ul class="me-list">
+		<ul class="me-list boxShadow">
 			<li class="me-list-item">
 				<a href="./meClassList.html">
 					我的课程

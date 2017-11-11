@@ -309,16 +309,16 @@ export default {
         .swiper-pagination {
             position: absolute;
             .swiper-pagination-bullet {
-                width:18px;
-                height: 18px;
+                width:14px;
+                height: 14px;
                 border-radius: 50%;
-                background-color: #fff;
+                background-color: #999;
                 opacity: .5;
                 transition: all .5s ease;
             }
 
             .swiper-pagination-bullet.active {
-                background: #007aff;
+                background: #fff;
                 opacity: 1;
             }
         }
@@ -341,7 +341,7 @@ export default {
 
             .swiper-pagination-bullet {
                 display: inline-block;
-                margin: 0 3px;
+                margin: 0 6px;
             }
         }
     }
