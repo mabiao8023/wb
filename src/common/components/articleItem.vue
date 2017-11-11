@@ -62,13 +62,6 @@
 				text-overflow:ellipsis;
 				white-space: nowrap;
 			}
-			.time{
-				padding-left:34px;
-				font-size:26px;
-				height:40px;
-				line-height:40px;
-				background:url(../../image/time.png) no-repeat left center/28px 28px;
-			}
 		}
 
 

@@ -139,23 +139,26 @@
 						title:'天龙八部',
 						desc:'一些描述的内容',
 						imgSrc:require('../../image/demo1.jpg'),
-						progress:'30%',
+						progress:'0',
+						totalTime:4000,
 					},
 					{
-						id:1,
+						id:2,
 						type:2,
 						title:'射雕英雄传',
 						desc:'一些描述的内容',
 						imgSrc:require('../../image/demo2.jpg'),
-						progress:'50%',
+						progress:'0',
+						totalTime:4000,
 					},
 					{
-						id:1,
+						id:3,
 						type:1,
 						title:'我也不知懂啊',
 						desc:'一些描述的内容',
 						imgSrc:require('../../image/demo2.jpg'),
-						progress:'80%',
+						progress:'0',
+						totalTime:4000,
 					},
 				],
             }
@@ -204,11 +207,33 @@
 			gotoClassIndex(id,type){
 				location.href = `./video.html?id=${id}&type=${type}`;
 			},
+			getProgress(value){
+				let time = 0;
+				try {
+					let currentClass = JSON.parse(localStorage.getItem('classProgress'))[value.id];
+					if ( currentClass.length ){
+						currentClass.forEach( val => {
+							time += val.time;
+						} )
+					}else{
+						time = 0
+					}
+				}catch (err){
+					time = 0;
+				}
+				return parseInt(time/value.totalTime * 100,10);
+			},
+			initListProgress(){
+				this.classList.forEach( val => {
+				    val.progress = this.getProgress(val);
+				})
+			},
     },
     created(){
        // this.share();
     },
     mounted() {
+        this.initListProgress();
     }
     }
 </script>

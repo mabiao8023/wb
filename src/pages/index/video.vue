@@ -195,7 +195,7 @@
             <div class="class-progress">
                 <h1 class="class-name">爆款文案训练营</h1>
 				<div class="progress">
-					<span class="progress-bar"><i></i></span>已学30%
+					<span class="progress-bar"><i :style="'width:'+totalProgress+'%;'"></i></span>已学{{totalProgress}}%
 				</div>
             </div>
             <div class="class-zixun" @click.stop="isShowQrodePop = true">
@@ -251,8 +251,6 @@
     import { apiPath } from '../../common/js/config.js';
     import { addStatisticsCode } from '../../common/js/addStatisticsCode';
     import { getWXParams } from '../../common/js/utils.js';
-    import InfiniteLoading from 'vue-infinite-loading';
-    import ImageShow from '../../common/components/imageShow.vue';
     import myAjax from '../../common/js/request';
     import myAlertTip from '../../common/components/modelBox.vue';
     import LoadingModel from '../../common/components/loadingModel.vue';
@@ -264,8 +262,6 @@
 	export default {
         name: 'appPage',
         components: {
-            InfiniteLoading,
-            ImageShow,
             myAlertTip,
             LoadingModel,
 			QrodePop,
@@ -283,6 +279,7 @@
                 postImgSrc:postImg,
 				isHasVideo:false,
 				navType:2,  // 1代表课程首页，2代表课程代表
+				classId:commonFn.getParams()["id"]||1,
 				isShowQrodePop:false,
 				video:null,
 				currentVideoSrc:'',
@@ -301,23 +298,26 @@
 								imgSrc:require('../../image/demo1.jpg'),
 								src:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
 								playing:false,
+								time:200,
 							},
 							{
-								id:1,
+								id:2,
 								type:1,
 								title:'足球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 								src:'http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4',
 								playing:false,
+								time:200,
 							},
 							{
-								id:1,
+								id:3,
 								type:2,
 								title:'足球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 								playing:false,
+								time:200,
 							},
 						],
 					},
@@ -327,30 +327,33 @@
 						slide:true,
 						childList:[
 							{
-								id:1,
+								id:4,
 								type:1,
 								title:'足球系列1',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo1.jpg'),
 								src:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
 								playing:false,
+								time:200,
 							},
 							{
-								id:1,
+								id:5,
 								type:1,
 								title:'足球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 								src:'http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4',
 								playing:false,
+								time:200,
 							},
 							{
-								id:1,
+								id:6,
 								type:2,
 								title:'足球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 								playing:false,
+								time:200,
 							},
 						],
 					},
@@ -360,34 +363,40 @@
 						slide:true,
 						childList:[
 							{
-								id:1,
+								id:7,
 								type:1,
 								title:'足球系列1',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo1.jpg'),
 								src:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
 								playing:false,
+								time:200,
 							},
 							{
-								id:1,
+								id:8,
 								type:1,
 								title:'足球系列2',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 								src:'http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4',
 								playing:false,
+								time:200,
 							},
 							{
-								id:1,
+								id:9,
 								type:2,
 								title:'足球系列3',
 								desc:'一些描述的内容',
 								imgSrc:require('../../image/demo2.jpg'),
 								playing:false,
+								time:200,
 							},
 						],
 					}
 				],
+				currentVideoId:null,
+				videoTotalTime:0, // 总共的时间
+				totalProgress:0,
             }
         },
         computed:{
@@ -402,9 +411,62 @@
             hideLoading(){
                 hideLoading.bind(this)();
             },
+			progressControl(){
+                if( this.currentVideoId ){
+					let time = this.video.currentTime;
+					let totalTime = this.video.duration;
+					let progress = parseInt(time/totalTime * 100,10);
+					console.log(time,this.currentVideoId,totalTime,progress);
+					let classProgress = localStorage.getItem('classProgress');
+					let classArr = [];
+					if( classProgress ){
+						try {
+						    classArr = JSON.parse(classProgress);
+						    let currentClassArr = classArr[this.classId];
+						    if( currentClassArr ){
+								if( currentClassArr.some( val => { return val.id == this.currentVideoId }) ){
+									currentClassArr.forEach(val => {
+//										if( val.id == this.currentVideoId && val.progress < progress){
+//											val.progress = progress
+//										}
+										if( val.id == this.currentVideoId && val.time < time){
+											val.time = time
+										}
+									})
+								}else{
+									currentClassArr.push({
+										id:this.currentVideoId,
+										time:time
+									})
+								}
+							}else{
+								classArr[this.classId] = {
+									id:this.currentVideoId,
+									time:time
+								}
+							}
+							localStorage.setItem('classProgress',JSON.stringify(classArr));
+						}	catch (err){
+
+						}
+					}else{
+					    let obj = {};
+					    obj[this.classId] = [
+							{
+							    id:this.currentVideoId,
+								time:time
+							}
+						]
+						localStorage.setItem('classProgress',JSON.stringify(obj));
+					}
+                }
+			},
 			// 播放视频
 			playVideo(item){
+			    this.progressControl();
 				this.isHasVideo = true;
+				console.log(item);
+				this.currentVideoId = item.id;
 				this.classList.forEach( val => {
 					val.childList.forEach( val2 => {
 					    if(val2.type == 1){
@@ -416,6 +478,7 @@
 				this.video.src = item.src;
 				this.video.click();
 				this.video.play();
+
 			},
             // 微信分享
             async share() {
@@ -442,6 +505,35 @@
 			slideToggle(item){
 				item.slide = !item.slide;
 			},
+			getTotalTime(){
+			    let time = 0;
+			    this.classList.forEach(val => {
+					this.classList.forEach( val => {
+						val.childList.forEach( val2 => {
+							if(val2.type == 1){
+								time += val2.time;
+							}
+						})
+					} )
+				})
+				this.videoTotalTime = time;
+			},
+			getProgress(){
+			    let time = 0;
+			    try {
+					let currentClass = JSON.parse(localStorage.getItem('classProgress'))[this.classId];
+					if ( currentClass.length ){
+						currentClass.forEach( val => {
+						    time += val.time;
+						} )
+					}else{
+					    time = 0
+					}
+				}catch (err){
+					time = 0;
+				}
+				this.totalProgress = parseInt(time/this.videoTotalTime * 100,10);
+			},
     },
     created(){
        // this.share();
@@ -450,8 +542,14 @@
         this.$nextTick( () => {
 			this.video = document.getElementById("my-video");
 			// 监听播放结束事件
+			this.video.addEventListener('pause',() => {
+				// 获取当前视频的播放时间
+				this.progressControl();
+			});
 			this.video.addEventListener('ended',() => {
-			    // 暂停所有的视频
+				// 获取当前视频的播放时间
+				this.progressControl();
+				// 暂停所有的视频
 				this.classList.forEach( val => {
 					val.childList.forEach( val2 => {
 						if(val2.type == 1){
@@ -459,7 +557,10 @@
 						}
 					})
 				} )
-			})
+			});
+
+			this.getTotalTime();
+			this.getProgress();
         })
     }
     }

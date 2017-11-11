@@ -95,7 +95,7 @@
 				font-size:24px;
 				height:40px;
 				line-height:40px;
-				background:url(../../image/time.png) no-repeat left center/18px 18px;
+				background:url(../../image/time.png) no-repeat left center/24px 24px;
 			}
 		}
 	}
@@ -116,7 +116,7 @@
 			</p>
 			<p class="time" v-if="!item.progress">8:30</p>
 			<div class="progress" v-else>
-				<span class="progress-bar"><i :style="'width:' + item.progress +';' "></i></span> 已学习{{item.progress}}
+				<span class="progress-bar"><i :style="'width:' + item.progress +'%;' "></i></span> 已学习{{item.progress}}%
 			</div>
 		</div>
 	</li>
