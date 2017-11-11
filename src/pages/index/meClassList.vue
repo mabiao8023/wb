@@ -20,7 +20,7 @@
 				right:0;
 				background:#fff;
 				text-align:center;
-				color:red;
+				color:#151515;
 				padding:20px;
 				font-size:30px;
 				border-bottom:1px solid #eee;
@@ -48,11 +48,11 @@
 			color:#151515;
 		}
 		.m-title{
-			font-size:28px;
+			font-size:26px;
 			color:#151515;
 		}
 		.b-desc{
-			font-size:26px;
+			font-size:24px;
 			color:#666;
 		}
 		.m-desc{
@@ -65,7 +65,7 @@
     <div class="page-container" >
 		<section class="class-list">
 
-			<h1 class="pay-tip">我学习的课程列表</h1>
+			<h1 class="pay-tip boxShadow">您学习的课程列表</h1>
 			<ul class="c-fl-children-list">
 				<template v-for="(val,index) in classList">
 					<VideoItem
