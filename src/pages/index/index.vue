@@ -591,10 +591,9 @@
 					val.playing = false;
 				} )
 				item.playing = true;
-				this.$nextTick( () => {
-					this.video.src = item.src;
-					this.video.play();
-				})
+				this.video.src = item.src;
+				this.video.click();
+				this.video.play();
 			},
 			// 付费课程点击提示
 			payTipHandle(){
