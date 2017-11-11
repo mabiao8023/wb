@@ -171,7 +171,7 @@
 <template>
     <div class="page-container" >
         <section class="banner">
-			<img v-show="!isHasVideo" src="../../image/scbfm.jpg">
+			<img v-if="!isHasVideo" src="../../image/scbfm.jpg">
 			<div class="video-container"
 				v-show="isHasVideo">
 				<video class="view-cover"
