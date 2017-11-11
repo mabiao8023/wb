@@ -224,7 +224,13 @@
         <section class="banner">
             <img v-if="!isHasVideo" src="../../image/scbfm.jpg">
 			<div v-show="isHasVideo">
-				<video  id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls
+				<video  id="my-video"
+						x5-video-player-type="h5"
+						webkit-playsinline="true"
+						playsinline="true"
+						class="video-js vjs-16-9 vjs-big-play-centered"
+						controls
+						autoplay="autoplay"
 						:poster="postImgSrc" preload>
 					<p class="vjs-no-js">
 						To view this video please enable JavaScript, and consider upgrading to a web browser that
