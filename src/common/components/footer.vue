@@ -9,7 +9,7 @@
 		bottom:0;
 		left:0;
 		right:0;
-		padding:5px 0;
+		padding:8px 0;
 		background:#fff;
 		border-top:1px solid #eee;
 		.footer-container{
