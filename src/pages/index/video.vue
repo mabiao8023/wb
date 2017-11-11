@@ -173,7 +173,6 @@
 						class="video-js vjs-16-9 vjs-big-play-centered"
 						controls
 						:poster="postImgSrc"
-						autoplay="autoplay"
 						preload>
 					<p class="vjs-no-js">
 						To view this video please enable JavaScript, and consider upgrading to a web browser that
@@ -181,14 +180,6 @@
 					</p>
 				</video>
 			</div>
-            <!--<video id="my-video" webkit-playsinline="true" playsinline="true" class="video-js vjs-16-9 vjs-big-play-centered" controls-->
-          <!--:poster="postImgSrc" preload>-->
-            <!--&lt;!&ndash;<source v-if="currentVideoSrc" :src="currentVideoSrc" type="video/mp4">&ndash;&gt;-->
-            <!--<p class="vjs-no-js">-->
-              <!--To view this video please enable JavaScript, and consider upgrading to a web browser that-->
-              <!--<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>-->
-            <!--</p>-->
-          <!--</video>-->
         </section>
         <section class="class-intro">
             <div class="class-progress">
