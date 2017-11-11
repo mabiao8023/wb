@@ -408,7 +408,7 @@
 				this.classList.forEach( val => {
 					val.childList.forEach( val2 => {
 					    if(val2.type == 1){
-							item.playing = false;
+							val2.playing = false;
 						}
 					})
 				} )
