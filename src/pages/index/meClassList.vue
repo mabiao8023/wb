@@ -59,6 +59,23 @@
 			font-size:24px;
 			color:#666;
 		}
+		.empty-list{
+			text-align:center;
+			padding:120px;
+			img{
+				width:128px;
+				height:128px;
+			}
+			.gotoClassList{
+				margin:30px auto;
+				background:@mainColor;
+				width:250px;
+				padding:20px;
+				font-size:26px;
+				border-radius:10px;
+				color:#fff;
+			}
+		}
     }
 </style>
 <template>
@@ -66,7 +83,7 @@
 		<section class="class-list">
 
 			<h1 class="pay-tip boxShadow">您学习的课程列表</h1>
-			<ul class="c-fl-children-list">
+			<ul class="c-fl-children-list" v-if="classList.length">
 				<template v-for="(val,index) in classList">
 					<VideoItem
 						v-if="val.type == 1"
@@ -82,6 +99,12 @@
 					</ArticleItem>
 				</template>
 			</ul>
+			<div v-else class="empty-list">
+				<img src="../../image/empty.png" alt="">
+				<div class="gotoClassList"
+					@click="gotoClassList"
+				>去首页看看</div>
+			</div>
 		</section>
 		<ComFooter current="2"></ComFooter>
 		<!--跳转至个人中心-->
@@ -185,7 +208,9 @@
 					.catch(e => {
 					});
 			},
-
+			gotoClassList(){
+                location.href = './classList.html';
+			},
             // 微信分享
             async share() {
                 // 分享接口获得分享的内容

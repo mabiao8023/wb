@@ -88,7 +88,7 @@
 				.pay-nums{
 					flex:1;
 					padding-left:70px;
-					background:url(../../image/learn.png) no-repeat 20px center/48px 48px;
+					background:url(../../image/f-learn-active.png) no-repeat 20px center/42px 32px;
 				}
             }
         }
