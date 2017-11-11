@@ -9,13 +9,13 @@
         margin:0 auto;
         background:#fff;
         font-size:26px;
-     	.banner{
-			position:fixed;
-			top:0;
-			left:0;
-			right:0;
-			z-index:100;
-		}
+     	/*.banner{*/
+			/*position:fixed;*/
+			/*top:0;*/
+			/*left:0;*/
+			/*right:0;*/
+			/*z-index:100;*/
+		/*}*/
         .video-js{
             width:100%;
         }
@@ -56,7 +56,6 @@
 			justify-content: space-between;
 			align-items: center;
 			padding:20px;
-			padding-top:60%;
 			border-bottom:1px solid #eee;
 			.class-name{
 				font-size:30px;
@@ -428,11 +427,9 @@
 					})
 				} )
 				item.playing = true;
-				this.$nextTick( () => {
-					this.video.src = item.src;
-					this.video.click();
-					this.video.play();
-				})
+				this.video.src = item.src;
+				this.video.click();
+				this.video.play();
 			},
             // 微信分享
             async share() {
