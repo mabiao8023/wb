@@ -19,6 +19,14 @@
         .video-js{
             width:100%;
         }
+		.video-container{
+			width:100%;
+			height:372px;
+			.view-cover{
+				width:100%;
+				height:372px;
+			}
+		}
         .pay-footer{
             position:fixed;
             bottom:0;
@@ -164,21 +172,30 @@
 <template>
     <div class="page-container" >
         <section class="banner">
-			<img v-show="type == 2" src="../../image/scbfm.jpg">
-			<div v-show="type == 1">
-				<video  id="my-video"
-						x5-video-player-type="h5"
-						webkit-playsinline="true"
-						playsinline="true"
-						class="video-js vjs-16-9 vjs-big-play-centered"
-						controls
-						:poster="postImgSrc"
-						preload>
-					<p class="vjs-no-js">
-						To view this video please enable JavaScript, and consider upgrading to a web browser that
-						<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-					</p>
+			<img v-show="!isHasVideo" src="../../image/scbfm.jpg">
+			<div class="video-container"
+				v-show="isHasVideo">
+				<video class="view-cover"
+					   autoplay="autoplay"
+					   controls
+					   id="my-video"
+					   x5-video-player-type="h5"
+					   webkit-playsinline
+					   playsinline>
 				</video>
+				<!--<video  id="my-video"-->
+						<!--x5-video-player-type="h5"-->
+						<!--webkit-playsinline="true"-->
+						<!--playsinline="true"-->
+						<!--class="video-js vjs-16-9 vjs-big-play-centered"-->
+						<!--controls-->
+						<!--:poster="postImgSrc"-->
+						<!--preload>-->
+					<!--<p class="vjs-no-js">-->
+						<!--To view this video please enable JavaScript, and consider upgrading to a web browser that-->
+						<!--<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>-->
+					<!--</p>-->
+				<!--</video>-->
 			</div>
         </section>
         <section class="class-intro">
@@ -406,13 +423,14 @@
 				this.classList.forEach( val => {
 					val.childList.forEach( val2 => {
 					    if(val2.type == 1){
-							item.playing = false;
+							val2.playing = false;
 						}
 					})
 				} )
 				item.playing = true;
 				this.$nextTick( () => {
-					this.video.src(item.src);
+					this.video.src = item.src;
+					this.video.click();
 					this.video.play();
 				})
 			},
@@ -447,23 +465,24 @@
     },
     mounted() {
         this.$nextTick( () => {
+			this.video = document.getElementById("my-video");
             // videojs.options.flash.swf = '//path/to/videojs.swf'
             // var myPlayer = videojs('my-video');
-			var that = this;
-			videojs("my-video",{
-			    width:'100%',
-				aspectRation:'4:3',
-				techOrder:["html5"],
-			}).ready(function(){
-				console.log(this);
-				var myPlayer = this;
-				that.video = this;
-				// 默认初始化播放视频
-				myPlayer.src("http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4");
-
-//				myPlayer.play();
-			});
-			console.log(this.video)
+//			var that = this;
+//			videojs("my-video",{
+//			    width:'100%',
+//				aspectRation:'4:3',
+//				techOrder:["html5"],
+//			}).ready(function(){
+//				console.log(this);
+//				var myPlayer = this;
+//				that.video = this;
+//				// 默认初始化播放视频
+//				myPlayer.src("http://v3.mukewang.com/shizhan/598d4dbfe420e54c688b46a2/H.mp4");
+//
+////				myPlayer.play();
+//			});
+//			console.log(this.video)
         })
     }
     }
