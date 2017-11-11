@@ -143,7 +143,7 @@
 				</div>
 
 			</li>
-			<li class="class-list-item">
+			<li class="class-list-item" @click.stop.prevent="gotoIndex()">
 				<div class="class-info-img">
 					<img src="../../image/scbfm.jpg" alt="">
 					<div class="classed-nums">
@@ -159,7 +159,7 @@
 					</div>
 				</div>
 			</li>
-			<li class="class-list-item">
+			<li class="class-list-item" @click.stop.prevent="gotoIndex()">
 				<div class="class-info-img">
 					<img src="../../image/scbfm.jpg" alt="">
 					<div class="classed-nums">

@@ -9,9 +9,9 @@
 		bottom:0;
 		left:0;
 		right:0;
-		padding:8px 0;
+		padding:10px 0;
 		background:#fff;
-		border-top:1px solid #eee;
+		border-top:1px solid #ccc;
 		.footer-container{
 			display:flex;
 			align-items: center;
