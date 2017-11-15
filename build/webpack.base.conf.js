@@ -31,6 +31,7 @@ var webpackConfig = {
 		video:'./src/entry/index/video.js',
 		classList:'./src/entry/index/classList.js',
 		article:'./src/entry/index/article.js',
+        test:'./src/entry/test/test.js',
     },
     output: {
         path: config.build.assetsRoot,
@@ -103,6 +104,12 @@ var webpackConfig = {
 			template: './src/views/index/article.html',
 			chunks: ['article','vendor','manifest']
 		},HtmlWebpackPluginComConfig)),
+
+        new HtmlWebpackPlugin(Object.assign({
+            filename: path.resolve(__dirname,'./../dist/test.html'),
+            template: './src/views/test/test.html',
+            chunks: ['test','vendor','manifest']
+        },HtmlWebpackPluginComConfig)),
 
     ]
 }

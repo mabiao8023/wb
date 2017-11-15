@@ -64,6 +64,14 @@ module.exports = merge(baseWebpackConfig, {
 		  chunks:['article']
 	  }),
 
+	  // 测试页面
+	  new HtmlWebpackPlugin({
+		  filename: './test.html',
+		  template: './src/views/test/test.html',
+		  inject: true,
+		  chunks:['test']
+	  }),
+
       new FriendlyErrorsPlugin()
   ]
 })
