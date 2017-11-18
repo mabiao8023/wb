@@ -19,7 +19,7 @@ let ajaxResHandle =  ( data,resolve,reject ) => {
     let res = data.body;
     if( res.code == 1 ){
         resolve( res.data )
-    }else if(res.code == 100){
+    }else if(res.code == 1000){
         // 跳转登录
         reject( `${res.msg},即将跳转登录`);
         location.href = res.loginUrl;

@@ -65,7 +65,7 @@
 	<div class="footer">
 		<ul class="footer-container">
 			<li class="classList" :class="{active:current == 1}">
-				<a href="./classList.html">
+				<a href="./index.html">
 					<i class="class-list-icon"></i>
 					课程
 				</a>

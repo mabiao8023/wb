@@ -7,11 +7,11 @@ const aipCommonPath = '/home/apiEntry/api/';
 // }
 
 let apiPath = {
-    banner:`/home/index/banner`, // banner图
-    indexAsks:`/home/index/index`, // 首页问题列表
-	isBindPhone: aipCommonPath + 'isBindPhone',   // 绑定手机
-	sendCode: aipCommonPath + 'sendCode',  // 发送验证码
-	verify: aipCommonPath + 'verify',  // 验证手机号码
+    bannerList:`/banner/list`, // banner图
+    classList:`/class/list`, // 首页问题列表/class/info
+    classInfo:`/class/info`, // 课程特色页面
+    classTry:`/class/try`, // 课程试听列表
+    classChapter:`/class/chapter`, // 课程章节
 }
 
 // let pagePath = {
