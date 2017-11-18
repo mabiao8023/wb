@@ -2,18 +2,18 @@
 *   处理页面中所有的用到的请求
 * */
 import Vue from 'vue'
-import { pagePath } from '../../common/js/config'
+// import { pagePath } from '../../common/js/config'
 // 登录处理
-let loginHandle = () => {
-    try{
-        // 保存当前页面链接到本地
-        localStorage.setItem('prev-link',location.href)
-    }catch(e){
-        console.error(e)
-    }
-    // 跳转至微信授权登录
-    location.href = pagePath;
-}
+// let loginHandle = () => {
+//     try{
+//         // 保存当前页面链接到本地
+//         localStorage.setItem('prev-link',location.href)
+//     }catch(e){
+//         console.error(e)
+//     }
+//     // 跳转至微信授权登录
+//     location.href = pagePath;
+// }
 // 公共的ajax处理函数
 let ajaxResHandle =  ( data,resolve,reject ) => {
     let res = data.body;
@@ -22,7 +22,8 @@ let ajaxResHandle =  ( data,resolve,reject ) => {
     }else if(res.code == 100){
         // 跳转登录
         reject( `${res.msg},即将跳转登录`);
-        loginHandle()
+        location.href = res.loginUrl;
+        // loginHandle()
     }else{
         reject( res.msg )
     }

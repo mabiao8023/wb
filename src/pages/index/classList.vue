@@ -99,6 +99,16 @@
 					border-bottom-left-radius: 8px;
 					border-bottom-right-radius: 8px;
 				}
+				.class-tag{
+					position:absolute;
+					bottom:20px;
+					right:20px;
+					color:#fff;
+					background:red;
+					font-size:24px;
+					padding:4px 8px;
+					border-radius:4px;
+				}
 			}
 
 		}
@@ -165,6 +175,9 @@
 					<div class="classed-nums">
 						12713人学习
 					</div>
+					<div class="class-tag">
+						专项课
+					</div>
 				</div>
 				<div class="class-info-text">
 					<div class="class-name">
@@ -212,7 +225,7 @@
         data() {
             return {
                 // 渠道
-                channel: commonFn.getParams()["channel"]||"",
+                channel: commonFn.getParams()["channel"]||localStorage.getItem('channel')||"",
                 // 提示处理
                 tip: layerConfig,
                 loading: loadingConfig,

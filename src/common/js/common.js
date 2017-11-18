@@ -149,5 +149,10 @@ let commonFn = {
 		},
 };
 
+;(() => {
+    // 保存channel参数到本地
+    let channel = commonFn.getParams()['channel'];
+    channel && localStorage.setItem('channel',channel);
+})();
 
 export default commonFn

@@ -5,14 +5,14 @@
     .page-container{
         min-height:100%;
         background:#fff;
-        padding-bottom:50px;
+        max-width:10rem;
+        margin:0 auto;
         .test-title{
         	font-size:36px;
         	color:#151515;
         }
         .test-peoples{
         	padding:10px 0;
-
   			font-size:26px;
   			.span{
   				display:inline-block;
@@ -143,9 +143,9 @@
 		<template v-else>
 			<section  class="result"> 
 				<div class="r-title">
-					长按结果分享给朋友
+					长按结果卡片分享给朋友
 				</div>
-				<div r-img>
+				<div class="r-img">
 					<img src="../../image/result.jpg">
 				</div>
 			</section>
@@ -290,12 +290,14 @@
 					this.currentQuestion = this.questions[this.currentIndex];
 					this.currentIndex += 1;
             	}
-            	
             },
             beginTest(){
             	this.isBeginTest = true;
-            }
-
+            },
+            getIsTest(){
+                this.layer('您已测试过该项目,可将结果分享给朋友');
+                this.isShowResult = true;
+            },
     },
     created(){
 
@@ -304,6 +306,9 @@
     	this.currentQuestion = this.questions[0];
     	this.currentIndex = 1;
     	this.total = this.questions.length;
+        this.share();
+        // this.getIsTest();
+        addStatisticsCode();
     }
     }
 </script>
