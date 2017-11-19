@@ -146,8 +146,8 @@ let commonFn = {
 			return Agents.some(function(v){
 				return new RegExp(v,'i').test(ua);
 			})
-		},
-};
+		}
+    };
 
 ;(() => {
     // 保存channel参数到本地

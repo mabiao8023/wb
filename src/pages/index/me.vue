@@ -74,7 +74,7 @@
 				<img src="../../image/preson.png">
 			</div>
 			<div class="user-name">
-				All is Well
+				{{ user.nickname }}
 			</div>
 		</div>
 		<ul class="me-list boxShadow">
@@ -83,9 +83,9 @@
 					我的课程
 				</a>
 			</li>
-			<li class="me-list-item">
+			<!-- <li class="me-list-item">
 				待开放
-			</li>
+			</li> -->
 		</ul>
 		<ComFooter current="3"></ComFooter>
 		<!--<aside class="preson-center">-->
@@ -130,6 +130,10 @@
                 // 提示处理
                 tip: layerConfig,
                 loading: loadingConfig,
+                user:{
+                	nickname:'All is Well',
+                	avatar:''
+                }
             }
         },
         computed:{
@@ -157,6 +161,15 @@
                     link:location.href
                 });
             },
+            async getPerson(){
+            	this.showLoading();
+            	await myAjax.get(apiPath.getPerson)
+            		.then( res => {
+
+            		} ).catch( e => {
+            		});
+            	this.hideLoading();
+            }
 
     },
     created(){

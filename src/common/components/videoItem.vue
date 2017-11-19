@@ -56,6 +56,17 @@
 			align-items: stretch;
 			flex-wrap: wrap;
 			margin-left:20px;
+			position:relative;
+			.c-info-tag{
+				position:absolute;
+				right:20px;
+				top:0px;
+				padding:4px 10px;
+				color:#fff;
+				background:@mainColor;
+				font-size:24px;
+				border-radius:4px;
+			}
 			.progress{
 				font-size:24px;
 				.progress-bar{
@@ -107,14 +118,15 @@
 			<div v-else class="model-box">
 				<img src="../../image/play.png">
 			</div>
-			<img src="../../image/demo1.jpg">
+			<img :src="item.img_url">
 		</div>
 		<div class="c-info-content">
+			<div class="c-info-tag" v-if="item.tag">{{item.tag}}</div>
 			<h1 class="m-title">{{ item.title }}</h1>
 			<p class="m-desc">
 				{{ item.desc }}
 			</p>
-			<p class="time" v-if="!item.progress">8:30</p>
+			<p class="time" v-if="!item.progress && item.media_time">{{secondsFormate(item.media_time)}}</p>
 			<div class="progress" v-else>
 				<span class="progress-bar"><i :style="'width:' + item.progress +'%;' "></i></span> 已学习{{item.progress}}%
 			</div>
@@ -130,7 +142,15 @@
 
            }
        },
+
 	   methods:{
+	   	 	secondsFormate(seconds){
+            return [
+                        parseInt(seconds / 60 / 60),
+                        parseInt(seconds / 60 % 60),
+                        parseInt(seconds % 60)
+                    ].join(":").replace(/\b(\d)\b/g, "0$1");
+        	}
 	   }
    }
 </script>

@@ -261,7 +261,14 @@
                        {{ val.content }}
                     </p>
                     <div class="c-img">
-                        <img :src="val.img_url">
+                    	<template v-if="!val.url">
+                    		<img :src="val.img_url">
+                    	</template>
+                    	<template v-else>
+                    		<a :href="val.url">
+                    			<img :src="val.img_url">
+          	        		</a>        		
+                    	</template>      
                     </div>
                 </li>
             </ul>
@@ -543,14 +550,16 @@
 						{
 							title:'6个维度256个知识点',
 							content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?',
-							img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
+							img_url:'https://mabiao8023.github.io/wb/src/image/class8-01.jpg',
 							sort:9,
+							url:'./index.html'
 						},
 						{
 							title:'6个维度256个知识点',
 							content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?',
-							img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
+							img_url:'https://mabiao8023.github.io/wb/src/image/class8-02.jpg',
 							sort:9,
+							url:'./index.html'
 						},
 					]
 				}
@@ -653,11 +662,25 @@
 					.then( res => {
 						this.chapterList = res;
 					} )
-			}
+			},
+
+			// 获取课程简介
+
+			async getClassInfo(){
+				this.showLoading('获取课程中');
+				await	myAjax.get( apiPath.classInfo,{class_id:this.classId} )
+									.then( res => {
+										this.classInfo = res;
+									} );
+				this.hideLoading();
+			},
 
 
     },
     created(){
+    	// this.getClassInfo();
+    	// this.getClassTry();
+    	// this.getClassChapter();
        // this.share();
     },
     mounted() {

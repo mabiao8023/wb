@@ -86,17 +86,22 @@
 			<ul class="c-fl-children-list" v-if="classList.length">
 				<template v-for="(val,index) in classList">
 					<VideoItem
+						:item="val"
+						@click.stop.native="gotoClassIndex(val.id)"
+					></VideoItem>
+
+					<!-- <VideoItem
 						v-if="val.type == 1"
 						:item="val"
 						@click.stop.native="gotoClassIndex(val.id,val.type)"
 					></VideoItem>
-					<!-- 文章显示组件 -->
+					//文章显示组件
 					<ArticleItem
 						v-if="val.type == 2"
 						:item="val"
 						@click.stop.native="gotoClassIndex(val.id,val.type)"
 					>
-					</ArticleItem>
+					</ArticleItem> -->
 				</template>
 			</ul>
 			<div v-else class="empty-list">
@@ -158,29 +163,32 @@
 				classList:[
 					{
 					    id:1,
-						type:1,
+						// type:1,
 						title:'天龙八部',
 						desc:'一些描述的内容',
-						imgSrc:require('../../image/demo1.jpg'),
+						img_url:require('../../image/demo1.jpg'),
+						tag:'专项课',
 						progress:'0',
 						totalTime:4000,
 					},
 					{
 						id:2,
-						type:2,
+						// type:2,
 						title:'射雕英雄传',
 						desc:'一些描述的内容',
-						imgSrc:require('../../image/demo2.jpg'),
+						img_url:require('../../image/demo1.jpg'),
+						tag:'系列课',
 						progress:'0',
 						totalTime:4000,
 					},
 					{
 						id:3,
-						type:1,
+						// type:1,
 						title:'我也不知懂啊',
 						desc:'一些描述的内容',
-						imgSrc:require('../../image/demo2.jpg'),
+						img_url:require('../../image/demo2.jpg'),
 						progress:'0',
+						tag:'不知道',
 						totalTime:4000,
 					},
 				],
@@ -253,6 +261,36 @@
 				    val.progress = this.getProgress(val);
 				})
 			},
+			async getMeClassList(){
+				this.showLoading();
+				await myAjax.get(apiPath.getMeClassList)
+					.then( res => {
+						if(res.length){
+							res.forEach( val => {
+								val.totalTime = this.getTotalTime(val.id);
+							} )	
+
+						}
+						this.classList = res;
+						this.initListProgress();
+					} );
+					this.hideLoading();
+			},
+			getTotalTime(classId){
+				let totalTime = Infinity;
+				let arr = [];
+				try{
+					arr = JSON.parse(localStorage.getItem('totalTime'));
+					arr.forEach(val=>{
+						if(val.id == classId){
+							totalTime = val.totalTime;
+						}
+					}) 
+				}catch(err){
+
+				}
+				return totalTime;
+			}
     },
     created(){
        // this.share();

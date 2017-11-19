@@ -71,7 +71,7 @@
 	<li class="c-fl-children-item">
 		<div class="c-info-img">
 			<div class="playing">阅读课程</div>
-			<img src="../../image/demo1.jpg">
+			<img :src="item.img_url">
 		</div>
 		<div class="c-info-content">
 			<h1 class="m-title">{{ item.title }}</h1>
