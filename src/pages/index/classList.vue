@@ -217,6 +217,13 @@
 				}
 			}
 		}
+		.class-tag{
+			color:#fff;
+			background:@mainColor;
+			font-size:24px;
+			padding:4px 8px;
+			border-radius:4px;
+		}
     }
 </style>
 <template>
@@ -240,6 +247,7 @@
 					   x5-video-player-type="h5"
 					   webkit-playsinline
 					   playsinline>
+					<p>您的浏览器不支持该视频播放，请升级或者更换浏览器观看</p>
 				</video>
 			</div>
         </section>
@@ -247,7 +255,10 @@
             <div class="class-name">
                 {{classInfo.title}}
             </div>
-            <div class="class-money">
+			<div class="class-tag" v-if="classInfo.tag">
+				{{classInfo.tag}}
+			</div>
+            <div class="class-money" v-else>
                 <span class="c-r-money">￥{{classInfo.price}}</span>
             </div>
         </section>
@@ -267,8 +278,8 @@
                     	<template v-else>
                     		<a :href="val.url">
                     			<img :src="val.img_url">
-          	        		</a>        		
-                    	</template>      
+          	        		</a>
+                    	</template>
                     </div>
                 </li>
             </ul>
@@ -518,7 +529,7 @@
 							content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?',
 							playing:false,
 						},
-						
+
 					},
 					{
 					    id:1,
@@ -546,6 +557,7 @@
 					price:299,
 					title:'公众号运营速成课程',
 					status:1,
+					tag:'专项课',
 					introduce:[
 						{
 							title:'6个维度256个知识点',
@@ -643,8 +655,10 @@
 				this.hideLoading();
 			},
 			// 支付成功
-			wxPaySuc(){
-				// todo:支付成功后要做的事情	
+			async wxPaySuc(){
+			    // 支付完成后跳转至页面视频页面
+				location.href = './video.html';
+
 			},
 
 			// 获取试看列表的数据
@@ -665,22 +679,19 @@
 			},
 
 			// 获取课程简介
-
 			async getClassInfo(){
 				this.showLoading('获取课程中');
 				await	myAjax.get( apiPath.classInfo,{class_id:this.classId} )
 									.then( res => {
 										this.classInfo = res;
-									} );
+									});
 				this.hideLoading();
 			},
-
-
     },
     created(){
-    	// this.getClassInfo();
-    	// this.getClassTry();
-    	// this.getClassChapter();
+		// this.getClassInfo();
+		// this.getClassTry();
+		// this.getClassChapter();
        // this.share();
     },
     mounted() {

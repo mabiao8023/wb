@@ -136,7 +136,7 @@
 			</swiper>
 		</div>
 		<ul class="class-list">
-			<li class="class-list-item" 
+			<li class="class-list-item"
 				v-for="(item,index) in classList"
 			@click.stop.prevent="gotoIndex(item.id)">
 				<div class="class-info-img">
@@ -269,7 +269,8 @@
             	this.showLoading();
             	await myAjax.get(apiPath.bannerList)
             		.then( res => {
-            			this.bannerList = res;	
+            		    console.log(res);
+            			this.bannerList = res;
             		}).catch( e => {});
             	this.hideLoading();
             },
@@ -283,9 +284,8 @@
     },
     created(){
     	// todo:请求数据
-    	// this.getBannerList();
-    	// this.getClassList();
-
+    	 this.getBannerList();
+    	 this.getClassList();
     },
     mounted() {
 

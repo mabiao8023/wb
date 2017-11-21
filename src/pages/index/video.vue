@@ -308,7 +308,6 @@
 							    	desc:'heihei',
 							    	playing:false,
 							    },
-
 							},
 							{
 							    id:1,
@@ -539,13 +538,13 @@
 					try{
 						arr = JSON.parse(totalTime);
 						if(arr.every( val => {
-							return val.id != this.classId; 
+							return val.id != this.classId;
 						} )){
 							arr.push({
 							id:this.classId,
 							totalTime:this.videoTotalTime
 						});
-						}	
+						}
 					}catch(err){
 
 					}
