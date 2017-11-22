@@ -76,7 +76,114 @@
 				color:#fff;
 			}
 		}
+
     }
+    .c-fl-children-item{
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		padding:20px;
+		margin-bottom:0;
+		background:#fff;
+		border-bottom:1px solid #eee;
+		/*&:hover{*/
+			/*background:#eee;*/
+		/*}*/
+		.c-info-img{
+			width:200px;
+			height:120px;
+			overflow: hidden;
+			position:relative;
+			.playing{
+				position:absolute;
+				top:0;
+				left:8px;
+				color:#fff;
+				background:@mainColor;
+				padding:6px 10px;
+				font-size:24px;
+				border-bottom-left-radius: 8px;
+				border-bottom-right-radius: 8px;
+			}
+			.model-box{
+				position:absolute;
+				left:0;
+				top:0;
+				bottom:0;
+				right:0;
+				background:rgba(0,0,0,.5);
+				img{
+					width:60px;
+					height:60px;
+					position:absolute;
+					top:50%;
+					left:50%;
+					margin-left:-30px;
+					margin-top:-30px;
+				}
+			}
+		}
+		.c-info-content{
+			flex:1;
+			height:120px;
+			display:flex;
+			align-items: stretch;
+			flex-wrap: wrap;
+			margin-left:20px;
+			position:relative;
+			.c-info-tag{
+				position:absolute;
+				right:20px;
+				top:0px;
+				padding:4px 10px;
+				color:#fff;
+				background:@mainColor;
+				font-size:24px;
+				border-radius:4px;
+			}
+			.progress{
+				font-size:24px;
+				.progress-bar{
+					display:inline-block;
+					vertical-align:middle;
+					width:150px;
+					height:10px;
+					margin-right:20px;
+					background:#ddd;
+					border-radius:5px;
+					position:relative;
+					overflow: hidden;
+
+					i{
+						position: absolute;
+						top:0;
+						left:0;
+						width:30%;
+						height:10px;
+						margin-right:20px;
+						border-bottom-left-radius: 5px;
+						border-top-left-radius: 5px;
+						background: @mainColor;
+						z-index:100;
+					}
+				}
+			}
+			.m-desc{
+				width:100%;
+				text-align:justify;
+				overflow: hidden;
+				text-overflow:ellipsis;
+				white-space: nowrap;
+			}
+			.time{
+				padding-left:34px;
+				font-size:24px;
+				height:40px;
+				line-height:40px;
+				background:url(../../image/time.png) no-repeat left center/24px 24px;
+			}
+		}
+	}
 </style>
 <template>
     <div class="page-container" >
@@ -84,11 +191,28 @@
 
 			<h1 class="pay-tip boxShadow">您学习的课程列表</h1>
 			<ul class="c-fl-children-list" v-if="classList.length">
-				<template v-for="(val,index) in classList">
-					<VideoItem
-						:item="val"
-						@click.stop.native="gotoClassIndex(val.id)"
-					></VideoItem>
+					<li class="c-fl-children-item"
+					 v-for="(item,index) in classList"
+					 @click.stop="gotoClassIndex(item.id)">
+						<div class="c-info-img">
+							<!-- <div v-if="item.resource.playing" class="playing">正在播放</div> -->
+							<!-- <div class="model-box">
+								<img src="../../image/play.png">
+							</div> -->
+							<img :src="item.img_url">
+						</div>
+						<div class="c-info-content">
+							<div class="c-info-tag" v-if="item.tag">{{item.tag}}</div>
+							<h1 class="m-title">{{ item.title }}</h1>
+							<p class="m-desc">
+								{{ item.desc }}
+							</p>
+							<!-- <p class="time" v-if="!item.progress && item.resource.media_time">{{secondsFormate(item.resource.media_time)}}</p> -->
+							<div class="progress">
+								<span class="progress-bar"><i :style="'width:' + item.progress +'%;' "></i></span> 已学习{{item.progress}}%
+							</div>
+						</div>
+					</li>
 
 					<!-- <VideoItem
 						v-if="val.type == 1"
@@ -102,7 +226,6 @@
 						@click.stop.native="gotoClassIndex(val.id,val.type)"
 					>
 					</ArticleItem> -->
-				</template>
 			</ul>
 			<div v-else class="empty-list">
 				<img src="../../image/empty.png" alt="">
@@ -234,8 +357,8 @@
                     cancelCb:this.layer.bind(this,'支付失败，请重试'),
                 });
             },
-			gotoClassIndex(id,type){
-				location.href = `./video.html?id=${id}&type=${type}`;
+			gotoClassIndex(id){
+				location.href = `./video.html?id=${id}`;
 			},
 			getProgress(value){
 				let time = 0;
@@ -267,7 +390,7 @@
 								val.totalTime = this.getTotalTime(val.id);
 							} )
 						}
-						this.classList = res;
+						// this.classList = res;
 						this.initListProgress();
 					} ).catch( e => {this.layer(e)} );
 					this.hideLoading();
@@ -290,9 +413,7 @@
     },
     created(){
        // this.share();
-		this.getMeClassList().then( res => {
-			this.initListProgress();
-		} )
+		this.getMeClassList()
     },
     mounted() {
 
