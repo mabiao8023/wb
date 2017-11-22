@@ -137,7 +137,7 @@
             },
             async getArticle(){
                 this.showLoading('获取文章中')
-                await myAjax.get(apiPath.getArticle,{id:this.articleId})
+                await myAjax.get(apiPath.userArticle,{resource_id:this.articleId})
                     .then( res => {
                         this.article = res;
                     } )
@@ -145,7 +145,7 @@
             }
     },
     created(){
-        // this.getArticle();
+        this.getArticle();
        // this.share();
     },
     mounted() {

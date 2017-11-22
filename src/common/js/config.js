@@ -15,6 +15,7 @@ let apiPath = {
 	classPay:`${Host}/order/buyClass`,// 购买课程
 	userClass:`${Host}/user/class`, //已购买的接口
 	userChapter:`${Host}/user/chapter`,
+	userArticle:`${Host}/user/article`, //已购买文章接口
 }
 
 // let pagePath = {

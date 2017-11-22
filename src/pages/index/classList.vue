@@ -646,9 +646,10 @@
 			async gotoPay(){
 				this.showLoading('支付中')
 				await myAjax.post(apiPath.classPay,{class_id:this.classId}).then( res => {
+					let wxConfig = res.jsapiConfig;
 					commonFn.wxPay({
-	                    wxPayConf:res.jsApiParameters,
-	                    successCb:this.wxPaySuc.bind(this,res.out_trade_no),
+	                    wxPayConf:wxConfig.jsApiParameters,
+	                    successCb:this.wxPaySuc.bind(this,wxConfig.out_trade_no),
 	                    failCb:this.layer.bind(this,'支付失败，请重试'),
 	                    cancelCb:this.layer.bind(this,'支付失败，请重试'),
 	                });
