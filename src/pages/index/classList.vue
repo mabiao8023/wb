@@ -290,13 +290,13 @@
 				<template v-for="item in freeClassList">
 					<VideoItem
 						v-if="item.resource_type == 0"
-						:item="item.resource"
+						:item="item"
 						@click.stop.native="playVideo(item)"
 					></VideoItem>
 					<!-- 文章显示组件 -->
 					<ArticleItem
 						v-if="item.resource_type == 1"
-						:item="item.resource"
+						:item="item"
 						@click.stop.native="gotoArticle(item.resource.id)"
 					>
 					</ArticleItem>
@@ -318,13 +318,13 @@
 						<template v-for="val in item.lesson">
 							<VideoItem
 								v-if="val.resource_type == 0"
-								:item="val.resource"
+								:item="val"
 								@click.stop.native="payTipHandle(val)"
 							></VideoItem>
 							<!-- 文章显示组件 -->
 							<ArticleItem
 								v-if="val.resource_type == 1"
-								:item="val.resource"
+								:item="val"
 								@click.stop.native="payTipHandle(val)"
 							>
 							</ArticleItem>
@@ -399,116 +399,115 @@
 				chapterList:[
 					{
 						id:1,
-					    title:'足球系列',
-					    chapter_id:1,
+						title:'足球系列',
+						chapter_no:1,
 						desc:'专业的足球竞技教学视频',
 						slide:false,
 						lesson:[
 							{
-							    id:1,
-							    lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:0,
-							    title:'足球系列1',
-							    resource:{
-							    	id:1,
-							    	media_url:'',
-							    	media_time:3003,
-							    	size:12333,
-							    	title:'大猫',
-							    	img_url:require('../../image/demo1.jpg'),
-							    	content:'哈哈哈哈哈哈哈',
-							    	desc:'heihei'
-							    },
-							},
-							{
-							    id:1,
-							    lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:0,
-							    title:'足球系列1',
-							    resource:{
-							    	id:1,
-							    	media_url:'',
-							    	media_time:3003,
-							    	size:12333,
-							    	title:'大猫',
-							    	img_url:require('../../image/demo1.jpg'),
-							    	content:'哈哈哈哈哈哈哈'
-							    },
-							},
-							{
-							    id:1,
-							    lesson_no:1, // 第几课
+								id:1,
+								lesson_no:1, // 第几课
 								desc:'一些描述的内容',
 								resource_type:1,
-							    title:'足球系列1',
-							    resource:{
-							    	id:1,
-							    	media_url:'',
-							    	media_time:3003,
-							    	size:12333,
-							    	title:'大猫',
-							    	img_url:require('../../image/demo1.jpg'),
-							    	content:'哈哈哈哈哈哈哈'
-							    },
+								img_url:require('../../image/demo1.jpg'),
+								title:'足球系列1',
+								resource:{
+									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
+									media_time:3003,
+									title:'大猫',
+									img_url:require('../../image/demo1.jpg'),
+									content:'哈哈哈哈哈哈哈',
+									playing:false,
+								},
+							},
+							{
+								id:1,
+								lesson_no:1, // 第几课
+								desc:'一些描述的内容',
+								resource_type:0,
+								img_url:require('../../image/demo1.jpg'),
+								title:'足球系列1',
+								resource:{
+									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
+									media_time:3003,
+									title:'大猫',
+									img_url:require('../../image/demo1.jpg'),
+									content:'哈哈哈哈哈哈哈',
+									playing:false,
+								},
+							},
+							{
+								id:1,
+								lesson_no:1, // 第几课
+								desc:'一些描述的内容',
+								resource_type:0,
+								img_url:require('../../image/demo1.jpg'),
+								title:'足球系列1',
+								resource:{
+									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
+									media_time:3003,
+									title:'大猫',
+									img_url:require('../../image/demo1.jpg'),
+									content:'哈哈哈哈哈哈哈',
+									playing:false,
+								},
 							},
 						],
 					},
 					{
 						id:1,
-					    title:'篮球系列',
-					    chapter_id:1,
+						title:'足球系列',
+						chapter_no:1,
 						desc:'专业的足球竞技教学视频',
-						slide:true,
+						slide:false,
 						lesson:[
 							{
-							    id:1,
-							    lesson_no:1, // 第几课
+								id:1,
+								lesson_no:1, // 第几课
 								desc:'一些描述的内容',
 								resource_type:0,
-							    title:'足球系列1',
-							    resource:{
-							    	id:1,
-							    	media_url:'',
-							    	media_time:3003,
-							    	size:12333,
-							    	title:'大猫',
-							    	img_url:require('../../image/demo1.jpg'),
-							    	content:'哈哈哈哈哈哈哈'
-							    },
+								img_url:require('../../image/demo1.jpg'),
+								title:'足球系列1',
+								resource:{
+									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
+									media_time:3003,
+									title:'大猫',
+									img_url:require('../../image/demo1.jpg'),
+									content:'哈哈哈哈哈哈哈',
+									playing:false,
+								},
 							},
 							{
-							    id:1,
-							    lesson_no:1, // 第几课
+								id:1,
+								lesson_no:1, // 第几课
 								desc:'一些描述的内容',
 								resource_type:0,
-							    title:'足球系列1',
-							    resource:{
-							    	id:1,
-							    	media_url:'',
-							    	media_time:3003,
-							    	size:12333,
-							    	title:'大猫',
-							    	img_url:require('../../image/demo1.jpg'),
-							    	content:'哈哈哈哈哈哈哈'
-							    },
+								img_url:require('../../image/demo1.jpg'),
+								title:'足球系列1',
+								resource:{
+									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
+									media_time:3003,
+									title:'大猫',
+									img_url:require('../../image/demo1.jpg'),
+									content:'哈哈哈哈哈哈哈',
+									playing:false,
+								},
 							},
 							{
-							    id:1,
-							    lesson_no:1, // 第几课
+								id:1,
+								lesson_no:1, // 第几课
 								desc:'一些描述的内容',
-								resource_type:1,
-							    title:'足球系列1',
-							    resource:{
-							    	id:1,
-							    	media_url:'',
-							    	media_time:3003,
-							    	size:12333,
-							    	title:'大猫',
-							    	img_url:require('../../image/demo1.jpg'),
-							    	content:'哈哈哈哈哈哈哈'
-							    },
+								resource_type:0,
+								img_url:require('../../image/demo1.jpg'),
+								title:'足球系列1',
+								resource:{
+									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
+									media_time:3003,
+									title:'大猫',
+									img_url:require('../../image/demo1.jpg'),
+									content:'哈哈哈哈哈哈哈',
+									playing:false,
+								},
 							},
 						],
 					},
@@ -516,35 +515,40 @@
 				freeClassList:[
 					{
 					    id:1,
+						class_id:1,
 						resource_type:0, // 1 -> 视频  2 -> 文章
 						sort:1,
+						title:'大数据文章',
+						desc:'哈哈哈哈哈哈哈哈哈哈',
+						img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
+						resource:{
+							id:1,
+							media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
+							media_time:300,
+							title:'大数据文章',
+							img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
+							content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?',
+							playing:false,
+						},
+					},
+					{
+						id:1,
+						resource_type:0, // 1 -> 视频  2 -> 文章
+						sort:1,
+						title:'大数据文章',
+						desc:'哈哈哈哈哈哈哈哈哈哈',
+						img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
 						resource:{
 							id:1,
 							media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
 							media_time:300,
 							size:10240,
 							title:'大数据文章',
-							desc:'哈哈哈哈哈哈哈哈哈哈',
 							img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
 							content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?',
 							playing:false,
 						},
 
-					},
-					{
-					    id:1,
-						resource_type:1, // 1 -> 视频  2 -> 文章
-						sort:1,
-						resource:{
-							id:1,
-							media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-							media_time:300,
-							size:10240,
-							title:'大数据文章',
-							img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-							content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?',
-							playing:false,
-						},
 					},
 				],
 				isShowQrodePop:false, //是否显示二维码弹窗
@@ -665,8 +669,15 @@
 			getClassTry(){
 				myAjax.get(apiPath.classTry,{class_id:this.classId})
 					.then( res => {
-						this.freeClassList = res;
-					} ).catch( e => {} )
+					    if(res.length){
+					        res.forEach( val => {
+					            val.resource.playing = false;
+							} );
+							this.freeClassList = res;
+						}else{
+					        this.layer('暂无数据');
+						}
+					} ).catch( e => {})
 			},
 
 			// 获取课程章节列表
@@ -674,7 +685,19 @@
 			getClassChapter(){
 				myAjax.get( apiPath.classChapter,{class_id:this.classId} )
 					.then( res => {
-						this.chapterList = res;
+						if( res.length ){
+						    console.log(res);
+							res.forEach( (val,i) => {
+								val.slide = i === 0 ?  false : true;
+								val.lesson && val.lesson.forEach( val2 => {
+									val2.resource.playing = false;
+								})
+							});
+							this.chapterList = res;
+							console.log(this.chapterList )
+						}else{
+							this.layer('暂无数据')
+						}
 					} )
 			},
 
@@ -689,13 +712,12 @@
 			},
     },
     created(){
-		// this.getClassInfo();
-		// this.getClassTry();
-		// this.getClassChapter();
+		 this.getClassInfo();
+		 this.getClassTry();
+		 this.getClassChapter();
        // this.share();
     },
     mounted() {
-        var that = this;
 		this.$nextTick( () => {
 			this.video = document.getElementById("my-video");
 		})

@@ -163,7 +163,6 @@
 				classList:[
 					{
 					    id:1,
-						// type:1,
 						title:'天龙八部',
 						desc:'一些描述的内容',
 						img_url:require('../../image/demo1.jpg'),
@@ -173,7 +172,6 @@
 					},
 					{
 						id:2,
-						// type:2,
 						title:'射雕英雄传',
 						desc:'一些描述的内容',
 						img_url:require('../../image/demo1.jpg'),
@@ -183,7 +181,6 @@
 					},
 					{
 						id:3,
-						// type:1,
 						title:'我也不知懂啊',
 						desc:'一些描述的内容',
 						img_url:require('../../image/demo2.jpg'),
@@ -263,17 +260,16 @@
 			},
 			async getMeClassList(){
 				this.showLoading();
-				await myAjax.get(apiPath.getMeClassList)
+				await myAjax.get(apiPath.userClass)
 					.then( res => {
 						if(res.length){
 							res.forEach( val => {
 								val.totalTime = this.getTotalTime(val.id);
-							} )	
-
+							} )
 						}
 						this.classList = res;
 						this.initListProgress();
-					} );
+					} ).catch( e => {this.layer(e)} );
 					this.hideLoading();
 			},
 			getTotalTime(classId){
@@ -285,7 +281,7 @@
 						if(val.id == classId){
 							totalTime = val.totalTime;
 						}
-					}) 
+					})
 				}catch(err){
 
 				}
@@ -294,9 +290,12 @@
     },
     created(){
        // this.share();
+		this.getMeClassList().then( res => {
+			this.initListProgress();
+		} )
     },
     mounted() {
-        this.initListProgress();
+
     }
     }
 </script>

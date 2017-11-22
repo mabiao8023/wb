@@ -13,6 +13,8 @@ let apiPath = {
     classTry:`${Host}/class/try`, // 课程试听列表
     classChapter:`${Host}/class/chapter`, // 课程章节
 	classPay:`${Host}/order/buyClass`,// 购买课程
+	userClass:`${Host}/user/class`, //已购买的接口
+	userChapter:`${Host}/user/chapter`,
 }
 
 // let pagePath = {

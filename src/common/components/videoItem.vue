@@ -114,7 +114,7 @@
 <template>
 	<li class="c-fl-children-item">
 		<div class="c-info-img">
-			<div v-if="item.playing" class="playing">正在播放</div>
+			<div v-if="item.resource.playing" class="playing">正在播放</div>
 			<div v-else class="model-box">
 				<img src="../../image/play.png">
 			</div>
@@ -126,7 +126,7 @@
 			<p class="m-desc">
 				{{ item.desc }}
 			</p>
-			<p class="time" v-if="!item.progress && item.media_time">{{secondsFormate(item.media_time)}}</p>
+			<p class="time" v-if="!item.progress && item.resource.media_time">{{secondsFormate(item.resource.media_time)}}</p>
 			<div class="progress" v-else>
 				<span class="progress-bar"><i :style="'width:' + item.progress +'%;' "></i></span> 已学习{{item.progress}}%
 			</div>

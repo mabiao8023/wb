@@ -269,8 +269,7 @@
             	this.showLoading();
             	await myAjax.get(apiPath.bannerList)
             		.then( res => {
-            		    console.log(res);
-            			this.bannerList = res;
+            			this.banner = res;
             		}).catch( e => {});
             	this.hideLoading();
             },
