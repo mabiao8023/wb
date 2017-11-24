@@ -198,47 +198,8 @@
                 // 提示处理
                 tip: layerConfig,
                 loading: loadingConfig,
-				banner:[
-					{
-						id:0,
-						img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-						url:'./classList.html',
-					},{
-						id:1,
-						img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-						url:'./classList.html',
-					},{
-						id:2,
-						img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-						url:'./classList.html',
-					}
-				],
-				classList:[
-					{
-					    id:1,
-						title:'公众号运营速成课程',
-						img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-						sold:1232,
-						price:299.99,
-						tag:''
-					},
-					{
-					    id:2,
-						title:'公众号运营速成课程',
-						img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-						sold:1232,
-						price:299.99,
-						tag:''
-					},
-					{
-					    id:3,
-						title:'公众号运营速成课程',
-						img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-						sold:1232,
-						price:299.99,
-						tag:'专项课'
-					},
-				]
+				banner:[],
+				classList:[]
             }
         },
         computed:{
@@ -276,10 +237,9 @@
             getClassList(){
             	myAjax.get(apiPath.classList,{page:1})
             		.then( res => {
-            			this.classList = res;
+            			this.classList = res.list;
             		} ).catch( e => {} );
             },
-
     },
     created(){
     	// todo:请求数据

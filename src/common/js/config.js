@@ -7,15 +7,16 @@ const Host = `//120.78.193.207`;
 // }
 
 let apiPath = {
-    bannerList:`${Host}/banner/list`, // banner图
-    classList:`${Host}/class/list`, // 首页问题列表/class/info
+    bannerList:`${Host}/index/banner`, // banner图
+    classList:`${Host}/index/class`, // 首页问题列表/class/info
     classInfo:`${Host}/class/info`, // 课程特色页面
     classTry:`${Host}/class/try`, // 课程试听列表
     classChapter:`${Host}/class/chapter`, // 课程章节
 	classPay:`${Host}/order/buyClass`,// 购买课程
-	userClass:`${Host}/user/class`, //已购买的接口
-	userChapter:`${Host}/user/chapter`,
-	userArticle:`${Host}/user/article`, //已购买文章接口
+	userClass:`${Host}/my_class_list/list`, //已购买的接口
+	userChapter:`${Host}/my_class/info`,
+	userArticle:`${Host}/article/info`, //已购买文章接口
+	getPerson:`${Host}/me/info`, // 获取个人信息
 }
 
 // let pagePath = {
