@@ -110,9 +110,7 @@
 					border-radius:4px;
 				}
 			}
-
 		}
-
     }
 </style>
 <template>
@@ -127,6 +125,7 @@
 					:loop="true"
 					:autoplay="true"
 					:autoplaytime="4000"
+					v-if="banner.length > 0"
 			>
 				<div v-for="(item,index) in banner">
 					<a :href="item.url">

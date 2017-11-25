@@ -392,7 +392,7 @@
                 // 提示处理
                 tip: layerConfig,
                 loading: loadingConfig,
-                classId:commonFn.getParams()['channel']||1,
+                classId:commonFn.getParams()['id']||1,
                 postImgSrc:postImg,
 				isHasVideo:false,
 				navType:1,  // 1代表课程首页，2代表课程代表
