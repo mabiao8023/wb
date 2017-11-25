@@ -11,7 +11,7 @@
         font-size:26px;
 		.banner-container{
 			width:100%;
-			height:320px;
+			//height:320px;
 			overflow: hidden;
 		}
 		.c-xq{

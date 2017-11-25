@@ -200,7 +200,7 @@
 			font-size:0;
 			li{
 				width:100%;
-				padding:20px 0;
+				//padding:20px 0;
 				.c-h1{
 					font-size:32px;
 					padding:20px;

@@ -348,15 +348,7 @@
                     link:location.href
                 });
             },
-            // 微信支付
-            async pay(){
-                commonFn.wxPay({
-                    wxPayConf:res.jsApiParameters,
-                    successCb:this.wxPaySuc.bind(this,res.out_trade_no),
-                    failCb:this.wxPayFail.bind(this,'支付失败，请重试'),
-                    cancelCb:this.layer.bind(this,'支付失败，请重试'),
-                });
-            },
+           
 			gotoClassIndex(id){
 				location.href = `./video.html?id=${id}`;
 			},
@@ -390,7 +382,7 @@
 								val.totalTime = this.getTotalTime(val.id);
 							} )
 						}
-						// this.classList = res;
+						this.classList = res;
 						this.initListProgress();
 					} ).catch( e => {this.layer(e)} );
 					this.hideLoading();
