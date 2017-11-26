@@ -17,6 +17,7 @@ let apiPath = {
 	userChapter:`${Host}/my_class/info`,
 	userArticle:`${Host}/article/info`, //已购买文章接口
 	getPerson:`${Host}/me/info`, // 获取个人信息
+	classPercent:`${Host}/my_class/learn_percent`, // 添加课程进度
 }
 
 // let pagePath = {
