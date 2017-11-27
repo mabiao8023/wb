@@ -224,6 +224,10 @@
 			padding:4px 8px;
 			border-radius:4px;
 		}
+		.no-data{
+			text-align: center;
+			/*font-size:*/
+		}
     }
 </style>
 <template>

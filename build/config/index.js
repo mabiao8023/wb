@@ -8,7 +8,7 @@ module.exports = {
         autoPx2Rem: projectConfig.autoPx2Rem,
         env: require('./prod.env'),
         // 构建的目录代码
-        assetsRoot: path.resolve(__dirname, './../dist/'),
+        assetsRoot: path.resolve(__dirname, '../../dist/'),
         assetsSubDirectory: 'static',    // 子目录
         // cdn
         assetsPublicPath: 'http://img.ggwan.com/yd/Public/forecast/yqwWX/',  // cdn路径
