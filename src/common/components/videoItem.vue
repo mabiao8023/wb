@@ -126,10 +126,10 @@
 			<p class="m-desc">
 				{{ item.desc }}
 			</p>
-			<p class="time" v-if="!item.progress && item.resource.media_time">{{secondsFormate(item.resource.media_time)}}</p>
-			<div class="progress" v-else>
-				<span class="progress-bar"><i :style="'width:' + item.progress +'%;' "></i></span> 已学习{{item.progress}}%
-			</div>
+			<p class="time" v-if="item.resource.media_time">{{secondsFormate(item.resource.media_time)}}</p>
+			<!--<div class="progress" v-else>-->
+				<!--<span class="progress-bar"><i :style="'width:' + item.progress +'%;' "></i></span> 已学习{{item.progress}}%-->
+			<!--</div>-->
 		</div>
 	</li>
 </template>

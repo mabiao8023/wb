@@ -209,7 +209,7 @@
 							</p>
 							<!-- <p class="time" v-if="!item.progress && item.resource.media_time">{{secondsFormate(item.resource.media_time)}}</p> -->
 							<div class="progress">
-								<span class="progress-bar"><i :style="'width:' + item.progress +'%;' "></i></span> 已学习{{item.progress}}%
+								<span class="progress-bar"><i :style="'width:' + (item.learn_percent || 0) +'%;' "></i></span> 已学习{{item.learn_percent || 0}}%
 							</div>
 						</div>
 					</li>
@@ -283,35 +283,7 @@
                 loading: loadingConfig,
 				isHasVideo:false,
 				navType:2,  // 1代表课程首页，2代表课程代表
-				classList:[
-					{
-					    id:1,
-						title:'天龙八部',
-						desc:'一些描述的内容',
-						img_url:require('../../image/demo1.jpg'),
-						tag:'专项课',
-						progress:'0',
-						totalTime:4000,
-					},
-					{
-						id:2,
-						title:'射雕英雄传',
-						desc:'一些描述的内容',
-						img_url:require('../../image/demo1.jpg'),
-						tag:'系列课',
-						progress:'0',
-						totalTime:4000,
-					},
-					{
-						id:3,
-						title:'我也不知懂啊',
-						desc:'一些描述的内容',
-						img_url:require('../../image/demo2.jpg'),
-						progress:'0',
-						tag:'不知道',
-						totalTime:4000,
-					},
-				],
+				classList:[],
             }
         },
         computed:{
@@ -348,42 +320,16 @@
                     link:location.href
                 });
             },
-           
+
 			gotoClassIndex(id){
 				location.href = `./video.html?id=${id}`;
-			},
-			getProgress(value){
-				let time = 0;
-				try {
-					let currentClass = JSON.parse(localStorage.getItem('classProgress'))[value.id];
-					if ( currentClass.length ){
-						currentClass.forEach( val => {
-							time += val.time;
-						} )
-					}else{
-						time = 0
-					}
-				}catch (err){
-					time = 0;
-				}
-				return parseInt(time/value.totalTime * 100,10);
-			},
-			initListProgress(){
-				this.classList.forEach( val => {
-				    val.progress = this.getProgress(val);
-				})
 			},
 			async getMeClassList(){
 				this.showLoading();
 				await myAjax.get(apiPath.userClass)
 					.then( res => {
-						if(res.length){
-							res.forEach( val => {
-								val.totalTime = this.getTotalTime(val.id);
-							} )
-						}
+
 						this.classList = res;
-						this.initListProgress();
 					} ).catch( e => {this.layer(e)} );
 					this.hideLoading();
 			},

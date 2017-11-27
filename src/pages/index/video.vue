@@ -195,7 +195,7 @@
             <div class="class-progress">
                 <h1 class="class-name">{{classInfo.title}}</h1>
 				<div class="progress">
-					<span class="progress-bar"><i :style="'width:'+totalProgress+'%;'"></i></span>已学{{totalProgress}}%
+					<span class="progress-bar"><i :style="'width:'+classInfo.learn_percent+'%;'"></i></span>已学{{classInfo.learn_percent}}%
 				</div>
             </div>
             <div class="class-zixun" @click.stop="isShowQrodePop = true">
@@ -283,131 +283,8 @@
 				isShowQrodePop:false,
 				video:null,
 				currentVideoSrc:'',
-				chapterList:[
-					{
-						id:1,
-					    title:'足球系列',
-					    chapter_no:1,
-						desc:'专业的足球竞技教学视频',
-						slide:false,
-						lesson:[
-							{
-							    id:1,
-							    lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:1,
-							    img_url:require('../../image/demo1.jpg'),
-							    title:'足球系列1',
-							    resource:{
-							    	media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-							    	media_time:3003,
-							    	title:'大猫',
-							    	img_url:require('../../image/demo1.jpg'),
-							    	content:'哈哈哈哈哈哈哈',
-							    	playing:false,
-							    },
-							},
-							{
-								id:1,
-								lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:0,
-								img_url:require('../../image/demo1.jpg'),
-								title:'足球系列1',
-								resource:{
-									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-									media_time:3003,
-									title:'大猫',
-									img_url:require('../../image/demo1.jpg'),
-									content:'哈哈哈哈哈哈哈',
-									playing:false,
-								},
-							},
-							{
-								id:1,
-								lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:0,
-								img_url:require('../../image/demo1.jpg'),
-								title:'足球系列1',
-								resource:{
-									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-									media_time:3003,
-									title:'大猫',
-									img_url:require('../../image/demo1.jpg'),
-									content:'哈哈哈哈哈哈哈',
-									playing:false,
-								},
-							},
-						],
-					},
-					{
-						id:1,
-						title:'足球系列',
-						chapter_no:1,
-						desc:'专业的足球竞技教学视频',
-						slide:false,
-						lesson:[
-							{
-								id:1,
-								lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:0,
-								img_url:require('../../image/demo1.jpg'),
-								title:'足球系列1',
-								resource:{
-									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-									media_time:3003,
-									title:'大猫',
-									img_url:require('../../image/demo1.jpg'),
-									content:'哈哈哈哈哈哈哈',
-									playing:false,
-								},
-							},
-							{
-								id:1,
-								lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:0,
-								img_url:require('../../image/demo1.jpg'),
-								title:'足球系列1',
-								resource:{
-									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-									media_time:3003,
-									title:'大猫',
-									img_url:require('../../image/demo1.jpg'),
-									content:'哈哈哈哈哈哈哈',
-									playing:false,
-								},
-							},
-							{
-								id:1,
-								lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:0,
-								img_url:require('../../image/demo1.jpg'),
-								title:'足球系列1',
-								resource:{
-									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-									media_time:3003,
-									title:'大猫',
-									img_url:require('../../image/demo1.jpg'),
-									content:'哈哈哈哈哈哈哈',
-									playing:false,
-								},
-							},
-						],
-					},
-				],
-				classInfo:{
-					id:1,
-					sold:9999,
-					img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-					price:299,
-					title:'公众号运营速成课程',
-					status:1,
-					introduce:[]
-				},
+				chapterList:[],
+				classInfo:{},
 				currentVideoId:null,
 				videoTotalTime:0, // 总共的时间
 				totalProgress:0,
@@ -474,6 +351,7 @@
 						localStorage.setItem('classProgress',JSON.stringify(obj));
 					}
                 }
+                this.getProgress();
 			},
 			// 播放视频
 			playVideo(item){
@@ -502,8 +380,9 @@
                 });
             },
 			// 跳转至文章页面
-			gotoArticle(id){
-				location.href = `./article.html?id=${id}`;
+			gotoArticle(value){
+			    console.log(value.resource_id);
+				location.href = `./article.html?id=${value.resource_id}`;
 			},
 			slideToggle(item){
 				item.slide = !item.slide;
@@ -513,41 +392,13 @@
 			    let time = 0;
 				this.chapterList.forEach( val => {
 					val.lesson.forEach( val2 => {
-						if(val2.resource_type == 1){
+						if(val2.resource_type == 0){
 							time += val2.resource.media_time;
 						}
 					})
 				} )
 				this.videoTotalTime = time;
-				// 保存当前课程的进度到
-//				this.setTotalTime();
 			},
-//			setTotalTime(){
-//				let totalTime = localStorage.getItem('totalTime');
-//				let arr = [];
-//				if(totalTime){
-//					try{
-//						arr = JSON.parse(totalTime);
-//						if(arr.every( val => {
-//							return val.id != this.classId;
-//						} )){
-//							arr.push({
-//							id:this.classId,
-//							totalTime:this.videoTotalTime
-//						});
-//						}
-//					}catch(err){
-//
-//					}
-//
-//				}else{
-//					arr[0] = {
-//						id:this.classId,
-//						totalTime:this.videoTotalTime
-//					}
-//				}
-//				localStorage.setItem('totalTime',JSON.stringify(arr))
-//			},
 			getProgress(){
 			    let time = 0;
 			    try {
@@ -562,43 +413,53 @@
 				}catch (err){
 					time = 0;
 				}
-				this.totalProgress = parseInt(time/this.videoTotalTime * 100,10);
+				if(this.videoTotalTime){
+					this.totalProgress = parseInt(time/this.videoTotalTime * 100,10);
+				}else{
+					this.totalProgress = 0;
+				}
+				// 传总进度给后端保存
+				myAjax.post(apiPath.classPercent,{class_id:this.classId,percent:this.totalProgress}).then( res => {
+				    console.log(res);
+				})
 			},
 
 			// 获取课程章节列表
 
-			getClassChapter(){
-				myAjax.get( apiPath.userChapter,{class_id:this.classId} )
+			async getClassChapter(){
+			    this.showLoading();
+				await  myAjax.get( apiPath.userChapter,{class_id:this.classId} )
 					.then( res => {
-					    if( res.length ){
-					        res.forEach( (val,i) => {
+					    if( res.chapter.length ){
+					        res.chapter.forEach( (val,i) => {
 								val.slide = i === 0 ?  false : true;
 								val.lesson.forEach( val2 => {
 									val2.resource.playing = false;
 								})
 							});
-							this.chapterList = res;
+							this.chapterList = res.chapter;
 						}else{
 					        this.layer('暂无数据')
 						}
+						this.classInfo = res;
 					} )
-			},
-
-			// 获取课程简介
-			async getClassInfo(){
-				this.showLoading('获取课程中');
-				await	myAjax.get( apiPath.classInfo,{class_id:this.classId} )
-									.then( res => {
-										this.classInfo = res;
-									} ).catch( e => this.layer(e) );
 				this.hideLoading();
 			},
+//			// 获取课程简介
+//			async getClassInfo(){
+//				this.showLoading('获取课程中');
+//				await	myAjax.get( apiPath.userChapter,{class_id:this.classId} )
+//									.then( res => {
+//										this.classInfo = res;
+//									} ).catch( e => this.layer(e) );
+//				this.hideLoading();
+//			},
     },
     async created(){
-    	this.getClassInfo();
+//    	this.getClassInfo();
     	await  this.getClassChapter();
 		this.getTotalTime();
-		this.getProgress();
+		//this.getProgress();
        // this.share();
     },
     mounted() {

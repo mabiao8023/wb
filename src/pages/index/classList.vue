@@ -287,7 +287,7 @@
 		<section class="class-list " v-show="navType == 2">
 			<h1 class="b-title p20 free-title">试看列表</h1>
 			<ul class="class-free-list">
-				<template v-for="item in freeClassList">
+				<template v-if="freeClassList.length > 0" v-for="item in freeClassList">
 					<VideoItem
 						v-if="item.resource_type == 0"
 						:item="item"
@@ -301,36 +301,52 @@
 					>
 					</ArticleItem>
 				</template>
+				<template v-else>
+					<li class="no-data">
+						暂无试听问题
+					</li>
+				</template>
 			</ul>
 			<h1 class="pay-tip">以下内容，购买后可继续观看</h1>
 			<ul class="class-list-container">
-
-				<li class="class-item"
-					v-for="(item,index) in chapterList"
-				>
-					<h1 class="c-fl-title m-title p20" @click.stop.prevent="slideToggle(item)">
-						<i class="title-icon"></i>
-						{{ item.title }}
+				<template v-if="chapterList.length > 0">
+					<li class="class-item"
+						v-for="(item,index) in chapterList"
+					>
+						<h1 class="c-fl-title m-title p20" @click.stop.prevent="slideToggle(item)">
+							<i class="title-icon"></i>
+							{{ item.title }}
 						<span class="desc">{{ item.desc }}</span>
-						<i class="arrow" :class="{active:!item.slide}"></i>
-					</h1>
-					<ul v-show="!item.slide">
-						<template v-for="val in item.lesson">
-							<VideoItem
-								v-if="val.resource_type == 0"
-								:item="val"
-								@click.stop.native="payTipHandle(val)"
-							></VideoItem>
-							<!-- 文章显示组件 -->
-							<ArticleItem
-								v-if="val.resource_type == 1"
-								:item="val"
-								@click.stop.native="payTipHandle(val)"
-							>
-							</ArticleItem>
-						</template>
-					</ul>
-				</li>
+							<i class="arrow" :class="{active:!item.slide}"></i>
+						</h1>
+						<ul v-show="!item.slide">
+							<template v-if="item.lesson.length > 0" v-for="val in item.lesson">
+								<VideoItem
+									v-if="val.resource_type == 0"
+									:item="val"
+									@click.stop.native="payTipHandle(val)"
+								></VideoItem>
+								<!-- 文章显示组件 -->
+								<ArticleItem
+									v-if="val.resource_type == 1"
+									:item="val"
+									@click.stop.native="payTipHandle(val)"
+								>
+								</ArticleItem>
+							</template>
+							<template v-else>
+								<li class="no-data">
+									暂无课时数据
+								</li>
+							</template>
+						</ul>
+					</li>
+				</template>
+				<template v-else>
+					<li class="no-data">
+						暂无章节内容
+					</li>
+				</template>
 			</ul>
 		</section>
         <section class="pay-footer">
@@ -396,193 +412,13 @@
                 postImgSrc:postImg,
 				isHasVideo:false,
 				navType:1,  // 1代表课程首页，2代表课程代表
-				chapterList:[
-					{
-						id:1,
-						title:'足球系列',
-						chapter_no:1,
-						desc:'专业的足球竞技教学视频',
-						slide:false,
-						lesson:[
-							{
-								id:1,
-								lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:1,
-								img_url:require('../../image/demo1.jpg'),
-								title:'足球系列1',
-								resource:{
-									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-									media_time:3003,
-									title:'大猫',
-									img_url:require('../../image/demo1.jpg'),
-									content:'哈哈哈哈哈哈哈',
-									playing:false,
-								},
-							},
-							{
-								id:1,
-								lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:0,
-								img_url:require('../../image/demo1.jpg'),
-								title:'足球系列1',
-								resource:{
-									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-									media_time:3003,
-									title:'大猫',
-									img_url:require('../../image/demo1.jpg'),
-									content:'哈哈哈哈哈哈哈',
-									playing:false,
-								},
-							},
-							{
-								id:1,
-								lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:0,
-								img_url:require('../../image/demo1.jpg'),
-								title:'足球系列1',
-								resource:{
-									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-									media_time:3003,
-									title:'大猫',
-									img_url:require('../../image/demo1.jpg'),
-									content:'哈哈哈哈哈哈哈',
-									playing:false,
-								},
-							},
-						],
-					},
-					{
-						id:1,
-						title:'足球系列',
-						chapter_no:1,
-						desc:'专业的足球竞技教学视频',
-						slide:false,
-						lesson:[
-							{
-								id:1,
-								lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:0,
-								img_url:require('../../image/demo1.jpg'),
-								title:'足球系列1',
-								resource:{
-									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-									media_time:3003,
-									title:'大猫',
-									img_url:require('../../image/demo1.jpg'),
-									content:'哈哈哈哈哈哈哈',
-									playing:false,
-								},
-							},
-							{
-								id:1,
-								lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:0,
-								img_url:require('../../image/demo1.jpg'),
-								title:'足球系列1',
-								resource:{
-									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-									media_time:3003,
-									title:'大猫',
-									img_url:require('../../image/demo1.jpg'),
-									content:'哈哈哈哈哈哈哈',
-									playing:false,
-								},
-							},
-							{
-								id:1,
-								lesson_no:1, // 第几课
-								desc:'一些描述的内容',
-								resource_type:0,
-								img_url:require('../../image/demo1.jpg'),
-								title:'足球系列1',
-								resource:{
-									media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-									media_time:3003,
-									title:'大猫',
-									img_url:require('../../image/demo1.jpg'),
-									content:'哈哈哈哈哈哈哈',
-									playing:false,
-								},
-							},
-						],
-					},
-				],
-				freeClassList:[
-					{
-					    id:1,
-						class_id:1,
-						resource_type:0, // 1 -> 视频  2 -> 文章
-						sort:1,
-						title:'大数据文章',
-						desc:'哈哈哈哈哈哈哈哈哈哈',
-						img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-						resource:{
-							id:1,
-							media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-							media_time:300,
-							title:'大数据文章',
-							img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-							content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?',
-							playing:false,
-						},
-					},
-					{
-						id:1,
-						resource_type:0, // 1 -> 视频  2 -> 文章
-						sort:1,
-						title:'大数据文章',
-						desc:'哈哈哈哈哈哈哈哈哈哈',
-						img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-						resource:{
-							id:1,
-							media_url:'http://v3.mukewang.com/shizhan/583d5988b3fee311398b457c/H.mp4',
-							media_time:300,
-							size:10240,
-							title:'大数据文章',
-							img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-							content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?',
-							playing:false,
-						},
-
-					},
-				],
+				chapterList:[],
+				freeClassList:[],
 				isShowQrodePop:false, //是否显示二维码弹窗
 				video:null, // 视频
-
-				classInfo:{
-					id:1,
-					sold:9999,
-					img_url:'https://mabiao8023.github.io/wb/src/image/scbfm.jpg',
-					price:299,
-					title:'公众号运营速成课程',
-					status:1,
-					tag:'专项课',
-					introduce:[
-						{
-							title:'6个维度256个知识点',
-							content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?',
-							img_url:'https://mabiao8023.github.io/wb/src/image/class8-01.jpg',
-							sort:9,
-							url:'./index.html'
-						},
-						{
-							title:'6个维度256个知识点',
-							content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et natus nemo, cumque eligendi libero hic expedita repellat, laborum vero quae mollitia, necessitatibus odio quis reprehenderit fugiat itaque dolorem. Voluptatem, nam?',
-							img_url:'https://mabiao8023.github.io/wb/src/image/class8-02.jpg',
-							sort:9,
-							url:'./index.html'
-						},
-					]
-				}
+				classInfo:{}
             }
         },
-        computed:{
-		},
         methods: {
 			showQrodePop(){
 				this.isShowQrodePop = true;
