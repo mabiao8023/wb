@@ -22,8 +22,8 @@ let ajaxResHandle =  ( data,resolve,reject ) => {
     }else if(res.code == 1000){
         // 跳转登录
         reject( `${res.msg},即将跳转登录`);
-        location.href = res.url;
-        // loginHandle()
+        console.log(res.data.url);
+        location.href = res.data.url;
     }else{
         reject( res.msg )
     }
