@@ -1,6 +1,6 @@
 
 const aipCommonPath = '/home/apiEntry/api/';
-const Host = `//120.78.193.207`;
+const Host = `http://www.ym8800.com`;
 // const wxConfig = {
 // 	appid:location.origin.includes('test') ? 'wx716e2b98e8a3409d' : 'wxea2b42aebf4f7468',
 // 	redirect_url:encodeURIComponent(`${location.origin}/home/login/login.html`)
@@ -18,6 +18,9 @@ let apiPath = {
 	userArticle:`${Host}/article/info`, //已购买文章接口
 	getPerson:`${Host}/me/info`, // 获取个人信息
 	classPercent:`${Host}/my_class/learn_percent`, // 添加课程进度
+	getTest:`${Host}/test/get`, //获取测试
+	getTestAsk:`${Host}/test/get_ask`, // 获取测试的问题
+	getRandAnswer:`${Host}/test/get_answer`, // 获取随机问题
 }
 
 // let pagePath = {

@@ -70,7 +70,7 @@
         				border-bottom:none;
         			}
         		}
-        	}	
+        	}
         }
         .header,.main-desc,.question{
         	padding:20px 30px;
@@ -82,7 +82,7 @@
         		color:#fff;
         		line-height:80px;
         		font-size:36px;
-        	}	
+        	}
         }
     }
 </style>
@@ -91,7 +91,7 @@
     	<template v-if="!isShowResult">
 	    	<header class="header">
 	    		<div class="test-title">
-					你的左右脑分别有几岁？
+					{{ testContent.title }}
 				</div>
 				<div class="test-peoples">
 					<span class="test-start">
@@ -102,22 +102,17 @@
 						<img src="../../image/start1.png">
 					</span>
 					<span>
-						2390万人在测
-					</span>
+						{{ testContent.test_num }}人在测
+                                           </span>
 				</div>
 	    	</header>
-    		<transition name="fade" mode="in-out">	
+    		<transition name="fade" mode="in-out">
 	    		<section v-if="!isBeginTest" class="main-desc">
 					<div class="test-img">
-						<img src="../../image/test-banner.jpg">
+						<img :src="testContent.img_url">
 					</div>
 					<div class="test-desc">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						{{ testContent.desc }}
 					</div>
 					<div class="begin-test" @click.stop="beginTest">
 						点击开始测试
@@ -125,32 +120,31 @@
 				</section>
 				<section v-else class="question">
 					<div class="q-list">
-			
 							<div class="title">
 								<span>{{currentIndex}}/{{total}}：</span>
-								<span>{{ currentQuestion.title }}</span>
+								<span>{{ currentQuestion.desc }}</span>
 							</div>
 							<div class="img">
-								<img :src="currentQuestion.img"/>
+								<img :src="currentQuestion.img_url"/>
 							</div>
 							<ul class="answers">
-								<li v-for="item in currentQuestion.answers" class="answers-item" @click.stop="choiceAnswer(currentQuestion.id,item)">{{item}}</li>
+								<li v-for="item in currentQuestion.option" class="answers-item" @click.stop="choiceAnswer(currentQuestion.id,item)">{{item.desc}}</li>
 						</ul>
 					</div>
 				</section>
 			</transition>
     	</template>
 		<template v-else>
-			<section  class="result"> 
+			<section  class="result">
 				<div class="r-title">
 					长按结果卡片分享给朋友
 				</div>
 				<div class="r-img">
-					<img src="../../image/result.jpg">
+					<img :src="result.img_url">
 				</div>
 			</section>
 		</template>
-		
+
 		<!--提示组件-->
         <transition name="fade" mode="in-out">
             <myAlertTip v-if="tip.isShow" @close-tip="tip.isShow = !tip.isShow" :text="tip.text" :time="tip.time"></myAlertTip>
@@ -160,7 +154,7 @@
                 <span>{{ loading.text }}</span>
             </LoadingModel>
         </transition>
-	</div>	
+	</div>
 </template>
 <script>
     import  commonFn  from '../../common/js/common.js';
@@ -189,66 +183,19 @@
             return {
                 // 渠道
                 channel: commonFn.getParams()["channel"]||"",
+				testId:commonFn.getParams()['id']||1,
                 // 提示处理
                 tip: layerConfig,
                 loading: loadingConfig,
                 isBeginTest:false,
-                questions:[
-                	{
-                		id:1,
-                		title:'这个男人的眼fadsf条直线上吗？',
-                		img:demo1,
-                		answers:[
-                			'是',
-                			'不是',
-                			'oo'
-                		]
-                	},	
-                	{
-                		id:2,
-                		title:'这个男人的眼asdfsd一条直线上吗？',
-                		img:demo2,
-                		answers:[
-                			'是',
-                			'不是'
-                		]
-                	},
-                	{
-                		id:3,
-                		title:'这个adsfasd眼睛在一条直线上吗？',
-                		img:demo3,
-                		answers:[
-                			'是',
-                			'嘿嘿',
-                			'不是'
-                		]
-                	},
-                	{
-                		id:4,
-                		title:'asdfadsf人的眼睛在一条直线上吗？',
-                		img:demo2,
-                		answers:[
-                			'是',
-                			'不是',
-                			'哈哈哈'
-                		]
-                	},
-                	{
-                		id:5,
-                		title:'这个男人sadfasdfasd一条直线上吗？',
-                		img:demo1,
-                		answers:[
-                			'对',
-                			'不对',
-                			'对不起'
-                		]
-                	},
-                ],
+                questions:[],
+                testContent:{},
                 currentQuestion:{},
                 userAnswers:[],
                 total:1,
                 currentIndex:1,
                 isShowResult:false,
+				result:{},
             }
         },
         computed:{
@@ -279,12 +226,15 @@
             // 选择答案
             choiceAnswer(id,item){
             	if( this.currentIndex >= this.total ){
-            		// 出结果	
+            		// 出结果
             		this.showLoading('获取结果中');
-            		setTimeout(() => {
-            			this.hideLoading();
-            			this.isShowResult = true;	
-            		},500 );
+            		myAjax.get(apiPath.getRandAnswer,{test_id:this.testId})
+						.then( res => {
+						    console.log(res);
+						    this.result = res;
+							this.isShowResult = true;
+						} ).catch( e => this.layer(e) );
+					this.hideLoading();
             	}else{
             		this.userAnswers.push(item);
 					this.currentQuestion = this.questions[this.currentIndex];
@@ -294,19 +244,35 @@
             beginTest(){
             	this.isBeginTest = true;
             },
-            getIsTest(){
+            async getIsTest(){
                 this.layer('您已测试过该项目,可将结果分享给朋友');
                 this.isShowResult = true;
-            },
+
+			},
+			async getTest(){
+				this.showLoading();
+				await myAjax.get(apiPath.getTest,{id:this.testId}).then( res => {
+					this.testContent = res;
+				} );
+				this.hideLoading();
+			},
+			async getTestAsk(){
+			    await myAjax.get(apiPath.getTestAsk,{test_id:this.testId}).then(
+			        res => {
+			            this.questions = res;
+						this.currentQuestion = this.questions[0];
+						this.currentIndex = 1;
+						this.total = this.questions.length;
+					}
+				)
+			},
     },
     created(){
-
+		this.getTest();
+		this.getTestAsk();
     },
     mounted() {
-    	this.currentQuestion = this.questions[0];
-    	this.currentIndex = 1;
-    	this.total = this.questions.length;
-        this.share();
+//        this.share();
         // this.getIsTest();
         addStatisticsCode();
     }
