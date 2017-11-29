@@ -165,7 +165,7 @@
             	this.showLoading();
             	await myAjax.get(apiPath.getPerson)
             		.then( res => {
-
+            			this.user = res;
             		} ).catch( e => {
             		});
             	this.hideLoading();
@@ -173,7 +173,7 @@
 
     },
     created(){
-    		
+    	this.getPerson();
     },
     mounted() {
 

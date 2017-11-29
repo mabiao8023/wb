@@ -115,7 +115,7 @@
 </style>
 <template>
     <div class="page-container" >
-		<div class="banner-container">
+		<div class="banner-container" v-if="banner.length>0">
 			<swiper ref="swiper"
 					direction="horizontal"
 					:mousewheel-control="true"
@@ -152,7 +152,7 @@
 						{{item.title}}
 					</div>
 					<div class="class-money">
-						￥{{item.price}}
+						￥{{item.price}}/{{ formateMonth(item.expire_month) }}
 					</div>
 				</div>
 			</li>
@@ -204,6 +204,7 @@
         computed:{
 		},
         methods: {
+        	formateMonth:commonFn.formateMonth,
             layer(text,time){
                 layer.bind(this,text,time)();
             } ,

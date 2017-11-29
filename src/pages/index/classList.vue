@@ -263,7 +263,7 @@
 				{{classInfo.tag}}
 			</div>
             <div class="class-money" v-else>
-                <span class="c-r-money">￥{{classInfo.price}}</span>
+                <span class="c-r-money">￥{{classInfo.price}}/{{ classInfo.expire_month && formateMonth(classInfo.expire_month) }}</span>
             </div>
         </section>
         <section class="c-xq" v-show="navType == 1">
@@ -424,6 +424,7 @@
             }
         },
         methods: {
+        	formateMonth:commonFn.formateMonth,
 			showQrodePop(){
 				this.isShowQrodePop = true;
 			},

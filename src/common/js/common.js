@@ -146,7 +146,15 @@ let commonFn = {
 			return Agents.some(function(v){
 				return new RegExp(v,'i').test(ua);
 			})
-		}
+		},
+        formateMonth(value){
+            let year = parseInt(value/12,10);
+            let month = value % 12;
+            if( year > 0 && month == 0 ){
+                return `${year}年`; 
+            }
+            return year > 0 ? `${year}年${month}个月` : `${month}个月`; 
+        },
     };
 
 ;(() => {
