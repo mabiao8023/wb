@@ -309,7 +309,7 @@
 					});
 			},
 			gotoClassList(){
-                location.href = './classList.html';
+                location.href = './index.html';
 			},
             // 微信分享
             async share() {

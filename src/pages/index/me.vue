@@ -71,7 +71,7 @@
     <div class="page-container" >
 		<div class="user-info boxShadow">
 			<div class="user-avatar">
-				<img src="../../image/preson.png">
+				<img :src="user.headimgurl">
 			</div>
 			<div class="user-name">
 				{{ user.nickname }}
@@ -131,8 +131,8 @@
                 tip: layerConfig,
                 loading: loadingConfig,
                 user:{
-                	nickname:'All is Well',
-                	avatar:''
+                	nickname:'',
+                	headimgurl:''
                 }
             }
         },
@@ -176,7 +176,7 @@
     	this.getPerson();
     },
     mounted() {
-
+    		
     }
     }
 </script>
