@@ -82,7 +82,8 @@ let commonFn = {
         wxPay:function(payObj){
             // 调起微信支付函数
             var jsApiCall = function(){
-                var conf = JSON.parse(payObj.wxPayConf) || {};
+                // var conf = JSON.parse(payObj.wxPayConf) || {};
+                var conf = payObj.wxPayConf || {};
                 WeixinJSBridge.invoke(
                     'getBrandWCPayRequest',
                     conf,

@@ -489,8 +489,8 @@
 				await myAjax.post(apiPath.classPay,{class_id:this.classId}).then( res => {
 					let wxConfig = res.jsapiConfig;
 					commonFn.wxPay({
-	                    wxPayConf:wxConfig.jsApiParameters,
-	                    successCb:this.wxPaySuc.bind(this,wxConfig.out_trade_no),
+	                    wxPayConf:wxConfig,
+	                    successCb:this.wxPaySuc.bind(this,wxConfig),
 	                    failCb:this.layer.bind(this,'支付失败，请重试'),
 	                    cancelCb:this.layer.bind(this,'支付失败，请重试'),
 	                });
@@ -502,9 +502,11 @@
 			},
 			// 支付成功
 			async wxPaySuc(){
-			    // 支付完成后跳转至页面视频页面
-				location.href = './video.html';
-
+				this.layer('支付成功');
+				setTimeout(() => {
+					// 支付完成后跳转至页面视频页面
+					location.href = './video.html';
+				},1000);
 			},
 
 			// 获取试看列表的数据
