@@ -152,7 +152,7 @@
 						{{item.title}}
 					</div>
 					<div class="class-money">
-						￥{{item.price}}/{{ formateMonth(item.expire_month) }}
+						￥{{item.price | formateMoney}}/{{ formateMonth(item.expire_month) }}
 					</div>
 				</div>
 			</li>
@@ -201,7 +201,8 @@
 				classList:[]
             }
         },
-        computed:{
+		filters:{
+			formateMoney:commonFn.formateMoney
 		},
         methods: {
         	formateMonth:commonFn.formateMonth,

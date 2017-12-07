@@ -263,7 +263,7 @@
 				{{classInfo.tag}}
 			</div>
             <div class="class-money" v-else>
-                <span class="c-r-money">￥{{classInfo.price}}/{{ classInfo.expire_month && formateMonth(classInfo.expire_month) }}</span>
+                <span class="c-r-money">￥{{classInfo.price | formateMoney}}/{{ classInfo.expire_month && formateMonth(classInfo.expire_month) }}</span>
             </div>
         </section>
         <section class="c-xq" v-show="navType == 1">
@@ -362,7 +362,7 @@
 				</div>
                 <div class="pay-btn"
                 	@click.stop="gotoPay"
-                >购买课程(￥{{classInfo.price}})</div>
+                >购买课程(￥{{classInfo.price | formateMoney}})</div>
             </div>
         </section>
 		<transition name="fade" mode="in-out">
@@ -423,6 +423,9 @@
 				classInfo:{}
             }
         },
+		filters:{
+			formateMoney:commonFn.formateMoney
+		},
         methods: {
         	formateMonth:commonFn.formateMonth,
 			showQrodePop(){
