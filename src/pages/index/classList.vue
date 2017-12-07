@@ -487,16 +487,17 @@
 			async gotoPay(){
 				this.showLoading('支付中')
 				await myAjax.post(apiPath.classPay,{class_id:this.classId}).then( res => {
-					let wxConfig = res.jsapiConfig;
-					commonFn.wxPay({
-	                    wxPayConf:wxConfig,
-	                    successCb:this.wxPaySuc.bind(this,wxConfig),
-	                    failCb:this.layer.bind(this,'支付失败，请重试'),
-	                    cancelCb:this.layer.bind(this,'支付失败，请重试'),
-	                });
-
+				    if(res.jsapiConfig){
+						let wxConfig = res.jsapiConfig;
+						commonFn.wxPay({
+							wxPayConf:wxConfig,
+							successCb:this.wxPaySuc.bind(this,wxConfig),
+							failCb:this.layer.bind(this,'支付失败，请重试'),
+							cancelCb:this.layer.bind(this,'支付失败，请重试'),
+						});
+					}
 				} ).catch( e => {
-					this.layer(e)
+					this.layer(e);
 				} );
 				this.hideLoading();
 			},
