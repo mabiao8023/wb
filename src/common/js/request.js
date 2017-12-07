@@ -25,7 +25,7 @@ let ajaxResHandle =  ( data,resolve,reject ) => {
         console.log(res.data.url);
         // location.href = res.data.url;
     }else{
-        reject( res.msg )
+        reject( res.msg );
     }
 }
 
