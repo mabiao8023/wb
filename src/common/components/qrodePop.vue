@@ -2,7 +2,7 @@
     <div class="model-box" @touchmove.prevent="">
         <div class="model-container">
 			<h1>长按图片选择<br/>“识别二维码”咨询客服</h1>
-			<img src="../../image/demo1.jpg">
+			<img src="../../image/qrode.jpg">
 			<div class="close" @click.stop="closeQrode"></div>
 		</div>
     </div>

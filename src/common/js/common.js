@@ -43,7 +43,7 @@ let commonFn = {
             wx.ready(function () {
                 // 分享给朋友圈
                 wx.onMenuShareTimeline({
-                    title: wxShareConfigObj.title || "课程咨询平台" , // 分享标题
+                    title: wxShareConfigObj.title || "夜猫足球" , // 分享标题
                     link: wxShareConfigObj.link || location.href, // 分享链接
                     imgUrl: wxShareConfigObj.imgUrl || "", // 分享图标
                     success: wxShareConfigObj.success || function () {},
@@ -51,7 +51,7 @@ let commonFn = {
                 });
                 // 分享到朋友
                 wx.onMenuShareAppMessage({
-                    title: wxShareConfigObj.title || "课程咨询平台",
+                    title: wxShareConfigObj.title || "夜猫足球",
                     desc: wxShareConfigObj.desc || "已为100万+用户提供服务，快来听课吧！", // 分享描述
                     link: wxShareConfigObj.link || location.href, // 分享链接
                     imgUrl: wxShareConfigObj.imgUrl || "", // 分享图标

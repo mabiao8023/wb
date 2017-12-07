@@ -158,7 +158,7 @@
                 let wxParams = await getWXParams();
                 commonFn.wxShare({
                     wxConfig:wxParams,
-                    link:location.href
+                    link:location.origin
                 });
             },
             async getPerson(){
@@ -174,9 +174,10 @@
     },
     created(){
     	this.getPerson();
+    	this.share();
     },
     mounted() {
-    		
+		addStatisticsCode();
     }
     }
 </script>

@@ -4,9 +4,9 @@ var config = require('./config')
 var vueLoaderConfig = require('./vue-loader.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackPluginComConfig = {
-    title:'课程咨询平台',
-    keywords:'课程咨询平台',
-    description:'课程咨询平台',
+    title:'夜猫足球',
+    keywords:'夜猫，足球，咨询，课程',
+    description:'夜猫足球',
     chunksSortMode: 'dependency',
     inject: true,
     minify: process.env.NODE_ENV === 'production' ? {

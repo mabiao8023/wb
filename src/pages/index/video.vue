@@ -376,7 +376,7 @@
                 let wxParams = await getWXParams();
                 commonFn.wxShare({
                     wxConfig:wxParams,
-                    link:location.href
+                    link:location.origin
                 });
             },
 			// 跳转至文章页面
@@ -445,22 +445,13 @@
 					} )
 				this.hideLoading();
 			},
-//			// 获取课程简介
-//			async getClassInfo(){
-//				this.showLoading('获取课程中');
-//				await	myAjax.get( apiPath.userChapter,{class_id:this.classId} )
-//									.then( res => {
-//										this.classInfo = res;
-//									} ).catch( e => this.layer(e) );
-//				this.hideLoading();
-//			},
     },
     async created(){
 //    	this.getClassInfo();
     	await  this.getClassChapter();
 		this.getTotalTime();
 		//this.getProgress();
-       // this.share();
+        this.share();
     },
     mounted() {
         this.$nextTick( () => {
@@ -482,7 +473,8 @@
 					})
 				} )
 			});
-        })
+        });
+		addStatisticsCode();
     }
     }
 </script>

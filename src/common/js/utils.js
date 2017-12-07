@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 let getWXFromAjax = () => {
     let url = encodeURIComponent(location.href.split('#')[0])
-    
+
     return new Promise((resolve, reject) => {
         Vue.http.get('/home/apiEntry/api/jssdk', {params: {url: url}}).then((data) => {
             let res = data.body
@@ -15,8 +15,7 @@ let getWXFromAjax = () => {
         }, (resp) => {
             // console.log(`请求js参数失败`)
             reject(`请求js参数失败`)
-        })
-        
+        });
     })
 }
 

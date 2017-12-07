@@ -124,12 +124,12 @@
 								<span>{{currentIndex}}/{{total}}：</span>
 								<span>{{ currentQuestion.desc }}</span>
 							</div>
-							<div class="img">
+							<div class="img" v-if="currentQuestion.img_url">
 								<img :src="currentQuestion.img_url"/>
 							</div>
 							<ul class="answers">
 								<li v-for="item in currentQuestion.option" class="answers-item" @click.stop="choiceAnswer(currentQuestion.id,item)">{{item.desc}}</li>
-						</ul>
+							</ul>
 					</div>
 				</section>
 			</transition>
@@ -182,7 +182,7 @@
         data() {
             return {
                 // 渠道
-                channel: commonFn.getParams()["channel"]||"",
+                channel: commonFn.getParams()["channel"]||localStorage.getItem('channel')||"",
 				testId:commonFn.getParams()['id']||1,
                 // 提示处理
                 tip: layerConfig,
@@ -220,7 +220,10 @@
                 let wxParams = await getWXParams();
                 commonFn.wxShare({
                     wxConfig:wxParams,
-                    link:location.href
+                    link:location.href,
+					title: '夜猫足球--' + this.testContent.title,
+					desc: this.testContent.desc,
+					imgUrl: this.testContent.img_url
                 });
             },
             // 选择答案
@@ -272,7 +275,7 @@
 		this.getTestAsk();
     },
     mounted() {
-//        this.share();
+        this.share();
         // this.getIsTest();
         addStatisticsCode();
     }

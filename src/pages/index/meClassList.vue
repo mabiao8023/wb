@@ -311,13 +311,14 @@
 			gotoClassList(){
                 location.href = './index.html';
 			},
+
             // 微信分享
             async share() {
                 // 分享接口获得分享的内容
                 let wxParams = await getWXParams();
                 commonFn.wxShare({
                     wxConfig:wxParams,
-                    link:location.href
+                    link:location.origin
                 });
             },
 
@@ -350,11 +351,11 @@
 			}
     },
     created(){
-       // this.share();
+        this.share();
 		this.getMeClassList()
     },
     mounted() {
-
+		addStatisticsCode();
     }
     }
 </script>

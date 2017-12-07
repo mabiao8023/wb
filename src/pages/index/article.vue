@@ -53,7 +53,7 @@
 			<p class="c-desc">
 				{{article.content}}
             </p>
-			
+
         </section>
 		<!-- <transition name="fade" mode="in-out">
 			<QrodePop v-if="isShowQrodePop"
@@ -85,7 +85,7 @@
     // import QrodePop from '../../common/components/qrodePop.vue';
 	export default {
         name: 'appPage',
-        
+
         components: {
             // ImageShow,
             myAlertTip,
@@ -132,7 +132,7 @@
                 let wxParams = await getWXParams();
                 commonFn.wxShare({
                     wxConfig:wxParams,
-                    link:location.href
+                    link:location.origin
                 });
             },
             async getArticle(){
@@ -146,10 +146,10 @@
     },
     created(){
         this.getArticle();
-       // this.share();
+        this.share();
     },
     mounted() {
-
+		addStatisticsCode();
     }
     }
 </script>

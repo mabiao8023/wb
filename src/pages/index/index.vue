@@ -244,11 +244,12 @@
     },
     created(){
     	// todo:请求数据
-    	 this.getBannerList();
-    	 this.getClassList();
+		this.getBannerList();
+		this.getClassList();
+		this.share();
     },
     mounted() {
-
+		addStatisticsCode();
     }
     }
 </script>

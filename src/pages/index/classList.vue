@@ -450,7 +450,10 @@
                 let wxParams = await getWXParams();
                 commonFn.wxShare({
                     wxConfig:wxParams,
-                    link:location.href
+                    link:location.href,
+					title:'夜猫足球--' + this.classInfo.title,
+					desc:this.classInfo.desc,
+					imgUrl:this.classInfo.img_url,
                 });
             },
 			// 切换列表展开与合并
@@ -462,7 +465,7 @@
 				this.isHasVideo = true;
 				this.freeClassList.forEach( val => {
 					val.resource.playing = false;
-				} )
+				} );
 				item.resource.playing = true;
 				this.video.src = item.resource.media_url;
 				this.video.click();
@@ -488,8 +491,8 @@
 			},
 			// 去支付
 			async gotoPay(){
-				this.showLoading('支付中')
-				await myAjax.post(apiPath.classPay,{class_id:this.classId}).then( res => {
+				this.showLoading('支付中');
+				await myAjax.post(apiPath.classPay,{class_id:this.classId,channel:this.channel}).then( res => {
 				    if(res.jsapiConfig){
 						let wxConfig = res.jsapiConfig;
 						commonFn.wxPay({
@@ -563,12 +566,13 @@
 		 this.getClassInfo();
 		 this.getClassTry();
 		 this.getClassChapter();
-       // this.share();
+         this.share();
     },
     mounted() {
 		this.$nextTick( () => {
 			this.video = document.getElementById("my-video");
-		})
+		});
+		addStatisticsCode();
     }
     }
 </script>
