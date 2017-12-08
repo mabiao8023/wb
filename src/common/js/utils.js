@@ -4,7 +4,7 @@ let getWXFromAjax = () => {
     let url = encodeURIComponent(location.href.split('#')[0])
 
     return new Promise((resolve, reject) => {
-        Vue.http.get('/common/jssdk', {params: {url: url}}).then((data) => {
+        Vue.http.post('/common/jssdk', {url: url},{emulateJSON:true}).then((data) => {
             let res = data.body;
             if(res.code == '1'){
                 resolve(res.data)
