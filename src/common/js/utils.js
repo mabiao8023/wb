@@ -16,7 +16,7 @@ let getWXFromAjax = () => {
             // console.log(`请求js参数失败`)
             reject(`请求js参数失败`)
         });
-    })
+    });
 }
 
 export let getWXParams = async () => {

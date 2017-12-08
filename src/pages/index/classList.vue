@@ -563,10 +563,11 @@
 			},
     },
     created(){
-		 this.getClassInfo();
+		 this.getClassInfo().then( res => {
+			 this.share();
+		 } );
 		 this.getClassTry();
 		 this.getClassChapter();
-         this.share();
     },
     mounted() {
 		this.$nextTick( () => {
