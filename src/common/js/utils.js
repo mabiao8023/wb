@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 let getWXFromAjax = () => {
-    let url = encodeURIComponent(location.href.split('#')[0])
+    let url = location.href;
 
     return new Promise((resolve, reject) => {
         Vue.http.post('/common/jssdk', {url: url},{emulateJSON:true}).then((data) => {
