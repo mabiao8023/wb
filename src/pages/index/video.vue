@@ -396,7 +396,7 @@
 							time += val2.resource.media_time;
 						}
 					})
-				} )
+				})
 				this.videoTotalTime = time;
 			},
 			getProgress(){
