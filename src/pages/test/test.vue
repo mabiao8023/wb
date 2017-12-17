@@ -161,23 +161,20 @@
     import { apiPath } from '../../common/js/config.js';
     import { addStatisticsCode } from '../../common/js/addStatisticsCode';
     import { getWXParams } from '../../common/js/utils.js';
-    import InfiniteLoading from 'vue-infinite-loading';
+    // import InfiniteLoading from 'vue-infinite-loading';
 
     import myAjax from '../../common/js/request';
     import myAlertTip from '../../common/components/modelBox.vue';
     import LoadingModel from '../../common/components/loadingModel.vue';
     import { layerConfig,loadingConfig,layer,showLoading,hideLoading } from '../../common/js/layerAndLoadingHandle';
-    import ComFooter from '../../common/components/footer.vue';
-    import demo1 from '../../image/demo1.jpg';
-    import demo2 from '../../image/demo2.jpg';
-    import demo3 from '../../image/demo3.png';
+    // import ComFooter from '../../common/components/footer.vue';
     export default {
         name: 'appPage',
         components: {
-            InfiniteLoading,
+            // InfiniteLoading,
             myAlertTip,
             LoadingModel,
-			ComFooter,
+			// ComFooter,
         },
         data() {
             return {
@@ -196,6 +193,7 @@
                 currentIndex:1,
                 isShowResult:false,
 				result:{},
+                preLoadImages:[],
             }
         },
         computed:{
@@ -266,9 +264,22 @@
 						this.currentQuestion = this.questions[0];
 						this.currentIndex = 1;
 						this.total = this.questions.length;
+                        // 图片的url提前预加载
+                        if( res.length ){
+                            res.forEach( val => {
+                                this.preLoadImages.push(val.img_url);
+                            } );
+                            this.preLoader();
+                        }
 					}
 				)
 			},
+            preLoader(){
+                this.preLoadImages.forEach(val => {
+                    let img = new Image();
+                    img.src = val;
+                })     
+            },
     },
     created(){
 		this.getTest();
