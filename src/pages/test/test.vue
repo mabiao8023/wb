@@ -107,7 +107,7 @@
 				</div>
 	    	</header>
     		<transition name="fade" mode="in-out">
-	    		<section v-if="!isBeginTest" class="main-desc">
+	    		<section v-show="!isBeginTest" class="main-desc">
 					<div class="test-img">
 						<img :src="testContent.img_url">
 					</div>
@@ -118,7 +118,7 @@
 						点击开始测试
 					</div>
 				</section>
-				<section v-else class="question">
+				<section v-show="isBeginTest" class="question">
 					<div class="q-list">
 							<div class="title">
 								<span>{{currentIndex}}/{{total}}：</span>
