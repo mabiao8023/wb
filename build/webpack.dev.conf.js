@@ -71,6 +71,13 @@ module.exports = merge(baseWebpackConfig, {
 		  inject: true,
 		  chunks:['test']
 	  }),
+	  // 登录接口
+	  new HtmlWebpackPlugin({
+		  filename: './login.html',
+		  template: './src/views/index/login.html',
+		  inject: true,
+		  chunks:['login']
+	  }),
 
       new FriendlyErrorsPlugin()
   ]

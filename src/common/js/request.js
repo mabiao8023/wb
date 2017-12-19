@@ -4,16 +4,17 @@
 import Vue from 'vue'
 // import { pagePath } from '../../common/js/config'
 // 登录处理
-// let loginHandle = () => {
-//     try{
-//         // 保存当前页面链接到本地
-//         localStorage.setItem('prev-link',location.href)
-//     }catch(e){
-//         console.error(e)
-//     }
-//     // 跳转至微信授权登录
-//     location.href = pagePath;
-// }
+let redirect_url = encodeURIComponent(`${location.origin}/login.html`);
+let loginHandle = () => {
+    try{
+        // 保存当前页面链接到本地
+        localStorage.setItem('prev-link',location.href)
+    }catch(e){
+        console.error(e)
+    }
+    // 跳转至微信授权登录
+    location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx85ba94e795ed698e&redirect_uri=${redirect_url}&response_type=code&scope=snsapi_userinfo#wechat_redirect`;
+}
 // 公共的ajax处理函数
 let ajaxResHandle =  ( data,resolve,reject ) => {
     let res = data.body;
@@ -22,7 +23,7 @@ let ajaxResHandle =  ( data,resolve,reject ) => {
     }else if(res.code == 1000){
         // 跳转登录
         reject( `${res.msg},即将跳转登录`);
-        location.href = res.data.url;
+		loginHandle();
     }else{
         reject( res.msg );
     }

@@ -21,6 +21,7 @@ let apiPath = {
 	getTest:`${Host}/test/get`, //获取测试
 	getTestAsk:`${Host}/test/get_ask`, // 获取测试的问题
 	getRandAnswer:`${Host}/test/get_answer`, // 获取随机问题
+	login:`${Host}/common/login`, // 登录接口
 }
 
 // let pagePath = {
