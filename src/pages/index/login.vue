@@ -71,7 +71,7 @@
 					code:this.code,
 				};
 			    this.showLoading('登录中...');
-			    await myAjax.post( apiPath.login,data )
+			    await myAjax.get( apiPath.login,data )
 					.then( res => {
 						// 跳转
 						// this.layer( ' 登录成功，即将跳转 ' );
