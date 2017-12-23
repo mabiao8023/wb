@@ -362,7 +362,7 @@
 				</div>
                 <div class="pay-btn"
                 	@click.stop="gotoPay"
-                 v-if="isPayed">购买课程(￥{{classInfo.price | formateMoney}})</div>
+                 v-if="!isPayed">购买课程(￥{{classInfo.price | formateMoney}})</div>
                  <div class="pay-btn"
                 	@click.stop="gotoClassIndex"
                  v-else>已购买</div>
