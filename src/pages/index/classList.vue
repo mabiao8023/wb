@@ -311,7 +311,7 @@
 					</li>
 				</template>
 			</ul>
-			<h1 class="pay-tip">以下内容，购买后可继续观看</h1>
+			<h1 class="pay-tip">{{ isPayed ? '您已购买此课程,点击观看详情':'以下内容，购买后可继续观看' }}</h1>
 			<ul class="class-list-container">
 				<template v-if="chapterList.length > 0">
 					<li class="class-item"
@@ -362,7 +362,10 @@
 				</div>
                 <div class="pay-btn"
                 	@click.stop="gotoPay"
-                >购买课程(￥{{classInfo.price | formateMoney}})</div>
+                 v-if="isPayed">购买课程(￥{{classInfo.price | formateMoney}})</div>
+                 <div class="pay-btn"
+                	@click.stop="gotoClassIndex"
+                 v-else>已购买</div>
             </div>
         </section>
 		<transition name="fade" mode="in-out">
@@ -420,7 +423,8 @@
 				freeClassList:[],
 				isShowQrodePop:false, //是否显示二维码弹窗
 				video:null, // 视频
-				classInfo:{}
+				classInfo:{},
+				isPayed:false, //是否已经购买过课程
             }
         },
 		filters:{
@@ -473,11 +477,18 @@
 			},
 			// 付费课程点击提示
 			payTipHandle(){
-				this.layer("请购买后继续观看");
+				if( this.isPayed ){
+					location.href = './video.html?id=' + this.classId;
+				}else{
+					this.layer("请购买后继续观看");
+				}
 			},
 			// 跳转至文章页面
 			gotoArticle(id){
 				location.href = `./article.html?id=${id}`;
+			},
+			gotoClassIndex(){
+				location.href = './video.html?id=' + this.classId;
 			},
 			// 获得页面特色页
 			async getClassInfo(){
@@ -561,6 +572,17 @@
 									});
 				this.hideLoading();
 			},
+			// 获取是否已经购买过该课程
+			getIsPayed(){
+				myAjax.post(apiPath.classPay,{class_id:this.classId,channel:this.channel}).then( res => {
+				} ).catch( e => {
+					if( e == '您已购买此课程'){
+						this.isPayed = true;
+					}else{
+						this.isPayed = false;
+					}
+				} );
+			}
     },
     created(){
 		 this.getClassInfo().then( res => {
