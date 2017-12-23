@@ -585,6 +585,7 @@
 			}
     },
     created(){
+    	 this.getIsPayed();
 		 this.getClassInfo().then( res => {
 			 this.share();
 		 } );
