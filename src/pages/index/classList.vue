@@ -365,7 +365,7 @@
                  v-if="!isPayed">购买课程(￥{{classInfo.price | formateMoney}})</div>
                  <div class="pay-btn"
                 	@click.stop="gotoClassIndex"
-                 v-else>已购买</div>
+                 v-else>您已购买此课程</div>
             </div>
         </section>
 		<transition name="fade" mode="in-out">
