@@ -512,7 +512,7 @@
 				this.layer('支付成功');
 				setTimeout(() => {
 					// 支付完成后跳转至页面视频页面
-					location.href = './video.html';
+					location.href = './video.html?id=' + this.classId;
 				},1000);
 			},
 
