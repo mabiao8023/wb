@@ -54,7 +54,7 @@
 			height:120px;
 			display:flex;
 			align-items: stretch;
-			flex-wrap: wrap;
+			flex-direction:column;
 			margin-left:20px;
 			position:relative;
 			.m-title{
