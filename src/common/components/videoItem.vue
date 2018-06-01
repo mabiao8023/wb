@@ -123,9 +123,9 @@
 		<div class="c-info-content">
 			<div class="c-info-tag" v-if="item.tag">{{item.tag}}</div>
 			<h1 class="m-title">{{ item.title }}</h1>
-			<p class="m-desc">
+			<!-- <p class="m-desc">
 				{{ item.desc }}
-			</p>
+			</p> -->
 			<p class="time" v-if="item.resource.media_time">{{secondsFormate(item.resource.media_time)}}</p>
 			<!--<div class="progress" v-else>-->
 				<!--<span class="progress-bar"><i :style="'width:' + item.progress +'%;' "></i></span> 已学习{{item.progress}}%-->

@@ -75,9 +75,9 @@
 		</div>
 		<div class="c-info-content">
 			<h1 class="m-title">{{ item.title }}</h1>
-			<p class="m-desc">
+			<!-- <p class="m-desc">
 				{{ item.desc }}
-			</p>
+			</p> -->
 		</div>
 	</li>
 </template>

@@ -320,7 +320,7 @@
 						<h1 class="c-fl-title m-title p20" @click.stop.prevent="slideToggle(item)">
 							<i class="title-icon"></i>
 							{{ item.title }}
-						<span class="desc">{{ item.desc }}</span>
+						<!-- <span class="desc">{{ item.desc }}</span> -->
 							<i class="arrow" :class="{active:!item.slide}"></i>
 						</h1>
 						<ul v-show="!item.slide">
