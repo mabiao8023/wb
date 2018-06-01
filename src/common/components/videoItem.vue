@@ -57,6 +57,9 @@
 			flex-wrap: wrap;
 			margin-left:20px;
 			position:relative;
+			.m-title{
+				flex: 1;
+			}
 			.c-info-tag{
 				position:absolute;
 				right:20px;
