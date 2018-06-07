@@ -576,7 +576,7 @@
 				await	myAjax.get( apiPath.classInfo,{class_id:this.classId} )
 									.then( res => {
 										this.classInfo = res;
-										if( classInfo.price > 0 ){
+										if( this.classInfo.price > 0 ){
 										    this.isFree = false;
 										}else{
 											this.isFree = true;
