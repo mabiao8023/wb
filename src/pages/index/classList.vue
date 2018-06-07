@@ -263,7 +263,8 @@
 				{{classInfo.tag}}
 			</div>
             <div class="class-money" v-else>
-                <span class="c-r-money">￥{{classInfo.price | formateMoney}}/{{ classInfo.expire_month && formateMonth(classInfo.expire_month) }}</span>
+                <span class="c-r-money" v-if="!isFree">￥{{classInfo.price | formateMoney}}/{{ classInfo.expire_month && formateMonth(classInfo.expire_month) }}</span>
+                <span class="c-r-money" v-else>限时免费/{{ classInfo.expire_month && formateMonth(classInfo.expire_month) }}</span>
             </div>
         </section>
         <section class="c-xq" v-show="navType == 1">
@@ -311,7 +312,8 @@
 					</li>
 				</template>
 			</ul>
-			<h1 class="pay-tip">{{ isPayed ? '您已购买此课程,点击观看详情':'以下内容，购买后可继续观看' }}</h1>
+			<h1 class="pay-tip" v-if="!isFree">{{ isPayed ? '您已购买此课程,点击观看详情':'以下内容，购买后可继续观看' }}</h1>
+			<h1 class="pay-tip" v-else>课程限时免费,点击观看详情</h1>
 			<ul class="class-list-container">
 				<template v-if="chapterList.length > 0">
 					<li class="class-item"
@@ -362,7 +364,7 @@
 				</div>
                 <div class="pay-btn"
                 	@click.stop="gotoPay"
-                 v-if="!isPayed">购买课程(￥{{classInfo.price | formateMoney}})</div>
+                 v-if="!isPayed">{{ isFree ? '免费观看' : '立即购买'}}</div>
                  <div class="pay-btn"
                 	@click.stop="gotoClassIndex"
                  v-else>您已购买此课程</div>
@@ -425,6 +427,7 @@
 				video:null, // 视频
 				classInfo:{},
 				isPayed:false, //是否已经购买过课程
+				isFree: false,
             }
         },
 		filters:{
@@ -477,7 +480,7 @@
 			},
 			// 付费课程点击提示
 			payTipHandle(){
-				if( this.isPayed ){
+				if( this.isPayed || this.isFree ){
 					location.href = './video.html?id=' + this.classId;
 				}else{
 					this.layer("请购买后继续观看");
@@ -504,6 +507,10 @@
 			async gotoPay(){
 				this.showLoading('支付中');
 				await myAjax.post(apiPath.classPay,{class_id:this.classId,channel:this.channel}).then( res => {
+				    if( this.isFree ){
+						location.href = './video.html?id=' + this.classId;
+						return;
+					}
 				    if(res.jsapiConfig){
 						let wxConfig = res.jsapiConfig;
 						commonFn.wxPay({
@@ -569,6 +576,11 @@
 				await	myAjax.get( apiPath.classInfo,{class_id:this.classId} )
 									.then( res => {
 										this.classInfo = res;
+										if( classInfo.price > 0 ){
+										    this.isFree = false;
+										}else{
+											this.isFree = true;
+										}
 									});
 				this.hideLoading();
 			},

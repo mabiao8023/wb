@@ -151,8 +151,11 @@
 					<div class="class-name">
 						{{item.title}}
 					</div>
-					<div class="class-money">
+					<div class="class-money" v-if="item.price > 0">
 						￥{{item.price | formateMoney}}/{{ formateMonth(item.expire_month) }}
+					</div>
+					<div class="class-money" v-else>
+						免费/{{ formateMonth(item.expire_month) }}
 					</div>
 				</div>
 			</li>
