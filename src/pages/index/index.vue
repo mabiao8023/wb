@@ -112,6 +112,17 @@
 			}
 		}
     }
+	.sub-footer{
+		padding: 30px;
+		line-height: 1.5;
+		background: rgba(0,0,0,.8);
+		color: #fff;
+		text-align: center;
+		font-size: 24px;
+		a{
+			color: #fff;
+		}
+	}
 </style>
 <template>
     <div class="page-container" >
@@ -160,6 +171,10 @@
 				</div>
 			</li>
 		</ul>
+		<div class="sub-footer">
+			<p>© 2017 - 2018 广州遥远网络科技有限公司 版权所有</p>
+			<a href="//www.miitbeian.gov.cn"> 备案号:粤ICP备17150233号</a>
+		</div>
 		<ComFooter current="1"></ComFooter>
         <transition name="fade" mode="in-out">
             <myAlertTip v-if="tip.isShow" @close-tip="tip.isShow = !tip.isShow" :text="tip.text" :time="tip.time"></myAlertTip>
