@@ -33,6 +33,7 @@ var webpackConfig = {
 		article:'./src/entry/index/article.js',
 		login:'./src/entry/index/login.js',
         test:'./src/entry/test/test.js',
+        tuijian:'./src/entry/tuijian/tuijian.js',
     },
     output: {
         path: config.build.assetsRoot,
@@ -118,7 +119,14 @@ var webpackConfig = {
             chunks: ['test','vendor','manifest']
         },HtmlWebpackPluginComConfig)),
 
-    ]
+		new HtmlWebpackPlugin(Object.assign({
+			filename: path.resolve(__dirname,'./../dist/tuijian.html'),
+			template: './src/views/test/test.html',
+			chunks: ['tuijian','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+
+
+	]
 }
 
 if(config.build.autoPx2Rem){

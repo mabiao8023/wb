@@ -66,9 +66,9 @@
 				}
 
 				let data = {
-					state:this.state,
-					channel:this.channel,
-					code:this.code,
+					state: this.state,
+					channel: this.channel,
+					code: this.code,
 				};
 			    this.showLoading('登录中...');
 			    await myAjax.get( apiPath.login,data )
