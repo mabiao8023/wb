@@ -18,18 +18,117 @@
 		background-color: #004c7d;
 		text-shadow: 4px 6.928px 6px rgb( 0, 10, 16 );
 	}
-	.main
+	.main{
+		margin-top: 30px;
+		.m-title{
+			margin-bottom: 10px;
+			color: #fff;
+			text-align: center;
+			font-size: 30px;
+		}
+		.m-imgs{
+			 width: 90%;
+			 margin: 20px auto;
+			 border-radius: 10px;
+			 overflow: hidden;
+		 }
+		.m-desc{
+			width: 90%;
+			margin: 20px auto;
+			border-radius: 10px;
+			background: #fff;
+			padding: 24px;
+			font-size: 26px;
+			line-height: 1.5;
+			color: rgb(111, 83, 0);
+			overflow: hidden;
+		}
+	}
+	.footer{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 50px 0 20px;
+		.footer-item{
+			padding: 0 26px;
+		}
+		.left{
+			border-right: 1px solid #eee;
+		}
+		img{
+			width: 172px;
+			height: 172px;
+		}
+	}
+	.tip{
+		width: 90%;
+		margin: 0 auto;
+		padding-bottom: 50px;
+	}
+	.no-exist{
+		padding: 200px 0;
+		text-align: center;
+		color: #fff;
+		font-size: 30px;
+	}
+	.submit{
+		width: 80%;
+		font-size: 32px;
+		color: #fff;
+		text-align: center;
+		margin: 300px auto 0;
+		line-height: 100px;
+		border-radius: 10px;
+		background: #e83834;
+		box-shadow: 1px 1px 10px rbga(0,0,0,.8);
+	}
 </style>
 <template>
     <div class="page-container" >
     	<template>
 	    	<header class="header">
-				推荐内容主题
+				世界杯赛事推荐
 	    	</header>
-			<section class="mian">
+			<section v-if="true" class="main">
 				<div class="m-title">
-					06/24 10:00 中国VS美国
+					中国VS美国
 				</div>
+				<template v-if="true" >
+					<div class="m-imgs">
+						<img src="https://mmbiz.qpic.cn/mmbiz_png/pIsF27haEdeRHhnl1jT8TvbkvsibS4kelgKoD0Ushg4HJmaCXdKPTt7dIO2vxawk7Q6VoETQgZzO3ib69Eh88Aog/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1"
+							 @click.stop.prevent="previewImg()"
+							 alt="">
+					</div>
+					<div class="m-imgs">
+						<img src="https://mmbiz.qpic.cn/mmbiz_png/pIsF27haEdeRHhnl1jT8TvbkvsibS4kelgKoD0Ushg4HJmaCXdKPTt7dIO2vxawk7Q6VoETQgZzO3ib69Eh88Aog/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1" alt="">
+					</div>
+					<div class="m-title">
+						详细分析
+					</div>
+					<div class="m-desc">
+						秘鲁两战0分已经提前出局了，而澳大利亚仍有出线希望，本场比赛只要拿下3分，而同组的丹麦输给法国，球队将有非常大的可能直接出线（两队同积4分，澳大利亚净胜球大概率比丹麦要多）。本场比赛如果是平手盘开出就会使澳大利亚形成大热，毕竟澳大利亚本战战意更充更渴望获胜，而受平/半球盘开出可以平衡热度，结合两队从前两场的表现来看，本战可以支持澳大利亚至少不败。
+					</div>
+					<div class="footer">
+						<div class="footer-item left">
+							<img src="../../image/logo.png" alt="">
+						</div>
+						<div class="footer-item right">
+							<img src="../../image/qrode.png" alt="">
+						</div>
+					</div>
+					<div class="tip">
+						<img src="../../image/tips.png" alt="">
+					</div>
+				</template>
+				<template v-else>
+					<div class="submit">
+						88元解锁赛事分析
+					</div>
+				</template>
+
+			</section>
+			<section v-else class="no-exist">
+				推荐内容不存在
 			</section>
     	</template>
 
@@ -49,7 +148,6 @@
     import { apiPath } from '../../common/js/config.js';
     import { addStatisticsCode } from '../../common/js/addStatisticsCode';
     import { getWXParams } from '../../common/js/utils.js';
-    // import InfiniteLoading from 'vue-infinite-loading';
 
     import myAjax from '../../common/js/request';
     import myAlertTip from '../../common/components/modelBox.vue';
@@ -91,17 +189,18 @@
 				this.navType = type;
 			},
             // 微信分享
-            async share() {
+            async wxConfig() {
                 // 分享接口获得分享的内容
                 let wxParams = await getWXParams();
-                commonFn.wxShare({
-                    wxConfig:wxParams,
-                    link:location.href,
-					title: '夜猫足球--' + this.testContent.title,
-					desc: this.testContent.desc,
-					imgUrl: this.testContent.img_url
-                });
+				wx.config(wxParams.wxConfig);
             },
+			/* 显示图片放大 */
+			previewImg( url = 'https://mmbiz.qpic.cn/mmbiz_png/pIsF27haEdeRHhnl1jT8TvbkvsibS4kelgKoD0Ushg4HJmaCXdKPTt7dIO2vxawk7Q6VoETQgZzO3ib69Eh88Aog/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1'){
+				wx.previewImage({
+					current: url, // 当前显示图片的http链接
+					urls: [url] // 需要预览的图片http链接列表
+				});
+			},
             // 选择答案
             choiceAnswer(id,item){
             	if( this.currentIndex >= this.total ){
@@ -160,12 +259,11 @@
             },
     },
     created(){
-//		this.getTest();
+		this.getTest();
 //		this.getTestAsk();
     },
     mounted() {
-        this.share();
-        // this.getIsTest();
+        this.wxConfig();
         addStatisticsCode();
     }
     }
