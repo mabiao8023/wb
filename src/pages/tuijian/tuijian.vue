@@ -251,6 +251,28 @@
 //					}
 //				)
 //			},
+			// 去支付
+			async gotoPay(){
+				this.showLoading('支付中');
+				await myAjax.post(apiPath.classPay,{class_id:this.classId,channel:this.channel}).then( res => {
+					if( this.isFree ){
+						location.href = './video.html?id=' + this.classId;
+						return;
+					}
+					if(res.jsapiConfig){
+						let wxConfig = res.jsapiConfig;
+						commonFn.wxPay({
+							wxPayConf:wxConfig,
+							successCb:this.wxPaySuc.bind(this,wxConfig),
+							failCb:this.layer.bind(this,'支付失败，请重试'),
+							cancelCb:this.layer.bind(this,'支付失败，请重试'),
+						});
+					}
+				} ).catch( e => {
+					this.layer(e);
+				} );
+				this.hideLoading();
+			},
             preLoader(){
                 this.preLoadImages.forEach(val => {
                     let img = new Image();
