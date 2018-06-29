@@ -175,7 +175,7 @@
                 tip: layerConfig,
                 loading: loadingConfig,
 				content: {
-
+					
 				}
             }
         },
@@ -229,7 +229,7 @@
 			// 去支付
 			async gotoPay(){
 				this.showLoading('提交中');
-				await myAjax.post( apiPath.classPay,
+				await myAjax.post( apiPath.recommendPay,
 					{
 					    id: this.id,
 						channel: this.channel
