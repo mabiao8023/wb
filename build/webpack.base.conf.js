@@ -121,10 +121,9 @@ var webpackConfig = {
 
 		new HtmlWebpackPlugin(Object.assign({
 			filename: path.resolve(__dirname,'./../dist/tuijian.html'),
-			template: './src/views/test/test.html',
+			template: './src/views/tuijian/tuijian.html',
 			chunks: ['tuijian','vendor','manifest']
 		},HtmlWebpackPluginComConfig)),
-
 
 	]
 }

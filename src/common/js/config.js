@@ -1,5 +1,4 @@
 
-const aipCommonPath = '/home/apiEntry/api/';
 const Host = `http://www.ym8800.com`;
 // const wxConfig = {
 // 	appid:location.origin.includes('test') ? 'wx716e2b98e8a3409d' : 'wxea2b42aebf4f7468',
@@ -22,6 +21,7 @@ let apiPath = {
 	getTestAsk:`${Host}/test/get_ask`, // 获取测试的问题
 	getRandAnswer:`${Host}/test/get_answer`, // 获取随机问题
 	login:`${Host}/common/login`, // 登录接口
+	recommend: `${Host}/recommend/index` // 推荐接口
 }
 
 // let pagePath = {
