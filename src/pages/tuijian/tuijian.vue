@@ -236,6 +236,7 @@
 					    id: this.id,
 						channel: this.channel
 					}).then( res => {
+					    res.timeStamp = res.timestamp;
 						let wxConfig = JSON.stringify(res);
 						commonFn.wxPay({
 							wxPayConf: wxConfig,
