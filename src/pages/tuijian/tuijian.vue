@@ -100,21 +100,23 @@
 				<template v-if="content.is_paid" >
 					<div class="m-imgs">
 						<img src="http://img3.imgtn.bdimg.com/it/u=3877292258,3288902359&fm=214&gp=0.jpg"
-							 @click.stop.prevent="previewImg()"
+							 @click.stop.prevent="previewImg('http://img3.imgtn.bdimg.com/it/u=3877292258,3288902359&fm=214&gp=0.jpg')"
 							 alt="">
 					</div>
 					<div class="m-title">
-						详细分析
+						精准分析
 					</div>
 					<div class="m-desc">
 						{{ content.info }}
 					</div>
 					<div class="footer">
 						<div class="footer-item left">
-							<img src="../../image/logo.png" alt="">
+							<img :src="content.logo" v-if="content.logo">
+							<img src="../../image/logo.png" v-else>
 						</div>
 						<div class="footer-item right">
-							<img src="../../image/qrode.png" alt="">
+							<img :src="content.wx_qrcode" v-if="content.wx_qrcode">
+							<img src="../../image/qrode.png" v-else>
 						</div>
 					</div>
 					<div class="tip">
@@ -203,7 +205,7 @@
             },
 
 			/* 显示图片放大 */
-			previewImg( url = 'http://img3.imgtn.bdimg.com/it/u=3877292258,3288902359&fm=214&gp=0.jpg'){
+			previewImg( url ){
 			    wx.previewImage({
 					current: url, // 当前显示图片的http链接
 					urls: [url] // 需要预览的图片http链接列表
@@ -217,16 +219,17 @@
 							id: this.id
 						}).then( res => {
 						this.content = res;
+						this.wxConfig();
 					} );
 					this.hideLoading();
 			},
 
 			// 去支付
 			async gotoPay(){
-				this.showLoading('支付中');
-				await myAjax.post(apiPath.classPay,
+				this.showLoading('提交中');
+				await myAjax.post( apiPath.classPay,
 					{
-					    class_id: this.classId,
+					    id: this.id,
 						channel: this.channel
 					}).then( res => {
 					if(res.jsapiConfig){
@@ -249,12 +252,11 @@
 				window.reload();
 			},
 		},
-    created(){
-		this.getRecommend();
-    },
-    mounted() {
-        this.wxConfig();
-        addStatisticsCode();
-    }
+		created(){
+			this.getRecommend();
+		},
+		mounted() {
+			addStatisticsCode();
+		}
     }
 </script>
