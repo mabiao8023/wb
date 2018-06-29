@@ -99,8 +99,8 @@
 				</div>
 				<template v-if="content.is_paid" >
 					<div class="m-imgs">
-						<img src="https://i1.hoopchina.com.cn/blogfile/201806/27/BbsImg_232426160050445_1530044865_s_38012_o_w_635_h_348_45974.jpg?x-oss-process=image/resize,w_800/format,webp"
-							 @click.stop.prevent="previewImg('https://i1.hoopchina.com.cn/blogfile/201806/27/BbsImg_232426160050445_1530044865_s_38012_o_w_635_h_348_45974.jpg?x-oss-process=image/resize,w_800/format,webp')"
+						<img src="https://i1.hoopchina.com.cn/blogfile/201806/27/BbsImg_232426160050445_1530044865_s_38012_o_w_635_h_348_45974.jpg"
+							 @click.stop.prevent="previewImg('https://i1.hoopchina.com.cn/blogfile/201806/27/BbsImg_232426160050445_1530044865_s_38012_o_w_635_h_348_45974.jpg')"
 							 alt="">
 					</div>
 					<div class="m-title">
