@@ -175,7 +175,7 @@
                 tip: layerConfig,
                 loading: loadingConfig,
 				content: {
-					
+
 				}
             }
         },
@@ -222,6 +222,8 @@
 						}).then( res => {
 						this.content = res;
 						this.wxConfig();
+					} ).catch( e => {
+					    this.layer( e );
 					} );
 					this.hideLoading();
 			},
@@ -234,15 +236,13 @@
 					    id: this.id,
 						channel: this.channel
 					}).then( res => {
-					if(res.jsapiConfig){
-						let wxConfig = res.jsapiConfig;
+						let wxConfig = res;
 						commonFn.wxPay({
 							wxPayConf:wxConfig,
 							successCb:this.wxPaySuc.bind(this,wxConfig),
 							failCb:this.layer.bind(this,'支付失败，请重试'),
 							cancelCb:this.layer.bind(this,'支付失败，请重试'),
 						});
-					}
 				} ).catch( e => {
 					this.layer(e);
 				} );
