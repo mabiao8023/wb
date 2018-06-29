@@ -99,7 +99,7 @@
 				</div>
 				<template v-if="content.is_paid" >
 					<div class="m-imgs">
-						<img src="http://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=%E6%A2%85%E8%A5%BF&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&cs=3877292258,3288902359&os=4104189350,3870938074&pn=3&rn=1&di=137372127970&ln=3646&fr=&fmq=1530260204613_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&is=0,0&istype=0&ist=&jit=&bdtype=0&pi=0&gsm=0&objurl=http%3A%2F%2Fnews.7m.cn%2Fnews%2Fupload_img%2F20100421%2F04m.jpg&rpstart=0&rpnum=0&adpicid=0"
+						<img src="http://img3.imgtn.bdimg.com/it/u=3877292258,3288902359&fm=214&gp=0.jpg"
 							 @click.stop.prevent="previewImg()"
 							 alt="">
 					</div>
@@ -203,7 +203,7 @@
             },
 
 			/* 显示图片放大 */
-			previewImg( url = 'http://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=%E6%A2%85%E8%A5%BF&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&cs=3877292258,3288902359&os=4104189350,3870938074&pn=3&rn=1&di=137372127970&ln=3646&fr=&fmq=1530260204613_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&is=0,0&istype=0&ist=&jit=&bdtype=0&pi=0&gsm=0&objurl=http%3A%2F%2Fnews.7m.cn%2Fnews%2Fupload_img%2F20100421%2F04m.jpg&rpstart=0&rpnum=0&adpicid=0'){
+			previewImg( url = 'http://img3.imgtn.bdimg.com/it/u=3877292258,3288902359&fm=214&gp=0.jpg'){
 			    wx.previewImage({
 					current: url, // 当前显示图片的http链接
 					urls: [url] // 需要预览的图片http链接列表
