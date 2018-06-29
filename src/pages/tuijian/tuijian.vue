@@ -89,10 +89,10 @@
 	}
 </style>
 <template>
-    <div class="page-container" >
+    <div class="page-container" v-if="content.title">
 		<header class="header">
-				{{content.title}}
-	    	</header>
+				{{ content.title }}
+	    </header>
 		<section v-if="content.theme" class="main">
 				<div class="m-title">
 					{{ content.theme }}
