@@ -85,7 +85,7 @@
 		line-height: 100px;
 		border-radius: 10px;
 		background: #e83834;
-		box-shadow: 1px 1px 10px rbga(0,0,0,.8);
+		/*box-shadow: 1px 1px 10px rbga(0,0,0,.8);*/
 	}
 </style>
 <template>
@@ -236,7 +236,7 @@
 					    id: this.id,
 						channel: this.channel
 					}).then( res => {
-						let wxConfig = res;
+						let wxConfig = JSON.stringify(res);
 						commonFn.wxPay({
 							wxPayConf: wxConfig,
 							successCb: this.wxPaySuc.bind(this),
