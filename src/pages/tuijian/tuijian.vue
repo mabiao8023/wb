@@ -98,7 +98,7 @@
 					{{ content.theme }}
 				</div>
 				<template v-if="content.is_paid" >
-					<div class="m-imgs" v-for="item in imgs">
+					<div class="m-imgs" v-for="item in content.imgs">
 						<img :src="item"
 							 @click.stop.prevent="previewImg(item)"
 							 alt="">
