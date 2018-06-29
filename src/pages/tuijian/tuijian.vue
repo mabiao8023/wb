@@ -94,18 +94,15 @@
 				</div>
 				<template v-if="content.is_paid" >
 					<div class="m-imgs">
-						<img src="https://mmbiz.qpic.cn/mmbiz_png/pIsF27haEdeRHhnl1jT8TvbkvsibS4kelgKoD0Ushg4HJmaCXdKPTt7dIO2vxawk7Q6VoETQgZzO3ib69Eh88Aog/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1"
+						<img src="http://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=%E6%A2%85%E8%A5%BF&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&cs=3877292258,3288902359&os=4104189350,3870938074&pn=3&rn=1&di=137372127970&ln=3646&fr=&fmq=1530260204613_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&is=0,0&istype=0&ist=&jit=&bdtype=0&pi=0&gsm=0&objurl=http%3A%2F%2Fnews.7m.cn%2Fnews%2Fupload_img%2F20100421%2F04m.jpg&rpstart=0&rpnum=0&adpicid=0"
 							 @click.stop.prevent="previewImg()"
 							 alt="">
-					</div>
-					<div class="m-imgs">
-						<img src="https://mmbiz.qpic.cn/mmbiz_png/pIsF27haEdeRHhnl1jT8TvbkvsibS4kelgKoD0Ushg4HJmaCXdKPTt7dIO2vxawk7Q6VoETQgZzO3ib69Eh88Aog/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1" alt="">
 					</div>
 					<div class="m-title">
 						详细分析
 					</div>
 					<div class="m-desc">
-						{{ content.desc }}
+						{{ content.info }}
 					</div>
 					<div class="footer">
 						<div class="footer-item left">
@@ -120,6 +117,9 @@
 					</div>
 				</template>
 				<template v-else>
+					<div class="m-desc">
+						简要分析：{{ content.desc }}
+					</div>
 					<div class="submit" @click.stop.prevent="gotoPay">
 						{{ content.price }}元解锁赛事分析
 					</div>
@@ -188,15 +188,23 @@
             async wxConfig() {
                 // 分享接口获得分享的内容
                 let wxParams = await getWXParams();
-				wx.config(wxParams.wxConfig);
+				commonFn.wxShare({
+					wxConfig: wxParams,
+					link: location.href,
+					title: '夜猫足球--' + this.testContent.title,
+					desc: this.testContent.desc,
+					imgUrl: this.testContent.img_url
+				});
             },
+
 			/* 显示图片放大 */
-			previewImg( url = 'https://mmbiz.qpic.cn/mmbiz_png/pIsF27haEdeRHhnl1jT8TvbkvsibS4kelgKoD0Ushg4HJmaCXdKPTt7dIO2vxawk7Q6VoETQgZzO3ib69Eh88Aog/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1'){
-				wx.previewImage({
+			previewImg( url = 'http://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=%E6%A2%85%E8%A5%BF&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&cs=3877292258,3288902359&os=4104189350,3870938074&pn=3&rn=1&di=137372127970&ln=3646&fr=&fmq=1530260204613_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&is=0,0&istype=0&ist=&jit=&bdtype=0&pi=0&gsm=0&objurl=http%3A%2F%2Fnews.7m.cn%2Fnews%2Fupload_img%2F20100421%2F04m.jpg&rpstart=0&rpnum=0&adpicid=0'){
+			    wx.previewImage({
 					current: url, // 当前显示图片的http链接
 					urls: [url] // 需要预览的图片http链接列表
 				});
 			},
+
 			async getRecommend(){
 					this.showLoading();
 					await myAjax.get(apiPath.recommend,

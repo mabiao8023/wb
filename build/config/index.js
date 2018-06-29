@@ -11,9 +11,7 @@ module.exports = {
         assetsRoot: path.resolve(__dirname, '../../dist/'),
         assetsSubDirectory: 'static',    // 子目录
         // cdn
-        assetsPublicPath: 'http://img.ggwan.com/yd/Public/forecast/yqwWX/',  // cdn路径
-        // 临时cdn路径
-        // assetsPublicPath: 'http://img.ggwan.com/yd/Public/forecast/yqwWX1/',  // cdn路径
+        assetsPublicPath: '',  // cdn路径
         productionSourceMap: false,
         productionGzip: false,
         productionGzipExtensions: ['js', 'css'],
