@@ -196,9 +196,9 @@
 				commonFn.wxShare({
 					wxConfig: wxParams,
 					link: location.href,
-					title: '夜猫足球--' + this.testContent.title,
-					desc: this.testContent.desc,
-					imgUrl: this.testContent.img_url
+					title: '夜猫足球--' + this.content.title,
+					desc: this.content.desc,
+					imgUrl: this.content.logo
 				});
             },
 
@@ -214,12 +214,13 @@
 					this.showLoading();
 					await myAjax.get(apiPath.recommend,
 						{
-							id: 1
+							id: this.id
 						}).then( res => {
 						this.content = res;
 					} );
 					this.hideLoading();
 			},
+
 			// 去支付
 			async gotoPay(){
 				this.showLoading('支付中');
