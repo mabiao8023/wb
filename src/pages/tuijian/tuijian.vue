@@ -238,10 +238,10 @@
 					}).then( res => {
 						let wxConfig = res;
 						commonFn.wxPay({
-							wxPayConf:wxConfig,
-							successCb:this.wxPaySuc.bind(this,wxConfig),
-							failCb:this.layer.bind(this,'支付失败，请重试'),
-							cancelCb:this.layer.bind(this,'支付失败，请重试'),
+							wxPayConf: wxConfig,
+							successCb: this.wxPaySuc.bind(this),
+							failCb: this.layer.bind(this,'支付失败，请重试'),
+							cancelCb: this.layer.bind(this,'支付失败，请重试'),
 						});
 				} ).catch( e => {
 					this.layer(e);
@@ -251,7 +251,7 @@
 			// 支付成功
 			async wxPaySuc(){
 				this.layer('支付成功');
-				window.reload();
+				location.reload();
 			},
 		},
 		created(){
