@@ -2,7 +2,7 @@
     @import "../../common/style/reset.less";
     @import "../../common/style/public.less";
 	body{
-		background-color: #004c7d;
+		background-color: #124977;
 	}
     .page-container{
         min-height: 1000px;
@@ -15,7 +15,7 @@
 		letter-spacing: 0px;
 		color: #fff845;
 		text-align: center;
-		background-color: #004c7d;
+		background-color: #124977;
 		text-shadow: 4px 6.928px 6px rgb( 0, 10, 16 );
 	}
 	.main{
@@ -206,9 +206,11 @@
 
 			/* 显示图片放大 */
 			previewImg( url ){
+			    let urls = [];
+			    urls.push( url );
 			    wx.previewImage({
 					current: url, // 当前显示图片的http链接
-					urls: [url] // 需要预览的图片http链接列表
+					urls: urls // 需要预览的图片http链接列表
 				});
 			},
 
