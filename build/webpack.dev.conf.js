@@ -79,6 +79,12 @@ module.exports = merge(baseWebpackConfig, {
 		  chunks:['login']
 	  }),
 
+	  new HtmlWebpackPlugin({
+		  filename: './tuijian.html',
+		  template: './src/views/tuijian/tuijian.html',
+		  inject: true,
+		  chunks:['tuijian']
+	  }),
       new FriendlyErrorsPlugin()
   ]
 })
