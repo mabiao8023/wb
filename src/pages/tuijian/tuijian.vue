@@ -106,8 +106,8 @@
 					<div class="m-title">
 						精准分析
 					</div>
-					<div class="m-desc">
-						{{ content.info }}
+					<div class="m-desc" v-html="recommendText">
+						<!--{{ content.info }}-->
 					</div>
 					<div class="footer">
 						<div class="footer-item left">
@@ -176,10 +176,13 @@
                 loading: loadingConfig,
 				content: {
 
-				}
+				},
             }
         },
         computed:{
+			recommendText(){
+				return 	this.content.info && this.content.info.replace(/\n|\r\n/g,"<br/>");
+			}
 		},
         methods: {
             layer(text,time){
