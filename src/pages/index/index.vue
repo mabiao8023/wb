@@ -172,7 +172,7 @@
 			</li>
 		</ul>
 		<div class="sub-footer">
-			<p>© 2017 - 2018 广州遥远网络科技有限公司 版权所有</p>
+			<p>© 2017 - 2018 广州市遥远网络科技有限公司 版权所有</p>
 			<a href="//www.miitbeian.gov.cn"> 备案号:粤ICP备17150233号</a>
 		</div>
 		<ComFooter current="1"></ComFooter>
