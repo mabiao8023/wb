@@ -1,6 +1,6 @@
 
 const aipCommonPath = '/home/apiEntry/api/';
-const Host = `http://kc.ym8800.com`;
+const Host = ``;
 // const wxConfig = {
 // 	appid:location.origin.includes('test') ? 'wx716e2b98e8a3409d' : 'wxea2b42aebf4f7468',
 // 	redirect_url:encodeURIComponent(`${location.origin}/home/login/login.html`)
