@@ -34,6 +34,11 @@ var webpackConfig = {
 		login:'./src/entry/index/login.js',
         test:'./src/entry/test/test.js',
 		tuijian:'./src/entry/tuijian/tuijian.js',
+		tg1:'./src/entry/tuiguang/tg1.js',
+		tg2:'./src/entry/tuiguang/tg2.js',
+		tg3:'./src/entry/tuiguang/tg3.js',
+		tg4:'./src/entry/tuiguang/tg4.js',
+		tg5:'./src/entry/tuiguang/tg5.js',
     },
     output: {
         path: config.build.assetsRoot,
@@ -122,6 +127,31 @@ var webpackConfig = {
 			filename: path.resolve(__dirname,'./../dist/tuijian.html'),
 			template: './src/views/tuijian/tuijian.html',
 			chunks: ['tuijian','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+		new HtmlWebpackPlugin(Object.assign({
+			filename: path.resolve(__dirname,'./../dist/tg1.html'),
+			template: './src/views/tuiguang/tg1.html',
+			chunks: ['tg1','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+		new HtmlWebpackPlugin(Object.assign({
+			filename: path.resolve(__dirname,'./../dist/tg2.html'),
+			template: './src/views/tuiguang/tg2.html',
+			chunks: ['tg2','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+		new HtmlWebpackPlugin(Object.assign({
+			filename: path.resolve(__dirname,'./../dist/tg3.html'),
+			template: './src/views/tuiguang/tg3.html',
+			chunks: ['tg3','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+		new HtmlWebpackPlugin(Object.assign({
+			filename: path.resolve(__dirname,'./../dist/tg4.html'),
+			template: './src/views/tuiguang/tg4.html',
+			chunks: ['tg4','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+		new HtmlWebpackPlugin(Object.assign({
+			filename: path.resolve(__dirname,'./../dist/tg5.html'),
+			template: './src/views/tuiguang/tg5.html',
+			chunks: ['tg5','vendor','manifest']
 		},HtmlWebpackPluginComConfig)),
     ]
 }

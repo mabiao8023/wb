@@ -85,6 +85,44 @@ module.exports = merge(baseWebpackConfig, {
 		  inject: true,
 		  chunks:['tuijian']
 	  }),
+
+	  new HtmlWebpackPlugin({
+		  filename: './tg1.html',
+		  template: './src/views/tuiguang/tg1.html',
+		  inject: true,
+		  chunks:['tg1']
+	  }),
+
+	  new HtmlWebpackPlugin({
+		  filename: './tg1.html',
+		  template: './src/views/tuiguang/tg1.html',
+		  inject: true,
+		  chunks:['tg1']
+	  }),
+	  new HtmlWebpackPlugin({
+		  filename: './tg2.html',
+		  template: './src/views/tuiguang/tg2.html',
+		  inject: true,
+		  chunks:['tg2']
+	  }),
+	  new HtmlWebpackPlugin({
+		  filename: './tg3.html',
+		  template: './src/views/tuiguang/tg3.html',
+		  inject: true,
+		  chunks:['tg3']
+	  }),
+	  new HtmlWebpackPlugin({
+		  filename: './tg4.html',
+		  template: './src/views/tuiguang/tg4.html',
+		  inject: true,
+		  chunks:['tg4']
+	  }),
+	  new HtmlWebpackPlugin({
+		  filename: './tg5.html',
+		  template: './src/views/tuiguang/tg5.html',
+		  inject: true,
+		  chunks:['tg5']
+	  }),
       new FriendlyErrorsPlugin()
   ]
 })
