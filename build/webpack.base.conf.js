@@ -39,6 +39,8 @@ var webpackConfig = {
 		tg3:'./src/entry/tuiguang/tg3.js',
 		tg4:'./src/entry/tuiguang/tg4.js',
 		tg5:'./src/entry/tuiguang/tg5.js',
+		tg6:'./src/entry/tuiguang/tg6.js',
+		tg7:'./src/entry/tuiguang/tg7.js',
     },
     output: {
         path: config.build.assetsRoot,
@@ -152,6 +154,16 @@ var webpackConfig = {
 			filename: path.resolve(__dirname,'./../dist/tg5.html'),
 			template: './src/views/tuiguang/tg5.html',
 			chunks: ['tg5','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+		new HtmlWebpackPlugin(Object.assign({
+			filename: path.resolve(__dirname,'./../dist/tg6.html'),
+			template: './src/views/tuiguang/tg6.html',
+			chunks: ['tg6','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+		new HtmlWebpackPlugin(Object.assign({
+			filename: path.resolve(__dirname,'./../dist/tg7.html'),
+			template: './src/views/tuiguang/tg7.html',
+			chunks: ['tg7','vendor','manifest']
 		},HtmlWebpackPluginComConfig)),
     ]
 }
