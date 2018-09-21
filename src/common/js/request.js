@@ -13,7 +13,8 @@ let loginHandle = () => {
         console.error(e)
     }
     // 跳转至微信授权登录
-    location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx85ba94e795ed698e&redirect_uri=${redirect_url}&response_type=code&scope=snsapi_userinfo#wechat_redirect`;
+    // location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx85ba94e795ed698e&redirect_uri=${redirect_url}&response_type=code&scope=snsapi_userinfo#wechat_redirect`;
+    location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx38dd89afcc42c109&redirect_uri=${redirect_url}&response_type=code&scope=snsapi_userinfo#wechat_redirect`;
 }
 // 公共的ajax处理函数
 let ajaxResHandle =  ( data,resolve,reject ) => {
