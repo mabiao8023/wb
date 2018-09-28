@@ -145,6 +145,9 @@
                 <span>{{ loading.text }}</span>
             </LoadingModel>
         </transition>
+        <div v-transfer-dom>
+            <previewer :list="goodImgList" ref="previewer"></previewer>
+        </div>
 	</div>
 </template>
 <script>

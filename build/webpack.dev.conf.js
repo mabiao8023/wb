@@ -79,6 +79,12 @@ module.exports = merge(baseWebpackConfig, {
 		  chunks:['login']
 	  }),
 
+	  new HtmlWebpackPlugin(Object.assign({
+			filename: './yyh5login.html',
+			template: './src/views/index/yyh5login.html',
+			chunks: ['yyh5login','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+	  
 	  new HtmlWebpackPlugin({
 		  filename: './tuijian.html',
 		  template: './src/views/tuijian/tuijian.html',

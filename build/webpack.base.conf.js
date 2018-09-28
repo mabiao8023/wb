@@ -32,6 +32,7 @@ var webpackConfig = {
 		classList:'./src/entry/index/classList.js',
 		article:'./src/entry/index/article.js',
 		login:'./src/entry/index/login.js',
+		yyh5login:'./src/entry/index/yyh5login.js',
         test:'./src/entry/test/test.js',
 		tuijian:'./src/entry/tuijian/tuijian.js',
 		tg1:'./src/entry/tuiguang/tg1.js',
@@ -118,6 +119,13 @@ var webpackConfig = {
 			filename: path.resolve(__dirname,'./../dist/login.html'),
 			template: './src/views/index/login.html',
 			chunks: ['login','vendor','manifest']
+		},HtmlWebpackPluginComConfig)),
+
+
+		new HtmlWebpackPlugin(Object.assign({
+			filename: path.resolve(__dirname,'./../dist/yyh5login.html'),
+			template: './src/views/index/yyh5login.html',
+			chunks: ['yyh5login','vendor','manifest']
 		},HtmlWebpackPluginComConfig)),
 
         new HtmlWebpackPlugin(Object.assign({
