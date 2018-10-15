@@ -3,7 +3,7 @@
  */
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import Login from '../../pages/index/login.vue';
+import Login from '../../pages/index/yyh5login.vue';
 import '../../common/js/flexible.min.js';
 
 // 使用vue-resource处理ajax
