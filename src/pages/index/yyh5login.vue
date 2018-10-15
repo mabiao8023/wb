@@ -60,11 +60,11 @@
 			},
     },
     created(){
-		
+
     },
     mounted(){
     	let search = location.search
-    	location.replace(`https://give_h5.ym8800.com/buy${search}`)
+    	location.replace(`https://give_h5.ym8800.com/wxbuy${search}`)
     }
     }
 </script>
